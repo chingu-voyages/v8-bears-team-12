@@ -7,9 +7,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const es6Renderer = require('express-es6-template-engine');
 
-const {NODE_ENV, ATLAS_DBURI} = process.env;
+const {NODE_ENV} = process.env;
 const DEBUG = NODE_ENV === 'development';
-const URI = NODE_ENV === 'test' ? global.__MONGO_URI__ : ATLAS_DBURI;
 
 if (!NODE_ENV) {
   // exit with status 1 if NODE_ENV is not defined
@@ -39,10 +38,7 @@ app.get('/', function(request, response) {
 });
 
 (async function() {
-  let ret = await mongoose.connect(
-    URI,
-    {useNewUrlParser: true},
-  );
+  let ret = await require('./db-connection')();
 
   // listen for requests :)
   const listener = app.listen(process.env.PORT, function() {
