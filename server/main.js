@@ -37,9 +37,13 @@ app.get('/', function(request, response) {
 });
 
 // listen for requests :)
-const listener = app.listen(process.env.PORT, function() {
-  console.log(
-    `NODE_ENV is ${NODE_ENV}. Your app is listening on port ` +
-      listener.address().port,
-  );
-});
+(async function() {
+  await require('./connection');
+
+  const listener = app.listen(process.env.PORT, function() {
+    console.log(
+      `NODE_ENV is ${NODE_ENV}. Your app is listening on port ` +
+        listener.address().port,
+    );
+  });
+})();

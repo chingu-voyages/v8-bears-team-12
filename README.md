@@ -7,6 +7,12 @@ Connect with ppl who have similar tastes in food, interests. Eating is an everyd
 of our life, and eating together is an activity that connects people.  Eat delicious food 
 and meet people while doing it.
 
+## Environment Variables
+
+- `ATLAS_DBURI`: The URI connection string for a MongoDB cluster
+- `ATLAS_DBNAME`: Name of the MongoDB Database
+- `PORT`:  port for Express server
+
 ## Run Scripts
 
 - `npm run dev`: Will run `node server/main.js` with `NODE_ENV` set to `development`
