@@ -15,6 +15,7 @@ and meet people while doing it.
 ## Run Scripts
 
 - `npm run dev`: Will run `node server/main.js` with `NODE_ENV` set to `development`
+- `npm run devmon`: Same as `npm run dev` but using nodemon to automatically watch for file changes and restart server
 - `npm run build`: Builds the Webpack bundles into `client/build` folder
 - `npm start`: Does a `npm run build` and run `node server/main.js` with NODE_ENV set to `production`
 
