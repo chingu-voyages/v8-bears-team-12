@@ -4,10 +4,12 @@
 // init project
 require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
 const es6Renderer = require('express-es6-template-engine');
 
-const {NODE_ENV} = process.env;
+const {NODE_ENV, ATLAS_DBURI} = process.env;
 const DEBUG = NODE_ENV === 'development';
+const URI = NODE_ENV === 'test' ? global.__MONGO_URI__ : ATLAS_DBURI;
 
 if (!NODE_ENV) {
   // exit with status 1 if NODE_ENV is not defined
@@ -36,10 +38,13 @@ app.get('/', function(request, response) {
   response.render('index', {locals: {DEBUG}});
 });
 
-// listen for requests :)
 (async function() {
-  await require('./connection');
+  let ret = await mongoose.connect(
+    URI,
+    {useNewUrlParser: true},
+  );
 
+  // listen for requests :)
   const listener = app.listen(process.env.PORT, function() {
     console.log(
       `NODE_ENV is ${NODE_ENV}. Your app is listening on port ` +

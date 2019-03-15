@@ -10,7 +10,6 @@ and meet people while doing it.
 ## Environment Variables
 
 - `ATLAS_DBURI`: The URI connection string for a MongoDB cluster
-- `ATLAS_DBNAME`: Name of the MongoDB Database
 - `PORT`:  port for Express server
 
 ## Run Scripts
