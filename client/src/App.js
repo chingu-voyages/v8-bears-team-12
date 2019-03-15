@@ -9,10 +9,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <h1>Meet and Eat App</h1>
-        <p>Hello v8-bears-team!</p>
-      </div>
+        <p>Hello v8-bears-team-12!</p>
+      </>
     );
   }
 }

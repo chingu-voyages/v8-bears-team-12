@@ -4,6 +4,7 @@
 // init project
 require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
 const es6Renderer = require('express-es6-template-engine');
 
 const {NODE_ENV} = process.env;
@@ -36,10 +37,10 @@ app.get('/', function(request, response) {
   response.render('index', {locals: {DEBUG}});
 });
 
-// listen for requests :)
 (async function() {
-  await require('./connection');
+  let ret = await require('./db-connection')();
 
+  // listen for requests :)
   const listener = app.listen(process.env.PORT, function() {
     console.log(
       `NODE_ENV is ${NODE_ENV}. Your app is listening on port ` +
