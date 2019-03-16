@@ -29,10 +29,11 @@ Go into directory and install dependencies:
 npm install
 ```
 
-Add .env file to set `ATLAS_DBURI`
+Add .env file to set `ATLAS_DBURI` and `PORT`
 
 ```
 ATLAS_DBURI=mongo+srv://user:password@some-cluster.mongodb.net/dbname?retryWrites=true
+PORT=3000
 ```
 
 Run the server:
