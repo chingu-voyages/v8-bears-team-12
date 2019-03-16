@@ -7,6 +7,40 @@ Connect with ppl who have similar tastes in food, interests. Eating is an everyd
 of our life, and eating together is an activity that connects people.  Eat delicious food 
 and meet people while doing it.
 
+## Getting Started
+
+The following is to get you up and running on a local machine.
+
+### Prerequisites
+
+- nodejs 10.x
+
+### Installing
+
+Clone this repository:
+
+```
+git clone git@github.com:chingu-voyages/v8-bears-team-12.git
+```
+
+Go into directory and install dependencies:
+
+```
+npm install
+```
+
+Add .env file to set `ATLAS_DBURI`
+
+```
+ATLAS_DBURI=mongo+srv://user:password@some-cluster.mongodb.net/dbname?retryWrites=true
+```
+
+Run the server:
+
+```
+npm run dev
+```
+
 ## Environment Variables
 
 - `ATLAS_DBURI`: The URI connection string for a MongoDB cluster
