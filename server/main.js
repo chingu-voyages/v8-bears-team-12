@@ -4,14 +4,20 @@
 // init project
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const es6Renderer = require('express-es6-template-engine');
 
-const {NODE_ENV} = process.env;
+const webpack = require('webpack');
+const devMiddleware = require('webpack-dev-middleware');
+const hotMiddleware = require('webpack-hot-middleware');
+const webpackConfig = require('../webpack.config.js');
+const dbConnection = require('./db-connection');
+
+const { NODE_ENV } = process.env;
 const DEBUG = NODE_ENV === 'development';
 
 if (!NODE_ENV) {
   // exit with status 1 if NODE_ENV is not defined
+  // custom console
   console.error('NODE_ENV not defined');
   process.exit(1);
 }
@@ -19,12 +25,9 @@ if (!NODE_ENV) {
 const app = express();
 
 if (DEBUG) {
-  const webpack = require('webpack');
-  const devMiddleware = require('webpack-dev-middleware');
-  const webpackConfig = require('../webpack.config.js');
   const compiler = webpack(webpackConfig);
   app.use(devMiddleware(compiler, {}));
-  app.use(require('webpack-hot-middleware')(compiler));
+  app.use(hotMiddleware(compiler));
 }
 
 if (!DEBUG) app.use(express.static('./client/build'));
@@ -33,18 +36,19 @@ app.engine('html', es6Renderer);
 app.set('views', 'server/views');
 app.set('view engine', 'html');
 
-app.get('/', function(request, response) {
-  response.render('index', {locals: {DEBUG}});
+app.get('/', (request, response) => {
+  response.render('index', { locals: { DEBUG } });
 });
 
-(async function() {
-  let ret = await require('./db-connection')();
+(async function runServer() {
+  await dbConnection();
 
   // listen for requests :)
-  const listener = app.listen(process.env.PORT, function() {
+  const listener = app.listen(process.env.PORT, () => {
     console.log(
-      `NODE_ENV is ${NODE_ENV}. Your app is listening on port ` +
-        listener.address().port,
+      `NODE_ENV is ${NODE_ENV}. Your app is listening on port ${
+        listener.address().port
+      }`,
     );
   });
-})();
+}());

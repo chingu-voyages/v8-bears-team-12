@@ -13,7 +13,7 @@ module.exports = {
   entry: {
     main: [
       '@babel/polyfill',
-      './client/src/index.js',
+      './client/src/index.jsx',
       DEBUG ? 'webpack-hot-middleware/client' : null,
     ].filter(e => e),
   },
@@ -52,5 +52,6 @@ module.exports = {
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
+    extensions: ['.js', '.jsx']
   },
 };
