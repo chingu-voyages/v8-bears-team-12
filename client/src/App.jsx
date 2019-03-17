@@ -1,7 +1,7 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
 
-require('./style.css');
+import './style.css';
 
 function App() {
   return (
