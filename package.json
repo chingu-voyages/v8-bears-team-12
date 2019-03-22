@@ -4,7 +4,7 @@
   "description": "Meet and Eat App",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "NODE_ENV=production webpack",
     "dev": "NODE_ENV=development node server/main.js",
     "devmon": "NODE_ENV=development nodemon server/main.js",
@@ -43,9 +43,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
+    "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.4.2",
     "@hot-loader/react-dom": "^16.8.4",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^2.0.1",
