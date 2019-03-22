@@ -16,8 +16,6 @@ const { NODE_ENV } = process.env;
 const DEBUG = NODE_ENV === 'development';
 
 if (!NODE_ENV) {
-  // exit with status 1 if NODE_ENV is not defined
-  // custom console
   console.error('NODE_ENV not defined');
   process.exit(1);
 }
