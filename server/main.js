@@ -34,7 +34,7 @@ app.engine('html', es6Renderer);
 app.set('views', 'server/views');
 app.set('view engine', 'html');
 
-app.get('/', (request, response) => {
+app.get('*', (request, response) => {
   response.render('index', { locals: { DEBUG } });
 });
 
