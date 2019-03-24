@@ -11,6 +11,9 @@ function DiningMateSearch(props) {
   return (
     <div>
       <input type="text" onChange={onChange} />
+      <button type="button" onClick={() => doSearch(true)}>
+        My location
+      </button>
       <button type="button" onClick={() => doSearch(searchTerm)}>
         Search
       </button>
