@@ -3,3 +3,4 @@
 /client/build
 .env
 /tests/globalConfig.json
+.vscode
