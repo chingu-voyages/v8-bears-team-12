@@ -1,7 +1,11 @@
 import React from 'react';
+import Login from './Login';
+import Dashboard from './Dashboard';
 
 function Home() {
-  return <>Home Component</>;
+  const loggedIn = false;
+
+  return <>{loggedIn ? <Dashboard /> : <Login />}</>;
 }
 
 export default Home;
