@@ -1,11 +1,43 @@
 body {
-  color: green;
+  color: black;
+  margin: 0;
+  display: flex;
+  justify-content: center;
 }
 
 #root {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100vh;
+  max-width: 1180px;
+  width: 100%;
+  background: whitesmoke;
+}
+
+header {
+  padding: 2px 8px;
+}
+header h1 {
+  margin: 0px;
+  padding: 4px 0px;
+  text-align: center;
+}
+
+header ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+header li {
+  list-style-type: none;
+}
+
+main {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }

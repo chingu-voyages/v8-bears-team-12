@@ -1,14 +1,26 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
-
 import './style.css';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Header from './Header';
+import Home from './Home';
+import Profile from './Profile';
+import Register from './Register';
 
 function App() {
   return (
-    <>
-      <h1>Meet and Eat App</h1>
-      <p>Hello v8-bears-team-12!</p>
-    </>
+    <Router>
+      <>
+        <Header />
+
+        <main>
+          <Route path="/" exact component={Home} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/register" component={Register} />
+        </main>
+      </>
+    </Router>
   );
 }
 
