@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
@@ -9,7 +9,7 @@ const userSchema = new Schema({
   zipcode: String,
   interests: [String],
   dietRestrictions: String,
-  restaurantsList: [{ type: Schema.Types.ObjectId, ref: 'Restaurant' }],
+  restaurantsList: [{ type: Schema.Types.ObjectId, ref: "Restaurant" }]
 });
 
-module.exports = mongoose.export('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
