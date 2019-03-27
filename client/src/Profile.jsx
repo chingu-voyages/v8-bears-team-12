@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Avatar from 'react-avatar-edit';
 
 function Profile() {
   const [name, setName] = useState('');
@@ -7,9 +8,17 @@ function Profile() {
   const [zipcode, setZipcode] = useState('');
   const [interests, setInterests] = useState([]);
   const [dietRestrictions, setDietRestrictions] = useState('');
+  // const [preview, setPreview] = useState(null);
+  // const [src, setSrc] = useState('');
 
   return (
     <div>
+      <div>
+        <Avatar 
+          width={390}
+          height={295}
+        />
+      </div>
       <form>
         <label>
           Name:
