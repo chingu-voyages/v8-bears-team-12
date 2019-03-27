@@ -15,6 +15,8 @@ const dbConnection = require('./db-connection');
 const { NODE_ENV } = process.env;
 const DEBUG = NODE_ENV === 'development';
 
+const yelpSearch = require('./api/yelpSearch');
+
 if (!NODE_ENV) {
   console.error('NODE_ENV not defined');
   process.exit(1);
@@ -33,6 +35,12 @@ if (!DEBUG) app.use(express.static('./client/build'));
 app.engine('html', es6Renderer);
 app.set('views', 'server/views');
 app.set('view engine', 'html');
+
+app.get('/restaurant-search/:location/:term', async (req, res) => {
+  const {location, term} = req.params;
+  let response = await yelpSearch(term, location);
+  res.json(response.data);
+})
 
 app.get('*', (request, response) => {
   response.render('index', { locals: { DEBUG } });
