@@ -16,25 +16,26 @@ function Login() {
     <div className="login">
       <h1>Log In</h1>
       <form action="" onSubmit={onSubmit}>
-        <input
-          type="email"
-          placeholder="Email Address"
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={e => setPassword(e.target.value)}
-        />
+        <div>
+          <input
+            type="email"
+            placeholder="Email Address"
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
         <input type="submit" />
       </form>
       <span>
-        {' '}
         New user?
-        <Link to="/register">Register here</Link>
+        <Link to="/register"> Register here</Link>
       </span>
-
-      {/* TODO:  Add Register info */}
     </div>
   );
 }
