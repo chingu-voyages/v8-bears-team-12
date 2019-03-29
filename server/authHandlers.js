@@ -21,11 +21,9 @@ opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = SECRET;
 
 passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
-    console.log(jwt_payload);
-
     try {
         const {sub} = jwt_payload;
-        const user = await Users.findOne({name: sub});
+        const user = await User.findOne({name: sub}, {password: false});
         done(null, user || false);
     } catch(err) {
         done(err, false);
@@ -58,9 +56,14 @@ function authHandlers(app) {
 
     app.get('/api/profile', passport.authenticate('jwt', { session: false }),
         function(req, res) {
-            res.json({user: req.user});
+           res.json({user: req.user});
         }
     );
+
+    app.get('/api/logout', (req, res) => {
+        res.clearCookie('jwt', {httpOnly: true});
+        res.send('');
+    })
 }
 
 module.exports = authHandlers;
