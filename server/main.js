@@ -5,6 +5,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const es6Renderer = require('express-es6-template-engine');
 
 const webpack = require('webpack');
@@ -35,6 +36,7 @@ if (DEBUG) {
 if (!DEBUG) app.use(express.static('./client/build'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(express.json());
 
 app.engine('html', es6Renderer);
