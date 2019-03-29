@@ -25,7 +25,7 @@ function RestaurantPicker(props) {
 
   return (
     <div>
-      <form onSubmit={e => onSubmit(e)}>
+      <form onSubmit={(e) => { onSubmit(e); setTerm(''); setLocation(''); }}>
         <input
           type="text"
           value={term}
