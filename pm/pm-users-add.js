@@ -2,7 +2,6 @@ require("dotenv").config();
 const User = require("../server/models/User");
 const program = require("commander");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 program.parse(process.argv);
 
 if (program.args.length !== 3) {
@@ -15,10 +14,7 @@ let [username, email, password] = program.args;
   let connection = await require("../server/db-connection")();
   const User = require("../server/models/User");
 
-  let salt = await bcrypt.genSalt(10);
-  let hashedPassword = await bcrypt.hash(password, salt);
-
-  let user = new User({ name: username, email, password: hashedPassword });
+  let user = new User({ name: username, email, password });
   try {
     let saveResult = await user.save();
     console.log({ saveResult });
