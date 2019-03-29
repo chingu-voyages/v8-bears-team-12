@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 /*
 Will include a search box allow up to five restaurants to be added to a list. 
@@ -7,36 +8,42 @@ This is where the Yelp API will be used.
 */
 
 function RestaurantPicker(props) {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [term, setTerm] = useState('');
   const [location, setLocation] = useState('');
 
   function onSubmit(e) {
-    // should call the axios GET request here
     e.preventDefault();
+    // axios.get('/restaurant-search/:location/:term')
+    // .then(response => {
+    //   console.log(response);
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // });
+    console.log('clicked');
   }
+
   return (
     <div>
-      <form>
+      <form onSubmit={e => onSubmit(e)}>
         <input
           type="text"
-          value={searchTerm}
+          value={term}
           placeholder="Search restaurants, ramen, hamburger, pizza..."
-          onChange={e => setSearchTerm(e.target.value)}
-          required
+          onChange={e => setTerm(e.target.value)}
+          // required
         />
         <input
           type="text"
           value={location}
           placeholder="Near zipcode or city"
           onChange={e => setLocation(e.target.value)}
-          required
+          // required
         />
-        <button
+        <input
           type="submit"
-          onSubmit={onSubmit}
-        >
-          Search
-        </button>
+          value="Submit"
+        />
       </form>
     </div>
   );
