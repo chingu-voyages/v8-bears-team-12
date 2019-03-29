@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 /*
-Will include a search box allow up to five restaurants to be added to a list. 
-It should also allow removal of restaurants from the list. 
-This is where the Yelp API will be used.
+Will include a search box allow up to five restaurants to be added to a list 
+It should also allow removal of restaurants from the list
+This is where the Yelp API will be used
 */
 
 function RestaurantPicker(props) {
@@ -13,14 +13,14 @@ function RestaurantPicker(props) {
 
   function onSubmit(e) {
     e.preventDefault();
-    // axios.get('/restaurant-search/:location/:term')
-    // .then(response => {
-    //   console.log(response);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // });
-    console.log('clicked');
+
+    axios.get(`/restaurant-search/${location}/${term}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
