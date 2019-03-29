@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
 
     // handle click
-
+    try {
+      await axios.post('/api/login', {username, password});
+    } catch (err) {
+      console.log(err.message);
+    }
     // console.log(user);
   }
   return (
@@ -18,9 +23,9 @@ function Login() {
       <form action="" onSubmit={onSubmit}>
         <div>
           <input
-            type="email"
-            placeholder="Email Address"
-            onChange={e => setEmail(e.target.value)}
+            type="username"
+            placeholder="Username"
+            onChange={e => setUsername(e.target.value)}
             required
           />
         </div>
