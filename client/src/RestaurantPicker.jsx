@@ -31,14 +31,14 @@ function RestaurantPicker(props) {
           value={term}
           placeholder="Search restaurants, ramen, hamburger, pizza..."
           onChange={e => setTerm(e.target.value)}
-          // required
+          required
         />
         <input
           type="text"
           value={location}
           placeholder="Near zipcode or city"
           onChange={e => setLocation(e.target.value)}
-          // required
+          required
         />
         <input
           type="submit"
