@@ -46,6 +46,8 @@ npm run dev
 
 - `ATLAS_DBURI`: The URI connection string for a MongoDB cluster
 - `PORT`:  port for Express server
+- `SECRET`: secret for JWT signing
+- `YELP_APIKEY`: Yelp APIKEY
 
 ## Run Scripts
 
