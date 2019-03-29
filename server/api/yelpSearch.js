@@ -16,7 +16,7 @@ async function yelpSearch(term, location) {
     });
     return response;
   } catch (err) {
-    return null;
+    console.log(err);
   }
 }
 

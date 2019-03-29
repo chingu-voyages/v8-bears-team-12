@@ -13,6 +13,9 @@ function NavMenu() {
       <li>
         <Link to="/register">Register</Link>
       </li>
+      <li>
+        <Link to="/restaurantPicker">Pick Restaurants</Link>
+      </li>
     </ul>
   );
 }

@@ -42,15 +42,18 @@ app.set('views', 'server/views');
 app.set('view engine', 'html');
 
 app.get('/restaurant-search/:location/:term', async (req, res) => {
-  const {location, term} = req.params;
-  let response = await yelpSearch(term, location);
-  res.json(response.data);
-})
+  const {term, location} = req.params;
+  try {
+    let response = await yelpSearch(term, location);
+    res.status(200).json(response.data);
+  } catch {
+    res.status(500).send(err);
+  }
+});
 
 authHandlers(app);
-
-app.get('*', (request, response) => {
-  response.render('index', { locals: { DEBUG } });
+app.get('*', (req, res) => {
+  res.render('index', { locals: { DEBUG } });
 });
 
 (async function runServer() {
