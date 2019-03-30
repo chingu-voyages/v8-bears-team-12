@@ -11,7 +11,7 @@ function Login() {
 
     // handle click
     try {
-      await axios.post('/api/login', {username, password});
+      await axios.post('/api/login', { username, password });
     } catch (err) {
       console.log(err.message);
     }
