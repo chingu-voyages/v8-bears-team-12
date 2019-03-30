@@ -13,7 +13,7 @@ function Login() {
     try {
       await axios.post('/api/login', { username, password });
     } catch (err) {
-      console.log(err.message);
+      console.log(err.message); // eslint-disable-line no-console
     }
     // console.log(user);
   }
