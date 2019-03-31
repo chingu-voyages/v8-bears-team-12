@@ -29,6 +29,7 @@ function Dashboard({ logoutDispatch, username }) {
     <div>
       <h3>
         Welcome,
+        { ' ' }
         { username }
       </h3>
       <DiningMateSearch doSearch={doSearch} />
