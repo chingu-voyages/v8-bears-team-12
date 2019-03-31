@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
-function Login() {
+import { login } from './actionCreators';
+
+function Login(props) {
+  const { login } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,11 +17,13 @@ function Login() {
     // handle click
     try {
       await axios.post('/api/login', { username, password });
+      login();
     } catch (err) {
       console.log(err.message); // eslint-disable-line no-console
     }
     // console.log(user);
   }
+
   return (
     <div className="login">
       <h1>Log In</h1>
@@ -47,4 +54,16 @@ function Login() {
   );
 }
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func,
+};
+
+Login.defaultProps = {
+  login: () => {},
+};
+
+const mapDispatchToProps = {
+  login,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
