@@ -16,7 +16,7 @@ function Login({ loginDispatch }) {
     // handle click
     try {
       await axios.post('/api/login', { username, password });
-      loginDispatch();
+      loginDispatch(username);
     } catch (err) {
       console.log(err.message); // eslint-disable-line no-console
     }
