@@ -27,7 +27,10 @@ function Dashboard({ logoutDispatch, username }) {
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <h3>
+        Welcome,
+        { username }
+      </h3>
       <DiningMateSearch doSearch={doSearch} />
       <DiningMateList diningMates={diningMates} />
       <button type="button" onClick={doLogout}>Logout</button>
