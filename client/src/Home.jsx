@@ -10,8 +10,11 @@ import store from './store';
 
 async function fetchProfile() {
   try {
-    await axios.get('/api/profile');
-    store.dispatch(login());
+    const response = await axios.get('/api/profile');
+    const { data } = response;
+    const { user } = data;
+    const { name } = user;
+    store.dispatch(login(name));
   } catch (err) {
     store.dispatch(logout());
     console.log(err.message); // eslint-disable-line no-console

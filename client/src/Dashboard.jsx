@@ -7,7 +7,7 @@ import DiningMateSearch from './DiningMateSearch';
 import DiningMateList from './DiningMateList';
 import { logout } from './actionCreators';
 
-function Dashboard({ logout }) {
+function Dashboard({ logoutDispatch, username }) {
   const diningMates = [];
   function usePosition(position) {
     console.log({ position }); // eslint-disable-line no-console
@@ -22,11 +22,12 @@ function Dashboard({ logout }) {
 
   async function doLogout() {
     await axios.get('/api/logout');
-    logout();
+    logoutDispatch();
   }
 
   return (
     <div>
+      <h3>Welcome, {username}</h3>
       <DiningMateSearch doSearch={doSearch} />
       <DiningMateList diningMates={diningMates} />
       <button type="button" onClick={doLogout}>Logout</button>
@@ -35,15 +36,21 @@ function Dashboard({ logout }) {
 }
 
 Dashboard.propTypes = {
-  logout: PropTypes.func,
+  username: PropTypes.string,
+  logoutDispatch: PropTypes.func,
 };
 
 Dashboard.defaultProps = {
-  logout: () => {},
+  username: '',
+  logoutDispatch: () => {},
 };
+
+const mapStateToProps = state => ({
+  username: state.username,
+});
 
 const mapDispatchToProps = {
-  logout,
+  logoutDispatch: logout,
 };
 
-export default connect(null, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
