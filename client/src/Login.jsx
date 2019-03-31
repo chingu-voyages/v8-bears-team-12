@@ -6,8 +6,7 @@ import axios from 'axios';
 
 import { login } from './actionCreators';
 
-function Login(props) {
-  const { login } = props;
+function Login({ loginDispatch }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,7 +16,7 @@ function Login(props) {
     // handle click
     try {
       await axios.post('/api/login', { username, password });
-      login();
+      loginDispatch();
     } catch (err) {
       console.log(err.message); // eslint-disable-line no-console
     }
@@ -55,15 +54,15 @@ function Login(props) {
 }
 
 Login.propTypes = {
-  login: PropTypes.func,
+  loginDispatch: PropTypes.func,
 };
 
 Login.defaultProps = {
-  login: () => {},
+  loginDispatch: () => {},
 };
 
 const mapDispatchToProps = {
-  login,
+  loginDispatch: login,
 };
 
 export default connect(null, mapDispatchToProps)(Login);

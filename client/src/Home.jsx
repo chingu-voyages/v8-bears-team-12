@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Login from './Login';
 import Dashboard from './Dashboard';
-import { login } from './actionCreators';
+import { login, logout } from './actionCreators';
 import store from './store';
 
 async function fetchProfile() {
@@ -13,31 +13,32 @@ async function fetchProfile() {
     await axios.get('/api/profile');
     store.dispatch(login());
   } catch (err) {
+    store.dispatch(logout());
     console.log(err.message); // eslint-disable-line no-console
   }
 }
 
-function Home({ loggedIn }) {
+function Home({ loggedIn, loading }) {
   useEffect(() => {
     fetchProfile();
-  });
+  }, []);
+  if (loading) return <div>loading</div>;
   return <>{loggedIn ? <Dashboard /> : <Login />}</>;
 }
 
 const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
+  loading: state.loading,
 });
-
-const mapDispatchToProps = {
-  login,
-};
 
 Home.propTypes = {
   loggedIn: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 Home.defaultProps = {
   loggedIn: false,
+  loading: true,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, null)(Home);
