@@ -16,11 +16,20 @@ body {
 
 header {
   padding: 2px 8px;
+  display: flex;
+  flex-direction: column;
 }
-header h1 {
+
+.top-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.top-bar h1 {
   margin: 0px;
   padding: 4px 0px;
-  text-align: center;
 }
 
 header ul {
