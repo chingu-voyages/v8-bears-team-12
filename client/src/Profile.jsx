@@ -76,6 +76,7 @@ function Profile() {
           <input
             type="text"
             value={interests}
+            placeholder="Up to 5 separated by commas"
             onChange={e => setInterests(e.target.value)}
             required
           />
