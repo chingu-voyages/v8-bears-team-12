@@ -11,6 +11,7 @@ function Profile() {
   const [interests, setInterests] = useState([]);
   const [dietRestrictions, setDietRestrictions] = useState('');
   const dietOptions = [
+    'Choose one',
     'None - I eat anything & everything!',
     'Vegan',
     'Vegetarian',
@@ -23,7 +24,17 @@ function Profile() {
   function onSubmit(e) {
     e.preventDefault();
 
-    if (password === confirmPassword) {
+    if (password !== confirmPassword) {
+      alert('passwords do not match');
+      setPassword('');
+      setConfirmPassword('');
+    }
+
+    if (dietRestrictions === '' || dietRestrictions === 'Choose one') {
+      alert('choose an option for diet restriction');
+    }
+
+    if (password === confirmPassword && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')) {
       alert('changes are successfully saved');
 
       setName('');
@@ -34,14 +45,10 @@ function Profile() {
       setInterests('');
       setDietRestrictions('');
     }
-
-    if (password !== confirmPassword) {
-      alert('passwords do not match');
-      setPassword('');
-      setConfirmPassword('');
-    }
   }
 
+  console.log('this is diet restriction', dietRestrictions);
+  
   return (
     <div>
       <div>
@@ -84,7 +91,7 @@ function Profile() {
         <label>
           Confirm password:
           <input
-            type="text"
+            type="password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
             required
@@ -116,13 +123,9 @@ function Profile() {
           Diet Restrictions:
           <select
             value={dietRestrictions}
-            onChange={e => setDietRestrictions(e.target.value || null)}
+            onChange={e => setDietRestrictions(e.target.value)}
             required
           >
-            <option>
-              Choose one
-            </option>
-
             {dietOptions.map((option, i) => {
               return (
                 <option
