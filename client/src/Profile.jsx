@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Avatar from 'react-avatar-edit';
+import { set } from 'mongoose';
 
 function Profile() {
   const [name, setName] = useState('');
@@ -13,7 +14,12 @@ function Profile() {
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log('clicked')
+    setName('');
+    setEmail('');
+    setPassword('');
+    setZipcode('');
+    setInterests('');
+    setDietRestrictions('');
   }
 
   return (
