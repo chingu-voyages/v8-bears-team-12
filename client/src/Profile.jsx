@@ -6,6 +6,7 @@ function Profile() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [zipcode, setZipcode] = useState('');
   const [interests, setInterests] = useState([]);
   const [dietRestrictions, setDietRestrictions] = useState('');
@@ -14,12 +15,24 @@ function Profile() {
 
   function onSubmit(e) {
     e.preventDefault();
-    setName('');
-    setEmail('');
-    setPassword('');
-    setZipcode('');
-    setInterests('');
-    setDietRestrictions('');
+
+    if (password === confirmPassword) {
+      alert('changes are successfully saved');
+
+      setName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      setZipcode('');
+      setInterests('');
+      setDietRestrictions('');
+    }
+
+    if (password !== confirmPassword) {
+      alert('passwords do not match');
+      setPassword('');
+      setConfirmPassword('');
+    }
   }
 
   return (
@@ -57,6 +70,16 @@ function Profile() {
             type="text"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Confirm password:
+          <input
+            type="text"
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
             required
           />
         </label>
