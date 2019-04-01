@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
-import NavMenu from './NavMenu';
-import { connect } from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import NavMenu from './NavMenu';
 
 function Header({ loggedIn, username }) {
   return (
     <header>
       <div className="top-bar">
-        <div></div>
+        <div />
         <h1>Meet and Eat</h1>
-        {loggedIn ? <h3>Welcome, {username}!</h3> : <div></div>}
+        {loggedIn ? <h3>Welcome, {username}!</h3> : <div />}
       </div>
       <NavMenu />
     </header>

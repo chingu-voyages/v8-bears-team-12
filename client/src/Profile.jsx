@@ -11,6 +11,11 @@ function Profile() {
   // const [preview, setPreview] = useState(null);
   // const [src, setSrc] = useState('');
 
+  function onSubmit(e) {
+    e.preventDefault();
+    console.log('clicked')
+  }
+
   return (
     <div>
       <div>
@@ -19,7 +24,7 @@ function Profile() {
           height={295}
         />
       </div>
-      <form>
+      <form onSubmit={e => onSubmit(e)}>
         <label>
           Name:
           <input
@@ -80,7 +85,10 @@ function Profile() {
           />
         </label>
         <br />
-        <input type="submit" value="Save" />
+        <input
+          type="submit"
+          value="Save"
+        />
       </form>
     </div>
   );
