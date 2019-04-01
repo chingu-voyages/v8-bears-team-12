@@ -60,6 +60,20 @@ function authHandlers(app) {
         }
     );
 
+    app.post('/api/profile', passport.authenticate('jwt', { session: false }),
+        async function(req, res) {
+            const {name} = req.user;
+            const {password, zipcode, interests, dietRestrictions} = req.body;
+            const user = await User.findOne({name});
+            if(password) user.password = password;
+            if(zipcode) user.zipcode = zipcode;
+            if(interests) user.interests = interests;
+            if(dietRestrictions) user.dietRestrictions = dietRestrictions;
+            let result = await user.save();
+            res.json(result);
+        }
+    );
+
     app.get('/api/logout', (req, res) => {
         res.clearCookie('jwt', {httpOnly: true});
         res.send('');
