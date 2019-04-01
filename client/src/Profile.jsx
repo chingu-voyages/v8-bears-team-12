@@ -10,6 +10,13 @@ function Profile() {
   const [zipcode, setZipcode] = useState('');
   const [interests, setInterests] = useState([]);
   const [dietRestrictions, setDietRestrictions] = useState('');
+  const dietOptions = [
+    'None - I eat anything & everything!',
+    'Vegan',
+    'Vegetarian',
+    'Gluten Free',
+    'Other',
+  ];
   // const [preview, setPreview] = useState(null);
   // const [src, setSrc] = useState('');
 
@@ -107,12 +114,24 @@ function Profile() {
         <br />
         <label>
           Diet Restrictions:
-          <input
-            type="text"
+          <select
             value={dietRestrictions}
             onChange={e => setDietRestrictions(e.target.value)}
-            required
-          />
+          >
+            <option>
+              Choose one
+            </option>
+            {dietOptions.map((option, i) => {
+              return (
+                <option
+                  key={i}
+                  value={option}
+                >
+                  {option}
+                </option>
+              );
+            })}
+          </select>
         </label>
         <br />
         <input
