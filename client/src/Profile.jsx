@@ -64,7 +64,7 @@ function Profile() {
         <label>
           Email:
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
@@ -74,7 +74,7 @@ function Profile() {
         <label>
           Password:
           <input
-            type="text"
+            type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
@@ -116,11 +116,13 @@ function Profile() {
           Diet Restrictions:
           <select
             value={dietRestrictions}
-            onChange={e => setDietRestrictions(e.target.value)}
+            onChange={e => setDietRestrictions(e.target.value || null)}
+            required
           >
             <option>
               Choose one
             </option>
+
             {dietOptions.map((option, i) => {
               return (
                 <option
