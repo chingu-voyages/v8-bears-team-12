@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavMenu from './NavMenu';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-function Header() {
+function Header({ loggedIn, username }) {
   return (
     <header>
-      <h1>Meet and Eat</h1>
+      <div className="top-bar">
+        <div></div>
+        <h1>Meet and Eat</h1>
+        {loggedIn ? <h3>Welcome, {username}!</h3> : <div></div>}
+      </div>
       <NavMenu />
     </header>
   );
 }
-export default Header;
+
+const mapStateToProps = state => ({
+  loggedIn: state.loggedIn,
+  username: state.username,
+});
+
+Header.propTypes = {
+  loggedIn: PropTypes.bool,
+  username: PropTypes.string,
+};
+
+Header.defaultProps = {
+  loggedIn: false,
+  username: '',
+};
+
+export default connect(mapStateToProps, null)(Header);
