@@ -4,6 +4,8 @@
 // init project
 require('dotenv').config();
 const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const es6Renderer = require('express-es6-template-engine');
 
 const webpack = require('webpack');
@@ -11,9 +13,12 @@ const devMiddleware = require('webpack-dev-middleware');
 const hotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('../webpack.config.js');
 const dbConnection = require('./db-connection');
+const authHandlers = require('./authHandlers');
 
 const { NODE_ENV } = process.env;
 const DEBUG = NODE_ENV === 'development';
+
+const yelpSearch = require('./api/yelpSearch');
 
 if (!NODE_ENV) {
   console.error('NODE_ENV not defined');
@@ -30,12 +35,27 @@ if (DEBUG) {
 
 if (!DEBUG) app.use(express.static('./client/build'));
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.json());
+
 app.engine('html', es6Renderer);
 app.set('views', 'server/views');
 app.set('view engine', 'html');
 
-app.get('/', (request, response) => {
-  response.render('index', { locals: { DEBUG } });
+app.get('/restaurant-search/:location/:term', async (req, res) => {
+  const {term, location} = req.params;
+  try {
+    let response = await yelpSearch(term, location);
+    res.status(200).json(response.data);
+  } catch {
+    res.status(500).send(err);
+  }
+});
+
+authHandlers(app);
+app.get('*', (req, res) => {
+  res.render('index', { locals: { DEBUG } });
 });
 
 (async function runServer() {

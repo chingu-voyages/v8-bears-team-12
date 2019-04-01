@@ -24,65 +24,63 @@ function Profile() {
           Name:
           <input
             type="text"
-            name="name"
             value={name}
             onChange={e => setName(e.target.value)}
+            required
           />
         </label>
-        <br></br>
+        <br />
         <label>
           Email:
           <input
             type="text"
-            name="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
+            required
           />
         </label>
-        <br></br>
+        <br />
         <label>
           Password:
           <input
             type="text"
-            name="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            required
           />
         </label>
-        <br></br>
+        <br />
         <label>
           Zipcode:
           <input
             type="text"
-            name="zipcode"
             value={zipcode}
             onChange={e => setZipcode(e.target.value)}
+            required
           />
         </label>
-        <br></br>
+        <br />
         <label>
           Interests:
           <input
             type="text"
-            name="interests"
             value={interests}
             onChange={e => setInterests(e.target.value)}
+            required
           />
         </label>
-        <br></br>
+        <br />
         <label>
           Diet Restrictions:
           <input
             type="text"
-            name="dietRestrictions"
             value={dietRestrictions}
             onChange={e => setDietRestrictions(e.target.value)}
+            required
           />
         </label>
-        <br></br>
-        <button type="button">
-          Submit
-        </button>
+        <br />
+        <input type="submit" value="Save" />
       </form>
     </div>
   );
