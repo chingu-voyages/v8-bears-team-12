@@ -35,7 +35,7 @@ function RouterContainer({ loggedIn, dispatchLogin, dispatchLogout }) {
 
       <main>
         <Route path="/" exact component={Home} />
-        <Route path="/profile" component={Profile} />
+        { loggedIn ? <Route path="/profile" component={Profile} /> : null }
         <Route path="/register" component={Register} />
         <Route path="/restaurantPicker" component={RestaurantPicker} />
       </main>
