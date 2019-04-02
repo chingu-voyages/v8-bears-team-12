@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Avatar from 'react-avatar-edit';
-import { set } from 'mongoose';
 
 function Profile() {
   const [name, setName] = useState('');
