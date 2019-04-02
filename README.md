@@ -56,6 +56,23 @@ npm run dev
 - `npm run build`: Builds the Webpack bundles into `client/build` folder
 - `npm start`: Does a `npm run build` and run `node server/main.js` with NODE_ENV set to `production`
 
+## CLI tool
+
+There is a CLI tool built for rudimentary initial testing.  It could be expanded upon. It can be run while
+in the project folder with:
+
+```bash
+npm run cli -- users list
+npm run cli -- users add
+```
+
+You may want to create a bash alias if planning to use it often:
+
+```bash
+# file: $HOME/.bashrc
+alias meet-cli="cd /Users/username/projects/v8-bears-team-12 && npm run --silent cli"
+```
+
 ## Woefully Incomplete Setup Notes
 
 This is the inital setup done while in the project folder.
