@@ -8,17 +8,9 @@ function NavMenu({loggedIn}) {
       <li>
         <Link to="/">Home</Link>
       </li>
-      { loggedIn ? (
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
-      ) : null}
-      <li>
-        <Link to="/register">Register</Link>
-      </li>
-      <li>
-        <Link to="/restaurantPicker">Pick Restaurants</Link>
-      </li>
+      { loggedIn ? <li><Link to="/profile">Profile</Link></li> : null }
+      { loggedIn ? null : <li><Link to="/register">Register</Link></li> }
+      { loggedIn ? <li><Link to="/restaurantPicker">Pick Restaurants</Link></li> : null }
     </ul>
   );
 }
