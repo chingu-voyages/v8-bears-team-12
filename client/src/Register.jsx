@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Register() {
+  const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -38,6 +40,7 @@ function Register() {
     ) {
       // create new user
       const newUser = {
+        name: username,
         firstName,
         lastName,
         email,
@@ -47,9 +50,12 @@ function Register() {
         dietRestrictions,
       };
 
-      console.log(newUser);
+      console.log({newUser});
+      
+      axios.post('/api/register', {user: newUser});
 
       // reset all fields
+      setUsername('');
       setFirstName('');
       setLastName('');
       setEmail('');
@@ -79,6 +85,16 @@ function Register() {
       {/* TODO: Add code for uploading image */}
       <form onSubmit={onSubmit}>
         <div />
+        <div>
+          <label>Username: </label>
+          <input
+            type="text"
+            placeholder="UserName"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            required
+          />
+        </div>
         <div>
           <label>First Name: </label>
           <input

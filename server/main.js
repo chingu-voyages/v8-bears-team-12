@@ -20,6 +20,7 @@ const DEBUG = NODE_ENV === 'development';
 
 const yelpSearch = require('./api/yelpSearch');
 
+const User = require('./models/User');
 if (!NODE_ENV) {
   console.error('NODE_ENV not defined');
   process.exit(1);
@@ -52,6 +53,28 @@ app.get('/restaurant-search/:location/:term', async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+app.post('/api/register', async (req, res) => {
+  console.log({theBody: req.body});
+  const {firstName, lastName, name, email, password, interests} = req.body.user;
+  try {
+    let user = new User({
+      name,
+      firstName,
+      lastName,
+      email,
+      password,
+      interests,
+    });
+
+    await user.save();
+    res.send('ok');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+  
+})
 
 authHandlers(app);
 app.get('*', (req, res) => {
