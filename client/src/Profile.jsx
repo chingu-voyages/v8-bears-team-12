@@ -3,7 +3,9 @@ import Avatar from 'react-avatar-edit';
 import { set } from 'mongoose';
 
 function Profile() {
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -37,7 +39,9 @@ function Profile() {
     if (password === confirmPassword && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')) {
       alert('changes are successfully saved');
 
-      setName('');
+      setUsername('');
+      setFirstName('');
+      setLastName('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
@@ -47,8 +51,6 @@ function Profile() {
     }
   }
 
-  console.log('this is diet restriction', dietRestrictions);
-  
   return (
     <div>
       <div>
@@ -59,11 +61,31 @@ function Profile() {
       </div>
       <form onSubmit={e => onSubmit(e)}>
         <label>
-          Name:
+          Username:
           <input
             type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          First Name:
+          <input
+            type="text"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Last Name:
+          <input
+            type="text"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
             required
           />
         </label>
