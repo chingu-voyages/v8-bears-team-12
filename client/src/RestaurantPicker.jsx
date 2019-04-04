@@ -11,16 +11,16 @@ function RestaurantPicker(props) {
   const [term, setTerm] = useState('');
   const [location, setLocation] = useState('');
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
 
-    axios.get(`/restaurant-search/${location}/${term}`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const response = await axios.get(`/restaurant-search/${location}/${term}`);
+
+    try {
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
