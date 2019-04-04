@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import { connect } from 'react-redux';
-// import { searchRestaurants } from './actionCreators';
+import RestaurantList from './RestaurantList';
 
 /*
 Will include a search box allow up to five restaurants to be added to a list 
 It should also allow removal of restaurants from the list
-This is where the Yelp API will be used
 */
 
 function RestaurantPicker() {
   const [term, setTerm] = useState('');
   const [location, setLocation] = useState('');
+  const [restaurantList, setRestaurantList] = useState([]);
 
   async function onSubmit(e) {
     e.preventDefault();
 
-    const response = await axios.get(`/restaurant-search/${location}/${term}`);
+    const response = await axios.get(`/api/restaurant-search/${location}/${term}`);
 
     try {
-      console.log(response.data.businesses);
-      // save response to a state that can be accessed in restaurantList component
-      // searchRestaurantsDispatch(response.data.businesses);
+      setRestaurantList(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -48,17 +45,10 @@ function RestaurantPicker() {
           type="submit"
           value="Submit"
         />
+        <RestaurantList restaurantList={restaurantList} />
       </form>
     </div>
   );
 }
-
-// const mapStateToProps = state => ({
-//   restaurantList: state.restaurantSearch.restaurantList,
-// });
-
-// const mapDispatchToProps = {
-//   searchRestaurantsDispatch: searchRestaurants,
-// };
 
 export default RestaurantPicker;
