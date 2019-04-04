@@ -12,7 +12,7 @@ const reducer = (state = { loggedIn: false, loading: true }, action) => {
         restaurantList: action.restaurantList
       };
     case LOGOUT:
-      return { loggedIn: false, loading: false, username: null, restaurantList };
+      return { loggedIn: false, loading: false, username: null };
     default:
       return state;
   }

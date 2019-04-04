@@ -3,7 +3,7 @@ import axios from 'axios';
 import RestaurantList from './RestaurantList';
 
 /*
-Will include a search box allow up to five restaurants to be added to a list 
+Will include a search box allow up to five restaurants to be added to a list
 It should also allow removal of restaurants from the list
 */
 
@@ -15,9 +15,8 @@ function RestaurantPicker() {
   async function onSubmit(e) {
     e.preventDefault();
 
-    const response = await axios.get(`/api/restaurant-search/${location}/${term}`);
-
     try {
+      const response = await axios.get(`/api/restaurant-search/${location}/${term}`);
       setRestaurantList(response.data);
     } catch (err) {
       console.log(err);

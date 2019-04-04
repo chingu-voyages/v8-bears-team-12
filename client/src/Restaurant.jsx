@@ -3,7 +3,7 @@ import axios from 'axios';
 // import PropTypes from 'prop-types';
 
 function Restaurant(props) {
-  const { name, image_url, url, rating, location, phone} = props;
+  const { name, image_url, url, rating, location, phone} = props.restaurant;
 
   async function handleClick() {
     const response = await axios.post('/api/restaurant-add', { restaurant });
