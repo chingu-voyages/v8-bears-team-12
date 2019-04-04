@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Avatar from 'react-avatar-edit';
-import { set } from 'mongoose';
 
 function Profile() {
   const [username, setUsername] = useState('');
@@ -12,6 +11,7 @@ function Profile() {
   const [zipcode, setZipcode] = useState('');
   const [interests, setInterests] = useState([]);
   const [dietRestrictions, setDietRestrictions] = useState('');
+  const [dietOptionOther, setDietOptionOther] = useState(false);
   const dietOptions = [
     'Choose one',
     'None - I eat anything & everything!',
@@ -20,8 +20,18 @@ function Profile() {
     'Gluten Free',
     'Other',
   ];
+  const specifyOtherDiet = React.createRef();
+
+  // May use later for the avatar
   // const [preview, setPreview] = useState(null);
   // const [src, setSrc] = useState('');
+
+  function handleDietOption(e) {
+    if (e.target.value === 'Other') {
+      setDietOptionOther(true);
+    }
+    setDietRestrictions(e.target.value);
+  }
 
   function onSubmit(e) {
     e.preventDefault();
@@ -37,7 +47,20 @@ function Profile() {
     }
 
     if (password === confirmPassword && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')) {
-      alert('changes are successfully saved');
+      // alert('changes are successfully saved');
+
+      const userChanges = {
+        username,
+        firstName,
+        lastName,
+        email,
+        password,
+        zipcode,
+        interests,
+        dietRestrictions,
+      };
+
+      console.log('this is userChanges', userChanges);
 
       setUsername('');
       setFirstName('');
@@ -48,7 +71,9 @@ function Profile() {
       setZipcode('');
       setInterests('');
       setDietRestrictions('');
+      specifyOtherDiet.current.value = '';
     }
+    setDietOptionOther(false);
   }
 
   return (
@@ -145,7 +170,7 @@ function Profile() {
           Diet Restrictions:
           <select
             value={dietRestrictions}
-            onChange={e => setDietRestrictions(e.target.value)}
+            onChange={e => handleDietOption(e)}
             required
           >
             {dietOptions.map((option, i) => {
@@ -160,6 +185,14 @@ function Profile() {
             })}
           </select>
         </label>
+        <input
+          type="text"
+          style={{
+            display: dietOptionOther ? 'block' : 'none',
+          }}
+          ref={specifyOtherDiet}
+          onChange={e => handleDietOption(e)}
+        />
         <br />
         <input
           type="submit"
