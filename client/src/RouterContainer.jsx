@@ -19,8 +19,8 @@ function RouterContainer({ loggedIn, dispatchLogin, dispatchLogout }) {
         const response = await axios.get('/api/profile');
         const { data } = response;
         const { user } = data;
-        const { name } = user;
-        dispatchLogin(name);
+        const { name, restaurantList } = user;
+        dispatchLogin(name, restaurantList);
       } catch (err) {
         dispatchLogout();
         console.log(err.message); // eslint-disable-line no-console
