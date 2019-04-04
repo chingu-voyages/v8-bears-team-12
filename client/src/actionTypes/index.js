@@ -1,4 +1,5 @@
 export default {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
+  SEARCH_RESTAURANTS: 'SEARCH_RESTAURANTS',
 };

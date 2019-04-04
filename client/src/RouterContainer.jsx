@@ -56,7 +56,7 @@ RouterContainer.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  loggedIn: state.loggedIn,
+  loggedIn: state.reducer.loggedIn,
 });
 
 const mapDispatchToProps = {
