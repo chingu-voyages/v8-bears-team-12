@@ -6,6 +6,8 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   name: { type: String, unique: true, required: true },
   email: { type: String, unique: true, required: true },
+  firstName: String,
+  lastName: String,
   password: String,
   active: Boolean,
   resetPasswordToken: String,
