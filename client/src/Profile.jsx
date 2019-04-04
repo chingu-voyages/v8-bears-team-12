@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import Avatar from 'react-avatar-edit';
 
 function Profile() {
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [zipcode, setZipcode] = useState('');
   const [interests, setInterests] = useState([]);
   const [dietRestrictions, setDietRestrictions] = useState('');
+  const [dietOptionOther, setDietOptionOther] = useState(false);
   const dietOptions = [
     'Choose one',
     'None - I eat anything & everything!',
@@ -17,8 +20,18 @@ function Profile() {
     'Gluten Free',
     'Other',
   ];
+  const specifyOtherDiet = React.createRef();
+
+  // May use later for the avatar
   // const [preview, setPreview] = useState(null);
   // const [src, setSrc] = useState('');
+
+  function handleDietOption(e) {
+    if (e.target.value === 'Other') {
+      setDietOptionOther(true);
+    }
+    setDietRestrictions(e.target.value);
+  }
 
   function onSubmit(e) {
     e.preventDefault();
@@ -34,20 +47,35 @@ function Profile() {
     }
 
     if (password === confirmPassword && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')) {
-      alert('changes are successfully saved');
+      // alert('changes are successfully saved');
 
-      setName('');
+      const userChanges = {
+        username,
+        firstName,
+        lastName,
+        email,
+        password,
+        zipcode,
+        interests,
+        dietRestrictions,
+      };
+
+      console.log('this is userChanges', userChanges);
+
+      setUsername('');
+      setFirstName('');
+      setLastName('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
       setZipcode('');
       setInterests('');
       setDietRestrictions('');
+      specifyOtherDiet.current.value = '';
     }
+    setDietOptionOther(false);
   }
 
-  console.log('this is diet restriction', dietRestrictions);
-  
   return (
     <div>
       <div>
@@ -58,11 +86,31 @@ function Profile() {
       </div>
       <form onSubmit={e => onSubmit(e)}>
         <label>
-          Name:
+          Username:
           <input
             type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          First Name:
+          <input
+            type="text"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Last Name:
+          <input
+            type="text"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
             required
           />
         </label>
@@ -122,7 +170,7 @@ function Profile() {
           Diet Restrictions:
           <select
             value={dietRestrictions}
-            onChange={e => setDietRestrictions(e.target.value)}
+            onChange={e => handleDietOption(e)}
             required
           >
             {dietOptions.map((option, i) => {
@@ -137,6 +185,14 @@ function Profile() {
             })}
           </select>
         </label>
+        <input
+          type="text"
+          style={{
+            display: dietOptionOther ? 'block' : 'none',
+          }}
+          ref={specifyOtherDiet}
+          onChange={e => handleDietOption(e)}
+        />
         <br />
         <input
           type="submit"
