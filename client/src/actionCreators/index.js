@@ -1,7 +1,6 @@
 import actionTypes from '../actionTypes';
 
-const { LOGIN, LOGOUT, SEARCH_RESTAURANTS } = actionTypes;
+const { LOGIN, LOGOUT } = actionTypes;
 
-export const login = username => ({ type: LOGIN, username });
+export const login = (username, restaurantList) => ({ type: LOGIN, username, restaurantList });
 export const logout = () => ({ type: LOGOUT });
-export const searchRestaurants = restaurants => ({ type: SEARCH_RESTAURANTS, restaurants });

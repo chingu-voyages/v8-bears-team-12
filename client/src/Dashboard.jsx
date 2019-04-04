@@ -50,7 +50,7 @@ Dashboard.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  username: state.reducer.username,
+  username: state.username,
 });
 
 const mapDispatchToProps = {

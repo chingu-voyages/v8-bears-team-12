@@ -18,7 +18,6 @@ const authHandlers = require('./authHandlers');
 const { NODE_ENV } = process.env;
 const DEBUG = NODE_ENV === 'development';
 
-const yelpSearch = require('./api/yelpSearch');
 
 const User = require('./models/User');
 if (!NODE_ENV) {
@@ -44,15 +43,7 @@ app.engine('html', es6Renderer);
 app.set('views', 'server/views');
 app.set('view engine', 'html');
 
-app.get('/restaurant-search/:location/:term', async (req, res) => {
-  const {term, location} = req.params;
-  try {
-    let response = await yelpSearch(term, location);
-    res.status(200).json(response.data);
-  } catch {
-    res.status(500).send(err);
-  }
-});
+
 
 app.post('/api/register', async (req, res) => {
   console.log({theBody: req.body});

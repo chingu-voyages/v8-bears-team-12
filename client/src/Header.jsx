@@ -18,8 +18,8 @@ function Header({ loggedIn, username }) {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.reducer.loggedIn,
-  username: state.reducer.username,
+  loggedIn: state.loggedIn,
+  username: state.username,
 });
 
 Header.propTypes = {

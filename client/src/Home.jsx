@@ -11,8 +11,8 @@ function Home({ loggedIn, loading }) {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.reducer.loggedIn,
-  loading: state.reducer.loading,
+  loggedIn: state.loggedIn,
+  loading: state.loading,
 });
 
 Home.propTypes = {

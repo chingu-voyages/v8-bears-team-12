@@ -16,7 +16,7 @@ function NavMenu({loggedIn}) {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.reducer.loggedIn,
+  loggedIn: state.loggedIn,
 });
 
 export default connect(mapStateToProps)(NavMenu);
