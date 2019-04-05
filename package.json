@@ -82,6 +82,7 @@
     "mini-css-extract-plugin": "^0.5.0",
     "mongodb-memory-server": "^4.2.1",
     "nodemon": "^1.18.10",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "supertest": "^4.0.2"
   }
 }
