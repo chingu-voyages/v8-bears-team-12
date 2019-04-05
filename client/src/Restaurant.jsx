@@ -29,7 +29,7 @@ function Restaurant({ restaurant, picked }) {
 }
 
 Restaurant.propTypes = {
-  restaurant: PropTypes.objectOf(PropTypes.object()),
+  restaurant: PropTypes.object,
   picked: PropTypes.bool,
 };
 
