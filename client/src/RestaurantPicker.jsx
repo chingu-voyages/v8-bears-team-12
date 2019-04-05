@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import RestaurantList from './RestaurantList';
+import RestaurantsPicked from './RestaurantsPicked';
 
 /*
 Will include a search box allow up to five restaurants to be added to a list
@@ -19,7 +20,7 @@ function RestaurantPicker() {
       const response = await axios.get(`/api/restaurant-search/${location}/${term}`);
       setRestaurantList(response.data);
     } catch (err) {
-      console.log(err);
+      console.log(err); // eslint-disable-line no-console
     }
   }
 
@@ -46,6 +47,7 @@ function RestaurantPicker() {
         />
         <RestaurantList restaurantList={restaurantList} />
       </form>
+      <RestaurantsPicked />
     </div>
   );
 }

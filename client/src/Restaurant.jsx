@@ -1,9 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 // import PropTypes from 'prop-types';
 
-function Restaurant({ restaurant }) {
-  const { name, image_url, url, rating, location, phone} = restaurant;
+function Restaurant({ restaurant, picked }) {
+  const {
+    name,
+    image_url,
+    url,
+    rating,
+    location,
+    phone,
+  } = restaurant;
 
   async function handleClick() {
     await axios.post('/api/restaurant-add', { restaurant });
@@ -15,17 +23,19 @@ function Restaurant({ restaurant }) {
       {/* {rating}
       {location}
       {phone} */}
-      <button type="button" onClick={handleClick}> Add </button>
+      { !picked ? <button type="button" onClick={handleClick}> Add </button> : null }
     </div>
   );
 }
 
-// Restaurant.propTypes = {
-//   restaurant: PropTypes.object,
-// }
+Restaurant.propTypes = {
+  restaurant: PropTypes.objectOf(PropTypes.object()),
+  picked: PropTypes.bool,
+};
 
-// Restaurant.defaultProps = {
-//   restaurant: {},
-// };
+Restaurant.defaultProps = {
+  restaurant: {},
+  picked: false,
+};
 
 export default Restaurant;
