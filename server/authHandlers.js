@@ -149,6 +149,7 @@ function authHandlers(app) {
           url,
           rating,
           location,
+          coords: {type: 'Point', coordinates: coords},
           phone,
         });
       }
