@@ -26,7 +26,8 @@ passport.use(
   new JwtStrategy(opts, async function(jwt_payload, done) {
     try {
       const { sub } = jwt_payload;
-      const user = await User.findOne({ name: sub }, { password: false });
+      const user = await User.findOne({ name: sub }, { password: false })
+        .populate({path: 'restaurantsList', select: '-users'});
       done(null, user || false);
     } catch (err) {
       done(err, false);
