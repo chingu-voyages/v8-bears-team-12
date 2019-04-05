@@ -158,6 +158,10 @@ function authHandlers(app) {
         if (restaurant.users.indexOf(req.user._id) == -1) {
           restaurant.users.push(req.user._id);
           let result = await restaurant.save();
+          if(req.user.restaurantsList.indexOf(result._id) === -1) {
+            req.user.restaurantsList.push(result._id);
+            await req.user.save();
+          }
           return res.json(result);
         }
         res.status(201).json('Restaurant already exists in your list');
