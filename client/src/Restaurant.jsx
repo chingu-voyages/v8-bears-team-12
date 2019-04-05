@@ -2,11 +2,11 @@ import React from 'react';
 import axios from 'axios';
 // import PropTypes from 'prop-types';
 
-function Restaurant(props) {
-  const { name, image_url, url, rating, location, phone} = props.restaurant;
+function Restaurant({ restaurant }) {
+  const { name, image_url, url, rating, location, phone} = restaurant;
 
   async function handleClick() {
-    const response = await axios.post('/api/restaurant-add', { restaurant });
+    await axios.post('/api/restaurant-add', { restaurant });
   }
 
   return (
