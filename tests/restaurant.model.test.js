@@ -2,10 +2,19 @@
 const mongoose = require('mongoose');
 const Restaurant = require('../server/models/Restaurant');
 
-it ('is true', async () => {
+let connection;
+
+beforeAll(async () => {
+  connection = await require("../server/db-connection")();
+});
+  
+afterAll(async () => {
+  await mongoose.connection.close();
+})
+
+it ('sets the coords field successfully', async () => {
     expect.assertions(1);
 
-    await require('../server/db-connection')();
     const restaurant = new Restaurant({
         id: 'abc',
         name: 'abc name',
@@ -19,5 +28,4 @@ it ('is true', async () => {
         console.error(err);
     }
     expect(true).toBe(true);
-    mongoose.connection.close();
 })
