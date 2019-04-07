@@ -6,7 +6,7 @@ import Restaurant from './Restaurant';
 function RestaurantsPicked({ restaurantsList }) {
   return (
     <div>
-      <h3>My Choices</h3>
+      <h3>My Restaurants</h3>
       <div>
         {restaurantsList.map(e => <Restaurant key={e.id} picked restaurant={e} />)}
       </div>
