@@ -3,6 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 
 const { SECRET } = process.env;
 
@@ -126,7 +127,7 @@ function authHandlers(app) {
   });
 
   app.post(
-    '/api/restaurant-add',
+    '/api/restaurant',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
       const {
@@ -156,21 +157,42 @@ function authHandlers(app) {
       }
 
       try {
+        let restaurantId = restaurant._id;
         if (restaurant.users.indexOf(req.user._id) == -1) {
           restaurant.users.push(req.user._id);
           let result = await restaurant.save();
-          if(req.user.restaurantsList.indexOf(result._id) === -1) {
-            req.user.restaurantsList.push(result._id);
-            await req.user.save();
-          }
-          return res.json(result);
+          restaurantId = result._id;
         }
+        if(req.user.restaurantsList.map(e => e._id.toString()).indexOf(restaurantId.toString()) === -1) {
+          req.user.restaurantsList.push(restaurantId);
+          await req.user.save();
+          return res.send('Ok');
+        }
+        
         res.status(201).json('Restaurant already exists in your list');
       } catch (err) {
         res.status(500).send(err.message);
       }
     }
   );
-}
+
+  app.delete(
+    '/api/restaurant',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+      const {id} = req.body;
+      try {
+        const { restaurantsList } = req.user;
+        const filtered = restaurantsList.filter(e => { return e._id.toString() !== id; });
+        req.user.restaurantsList = filtered;
+        await req.user.save();
+        res.send('Ok');
+      } catch(err) {
+        res.status(500).send(err.message);
+      }
+    })  
+};
+
+
 
 module.exports = authHandlers;

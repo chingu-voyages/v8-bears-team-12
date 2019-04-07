@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { addRestaurant } from './actionCreators';
+import { addRestaurant, removeRestaurant } from './actionCreators';
 
-function Restaurant({ restaurant, picked, dispatchAddRestaurant }) {
+function Restaurant({
+ restaurant, picked, dispatchAddRestaurant, dispatchRemoveRestaurant 
+}) {
   const {
     name,
     image_url,
@@ -25,6 +27,7 @@ function Restaurant({ restaurant, picked, dispatchAddRestaurant }) {
       {location}
       {phone} */}
       { !picked ? <button type="button" onClick={handleClick}> Add </button> : null }
+      { picked ? <button type="button" onClick={() => dispatchRemoveRestaurant(restaurant._id)}>Remove</button> : null }
     </div>
   );
 }
@@ -32,15 +35,20 @@ function Restaurant({ restaurant, picked, dispatchAddRestaurant }) {
 Restaurant.propTypes = {
   restaurant: PropTypes.object,
   picked: PropTypes.bool,
+  dispatchAddRestaurant: PropTypes.func,
+  dispatchRemoveRestaurant: PropTypes.func,
 };
 
 Restaurant.defaultProps = {
   restaurant: {},
   picked: false,
+  dispatchAddRestaurant: () => {},
+  dispatchRemoveRestaurant: () => {},
 };
 
 const mapDispatchToProps = {
   dispatchAddRestaurant: addRestaurant,
+  dispatchRemoveRestaurant: removeRestaurant,
 };
 
 export default connect(null, mapDispatchToProps)(Restaurant);
