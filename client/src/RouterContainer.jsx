@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
- BrowserRouter as Router, Switch, Route, Redirect 
+  BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -10,6 +10,7 @@ import Home from './Home';
 import Profile from './Profile';
 import Register from './Register';
 import RestaurantPicker from './RestaurantPicker';
+import NotFound from './NotFound';
 
 import { updateProfile } from './actionCreators';
 
@@ -28,7 +29,7 @@ function RouterContainer({ loggedIn, dispatchUpdateProfile }) {
           { loggedIn ? <Route path="/profile" component={Profile} /> : null }
           { loggedIn ? null : <Route path="/register" component={Register} /> }
           { loggedIn ? <Route path="/restaurantPicker" component={RestaurantPicker} /> : null }
-          <Redirect to="/" />
+          <Route path="" component={NotFound} />
         </Switch>
       </main>
     </Router>
