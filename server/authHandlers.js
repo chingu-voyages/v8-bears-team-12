@@ -186,6 +186,8 @@ function authHandlers(app) {
         const filtered = restaurantsList.filter(e => { return e._id.toString() !== id; });
         req.user.restaurantsList = filtered;
         await req.user.save();
+
+        // TODO: must also remove user from Restaurant collection  
         res.send('Ok');
       } catch(err) {
         res.status(500).send(err.message);
