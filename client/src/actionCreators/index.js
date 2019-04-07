@@ -16,3 +16,8 @@ export const updateProfile = () => async (dispatch) => {
     console.log(err.message); // eslint-disable-line no-console
   }
 };
+
+export const addRestaurant = restaurant => async (dispatch) => {
+  await axios.post('/api/restaurant-add', { restaurant });
+  updateProfile()(dispatch);
+}
