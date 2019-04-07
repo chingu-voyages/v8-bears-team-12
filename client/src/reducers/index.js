@@ -1,6 +1,4 @@
-import actionTypes from '../actionTypes';
-
-const { LOGIN, LOGOUT } = actionTypes;
+import { LOGIN, LOGOUT } from '../actionTypes';
 
 const reducer = (state = { loggedIn: false, loading: true }, action) => {
   switch (action.type) {

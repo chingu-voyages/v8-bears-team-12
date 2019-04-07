@@ -1,7 +1,5 @@
 import axios from 'axios';
-import actionTypes from '../actionTypes';
-
-const { LOGIN, LOGOUT } = actionTypes;
+import { LOGIN, LOGOUT } from '../actionTypes';
 
 export const login = (username, restaurantsList) => ({ type: LOGIN, username, restaurantsList });
 export const logout = () => ({ type: LOGOUT });
