@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-// import PropTypes from 'prop-types';
 
-function Restaurant({ restaurant, picked }) {
+import { addRestaurant } from './actionCreators';
+
+function Restaurant({ restaurant, picked, dispatchAddRestaurant }) {
   const {
     name,
     image_url,
@@ -14,7 +15,7 @@ function Restaurant({ restaurant, picked }) {
   } = restaurant;
 
   async function handleClick() {
-    await axios.post('/api/restaurant-add', { restaurant });
+    dispatchAddRestaurant(restaurant);
   }
 
   return (
@@ -38,4 +39,8 @@ Restaurant.defaultProps = {
   picked: false,
 };
 
-export default Restaurant;
+const mapDispatchToProps = {
+  dispatchAddRestaurant: addRestaurant,
+};
+
+export default connect(null, mapDispatchToProps)(Restaurant);
