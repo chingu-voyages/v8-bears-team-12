@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Avatar from 'react-avatar-edit';
 
-function Profile() {
-  const [username, setUsername] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+import { saveProfile } from './actionCreators';
+
+function Profile({ firstName, lastName, interests, zipcode, dispatchSaveProfile }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [zipcode, setZipcode] = useState('');
-  const [interests, setInterests] = useState([]);
   const [dietRestrictions, setDietRestrictions] = useState('');
   const [dietOptionOther, setDietOptionOther] = useState(false);
   const dietOptions = [
@@ -50,26 +47,19 @@ function Profile() {
       // alert('changes are successfully saved');
 
       const userChanges = {
-        username,
         firstName,
         lastName,
-        email,
         password,
         zipcode,
         interests,
         dietRestrictions,
       };
 
+      dispatchSaveProfile(firstName, lastName, password, zipcode, interests, dietRestrictions);
       console.log('this is userChanges', userChanges);
 
-      setUsername('');
-      setFirstName('');
-      setLastName('');
-      setEmail('');
       setPassword('');
       setConfirmPassword('');
-      setZipcode('');
-      setInterests('');
       setDietRestrictions('');
       specifyOtherDiet.current.value = '';
     }
@@ -86,21 +76,10 @@ function Profile() {
       </div>
       <form onSubmit={e => onSubmit(e)}>
         <label>
-          Username:
-          <input
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label>
           First Name:
           <input
             type="text"
             value={firstName}
-            onChange={e => setFirstName(e.target.value)}
             required
           />
         </label>
@@ -110,17 +89,6 @@ function Profile() {
           <input
             type="text"
             value={lastName}
-            onChange={e => setLastName(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
             required
           />
         </label>
@@ -203,4 +171,14 @@ function Profile() {
   );
 }
 
-export default Profile;
+const mapStateToProps = state => ({
+  firstName: state.firstName,
+  lastName: state.lastName,
+  zipcode: state.zipcode,
+  interests: state.interests,
+});
+const mapDispatchToProps = {
+  dispatchSaveProfile: saveProfile,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

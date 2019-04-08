@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { LOGIN, LOGOUT } from '../actionTypes';
 
-export const login = (username, restaurantsList) => ({ type: LOGIN, username, restaurantsList });
+export const login = (username, restaurantsList, payload={}) => ({ type: LOGIN, username, restaurantsList, payload });
 export const logout = () => ({ type: LOGOUT });
 
 export const updateProfile = () => async (dispatch) => {
@@ -10,11 +10,22 @@ export const updateProfile = () => async (dispatch) => {
     const { data } = response;
     const { user } = data;
     const { name, restaurantsList } = user;
-    dispatch(login(name, restaurantsList));
+    console.log({user});
+    dispatch(login(name, restaurantsList, user));
   } catch (err) {
     dispatch(logout());
     console.log(err.message); // eslint-disable-line no-console
   }
+};
+
+export const saveProfile = (firstName, lastName, password, zipcode, interests, dietRestrictions) => async (dispatch) => {
+  try {
+    const response = await axios.post('/api/profile', { firstName, lastName, password, zipcode, interests, dietRestrictions });
+    console.log(response.data);
+  } catch(err) {
+    console.error(err.message);
+  }
+
 };
 
 export const addRestaurant = restaurant => async (dispatch) => {

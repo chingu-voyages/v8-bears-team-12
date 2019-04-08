@@ -73,8 +73,11 @@ function authHandlers(app) {
     passport.authenticate('jwt', { session: false }),
     async function(req, res) {
       const { name } = req.user;
-      const { password, zipcode, interests, dietRestrictions } = req.body;
+      console.log({body: req.body});
+      const { firstName, lastName, password, zipcode, interests, dietRestrictions } = req.body;
       const user = await User.findOne({ name });
+      if (firstName) user.firstName = firstName;
+      if (lastName) user.lastName = lastName;
       if (password) user.password = password;
       if (zipcode) user.zipcode = zipcode;
       if (interests) user.interests = interests;
