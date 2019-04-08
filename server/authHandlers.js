@@ -127,7 +127,7 @@ function authHandlers(app) {
   });
 
   app.post(
-    '/api/restaurant',
+    '/api/restaurant-choice',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
       const {
@@ -177,7 +177,7 @@ function authHandlers(app) {
   );
 
   app.delete(
-    '/api/restaurant',
+    '/api/restaurant-choice',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
       const {id} = req.body;

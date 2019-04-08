@@ -18,11 +18,11 @@ export const updateProfile = () => async (dispatch) => {
 };
 
 export const addRestaurant = restaurant => async (dispatch) => {
-  await axios.post('/api/restaurant', { restaurant });
+  await axios.post('/api/restaurant-choice', { restaurant });
   updateProfile()(dispatch);
 };
 
 export const removeRestaurant = id => async (dispatch) => {
-  await axios.delete('/api/restaurant', { data: { id } });
+  await axios.delete('/api/restaurant-choice', { data: { id } });
   updateProfile()(dispatch);
 };
