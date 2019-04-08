@@ -187,7 +187,7 @@ function authHandlers(app) {
         req.user.restaurantsList = filtered;
         await req.user.save();
 
-        // TODO: must also remove user from Restaurant collection  
+        await Restaurant.updateOne({_id: ObjectId(id)}, { $pullAll: { users: [req.user._id]}});
         res.send('Ok');
       } catch(err) {
         res.status(500).send(err.message);
