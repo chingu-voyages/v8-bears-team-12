@@ -21,7 +21,7 @@ export const updateProfile = () => async (dispatch) => {
 export const saveProfile = (firstName, lastName, password, zipcode, interests, dietRestrictions) => async (dispatch) => {
   try {
     const response = await axios.post('/api/profile', { firstName, lastName, password, zipcode, interests, dietRestrictions });
-    console.log(response.data);
+    updateProfile()(dispatch);
   } catch(err) {
     console.error(err.message);
   }
