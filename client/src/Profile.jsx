@@ -4,10 +4,15 @@ import Avatar from 'react-avatar-edit';
 
 import { saveProfile } from './actionCreators';
 
-function Profile({ firstName, lastName, interests, zipcode, dispatchSaveProfile }) {
+function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZipcode, dispatchSaveProfile }) {
+  const [firstName, setFirstName] = useState(defaultFirstName);
+  const [lastName, setLastName] = useState(defaultLastName);
+  const [zipcode, setZipcode] = useState(defaultZipcode);
+  const [interests, setInterests] = useState(defaultInterests);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [dietRestrictions, setDietRestrictions] = useState('');
+  
   const [dietOptionOther, setDietOptionOther] = useState(false);
   const dietOptions = [
     'Choose one',
@@ -80,6 +85,7 @@ function Profile({ firstName, lastName, interests, zipcode, dispatchSaveProfile 
           <input
             type="text"
             value={firstName}
+            onChange={e => setFirstName(e.target.value)}
             required
           />
         </label>
@@ -89,6 +95,7 @@ function Profile({ firstName, lastName, interests, zipcode, dispatchSaveProfile 
           <input
             type="text"
             value={lastName}
+            onChange={e => setLastName(e.target.value)}
             required
           />
         </label>
@@ -99,7 +106,6 @@ function Profile({ firstName, lastName, interests, zipcode, dispatchSaveProfile 
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            required
           />
         </label>
         <br />
@@ -109,7 +115,6 @@ function Profile({ firstName, lastName, interests, zipcode, dispatchSaveProfile 
             type="password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
-            required
           />
         </label>
         <br />
@@ -172,10 +177,10 @@ function Profile({ firstName, lastName, interests, zipcode, dispatchSaveProfile 
 }
 
 const mapStateToProps = state => ({
-  firstName: state.firstName,
-  lastName: state.lastName,
-  zipcode: state.zipcode,
-  interests: state.interests,
+  defaultFirstName: state.firstName,
+  defaultLastName: state.lastName,
+  defaultZipcode: state.zipcode,
+  defaultInterests: state.interests,
 });
 const mapDispatchToProps = {
   dispatchSaveProfile: saveProfile,
