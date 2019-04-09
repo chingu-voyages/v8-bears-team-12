@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addRestaurant, removeRestaurant } from './actionCreators';
-import { genericTypeAnnotation } from '@babel/types';
 // import { createRequireFromPath } from 'module';
 
 const styles = {
@@ -10,28 +9,19 @@ const styles = {
     display: 'grid',
     gridTemplateColumns: '0.5fr 1fr 0.5fr 0.2fr',
     gridTemplateAreas: "'image name rating .' 'image location . .' 'image phone . .'",
-    // backgroundColor: 'green',
-    padding: '7px',
+    padding: '10px',
   },
   name: {
     gridArea: 'name',
-    fontSize: '15px',
-    textAlign: 'left',
   },
   rating: {
     gridArea: 'rating',
-    fontSize: '15px',
-    textAlign: 'left',
   },
   location: {
     gridArea: 'location',
-    fontSize: '15px',
-    textAlign: 'left',
   },
   phone: {
     gridArea: 'phone',
-    fontSize: '15px',
-    textAlign: 'left',
   },
 };
 
