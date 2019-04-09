@@ -1,8 +1,8 @@
-import { LOGIN, LOGOUT } from '../actionTypes';
+import { SET_PROFILE, LOGOUT } from '../actionTypes';
 
 const reducer = (state = { loggedIn: false, loading: true }, action) => {
   switch (action.type) {
-    case LOGIN:
+    case SET_PROFILE:
       return {
         ...action.payload,
         loggedIn: true,

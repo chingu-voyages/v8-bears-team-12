@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { LOGIN, LOGOUT } from '../actionTypes';
+import { SET_PROFILE, LOGOUT } from '../actionTypes';
 
-export const login = (payload={}) => ({ type: LOGIN, payload });
+export const setProfile = (payload={}) => ({ type: SET_PROFILE, payload });
 export const logout = () => ({ type: LOGOUT });
 
 export const updateProfile = () => async (dispatch) => {
@@ -9,7 +9,7 @@ export const updateProfile = () => async (dispatch) => {
     const response = await axios.get('/api/profile');
     const { data } = response;
     const { user: payload } = data;
-    dispatch(login(payload));
+    dispatch(setProfile(payload));
   } catch (err) {
     dispatch(logout());
     console.log(err.message); // eslint-disable-line no-console
