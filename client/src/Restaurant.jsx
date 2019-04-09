@@ -2,41 +2,36 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addRestaurant, removeRestaurant } from './actionCreators';
+import { genericTypeAnnotation } from '@babel/types';
 // import { createRequireFromPath } from 'module';
 
 const styles = {
   container: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    // gridAutoRows: 'minmax(2px, auto)',
-    gridTemplateAreas: "'image name rating' 'image location .' 'image phone .'",
-    backgroundColor: '#2196F3',
+    gridTemplateColumns: '0.5fr 1fr 0.5fr 0.2fr',
+    gridTemplateAreas: "'image name rating .' 'image location . .' 'image phone . .'",
+    // backgroundColor: 'green',
     padding: '7px',
-  },
-  image: {
-    gridArea: 'image',
-    fontSize: '15px',
-    textAlign: 'center',
   },
   name: {
     gridArea: 'name',
-    fontSize: '30px',
-    textAlign: 'center',
+    fontSize: '15px',
+    textAlign: 'left',
   },
   rating: {
     gridArea: 'rating',
-    fontSize: '30px',
-    textAlign: 'center',
+    fontSize: '15px',
+    textAlign: 'left',
   },
   location: {
     gridArea: 'location',
-    fontSize: '30px',
-    textAlign: 'center',
+    fontSize: '15px',
+    textAlign: 'left',
   },
   phone: {
     gridArea: 'phone',
-    fontSize: '30px',
-    textAlign: 'center',
+    fontSize: '15px',
+    textAlign: 'left',
   },
 };
 
@@ -61,7 +56,7 @@ function Restaurant({
       <img
         src={image_url}
         alt="restaurant"
-        style={{ width: '150px', height: '150px' }}
+        style={{ gridArea: 'image', width: '150px', height: '150px' }}
       />
       <a
         href={url}
