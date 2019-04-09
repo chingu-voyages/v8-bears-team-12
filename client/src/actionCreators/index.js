@@ -7,10 +7,10 @@ export const setProfileThunk = () => async (dispatch) => {
   try {
     const response = await axios.get('/api/profile');
     const { data } = response;
-    const { user: payload } = data;
-    dispatch({ type: SET_PROFILE, payload });
+    const { user } = data;
+    dispatch({ type: SET_PROFILE, payload: user });
   } catch (err) {
-    dispatch(logout());
+    dispatch({ type: LOGOUT });
     console.log(err.message); // eslint-disable-line no-console
   }
 };
@@ -27,7 +27,6 @@ export const saveProfile = (firstName, lastName, password, zipcode, interests, d
   } catch(err) {
     console.error(err.message);
   }
-
 };
 
 export const addRestaurant = restaurant => async (dispatch) => {
@@ -39,3 +38,8 @@ export const removeRestaurant = id => async (dispatch) => {
   await axios.delete('/api/restaurant-choice', { data: { id } });
   setProfileThunk()(dispatch);
 };
+
+export const logoutThunk = () => async (dispatch) => {
+  await axios.get('/api/logout');
+  dispatch({type: LOGOUT});
+}

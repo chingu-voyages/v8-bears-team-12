@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 
 import DiningMateSearch from './DiningMateSearch';
 import DiningMateList from './DiningMateList';
-import { logout } from './actionCreators';
+import { logoutThunk } from './actionCreators';
 
-function Dashboard({ logoutDispatch, name }) {
+function Dashboard({ dispatchLogoutThunk, name }) {
   const diningMates = [];
   function usePosition(position) {
     console.log({ position }); // eslint-disable-line no-console
@@ -20,11 +20,6 @@ function Dashboard({ logoutDispatch, name }) {
     }
   }
 
-  async function doLogout() {
-    await axios.get('/api/logout');
-    logoutDispatch();
-  }
-
   return (
     <div>
       <h3>
@@ -34,19 +29,19 @@ function Dashboard({ logoutDispatch, name }) {
       </h3>
       <DiningMateSearch doSearch={doSearch} />
       <DiningMateList diningMates={diningMates} />
-      <button type="button" onClick={doLogout}>Logout</button>
+      <button type="button" onClick={dispatchLogoutThunk}>Logout</button>
     </div>
   );
 }
 
 Dashboard.propTypes = {
   name: PropTypes.string,
-  logoutDispatch: PropTypes.func,
+  dispatchLogoutThunk: PropTypes.func,
 };
 
 Dashboard.defaultProps = {
   name: '',
-  logoutDispatch: () => {},
+  dispatchLogoutThunk: () => {},
 };
 
 const mapStateToProps = state => ({
@@ -54,7 +49,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  logoutDispatch: logout,
+  dispatchLogoutThunk: logoutThunk,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
