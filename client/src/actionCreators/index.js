@@ -43,3 +43,8 @@ export const logoutThunk = () => async (dispatch) => {
   await axios.get('/api/logout');
   dispatch({type: LOGOUT});
 }
+
+export const setSearchThunk = ({ lat, lon }) => async (dispatch) => {
+  console.log({ lat, lon });
+  setProfileThunk()(dispatch);
+};
