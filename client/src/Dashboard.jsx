@@ -7,7 +7,7 @@ import DiningMateSearch from './DiningMateSearch';
 import DiningMateList from './DiningMateList';
 import { logout } from './actionCreators';
 
-function Dashboard({ logoutDispatch, username }) {
+function Dashboard({ logoutDispatch, name }) {
   const diningMates = [];
   function usePosition(position) {
     console.log({ position }); // eslint-disable-line no-console
@@ -30,7 +30,7 @@ function Dashboard({ logoutDispatch, username }) {
       <h3>
         Welcome,
         { ' ' }
-        { username }
+        { name }
       </h3>
       <DiningMateSearch doSearch={doSearch} />
       <DiningMateList diningMates={diningMates} />
@@ -40,17 +40,17 @@ function Dashboard({ logoutDispatch, username }) {
 }
 
 Dashboard.propTypes = {
-  username: PropTypes.string,
+  name: PropTypes.string,
   logoutDispatch: PropTypes.func,
 };
 
 Dashboard.defaultProps = {
-  username: '',
+  name: '',
   logoutDispatch: () => {},
 };
 
 const mapStateToProps = state => ({
-  username: state.username,
+  name: state.name,
 });
 
 const mapDispatchToProps = {

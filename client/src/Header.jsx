@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import NavMenu from './NavMenu';
 
-function Header({ loggedIn, username }) {
+function Header({ loggedIn, name }) {
   return (
     <header>
       <div className="top-bar">
@@ -14,7 +14,7 @@ function Header({ loggedIn, username }) {
           <h3>
             Welcome,
             {' '}
-            { username }
+            { name }
             !
           </h3>
         ) : null }
@@ -26,17 +26,17 @@ function Header({ loggedIn, username }) {
 
 const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
-  username: state.username,
+  name: state.name,
 });
 
 Header.propTypes = {
   loggedIn: PropTypes.bool,
-  username: PropTypes.string,
+  name: PropTypes.string,
 };
 
 Header.defaultProps = {
   loggedIn: false,
-  username: '',
+  name: '',
 };
 
 export default connect(mapStateToProps, null)(Header);

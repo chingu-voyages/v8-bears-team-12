@@ -1,17 +1,15 @@
 import axios from 'axios';
 import { LOGIN, LOGOUT } from '../actionTypes';
 
-export const login = (username, restaurantsList, payload={}) => ({ type: LOGIN, username, restaurantsList, payload });
+export const login = (payload={}) => ({ type: LOGIN, payload });
 export const logout = () => ({ type: LOGOUT });
 
 export const updateProfile = () => async (dispatch) => {
   try {
     const response = await axios.get('/api/profile');
     const { data } = response;
-    const { user } = data;
-    const { name, restaurantsList } = user;
-    console.log({user});
-    dispatch(login(name, restaurantsList, user));
+    const { user: payload } = data;
+    dispatch(login(payload));
   } catch (err) {
     dispatch(logout());
     console.log(err.message); // eslint-disable-line no-console
