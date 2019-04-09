@@ -3,6 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 
 const { SECRET } = process.env;
 
@@ -26,7 +27,8 @@ passport.use(
   new JwtStrategy(opts, async function(jwt_payload, done) {
     try {
       const { sub } = jwt_payload;
-      const user = await User.findOne({ name: sub }, { password: false });
+      const user = await User.findOne({ name: sub }, { password: false })
+        .populate({path: 'restaurantsList', select: '-users'});
       done(null, user || false);
     } catch (err) {
       done(err, false);
@@ -71,8 +73,11 @@ function authHandlers(app) {
     passport.authenticate('jwt', { session: false }),
     async function(req, res) {
       const { name } = req.user;
-      const { password, zipcode, interests, dietRestrictions } = req.body;
+      console.log({body: req.body});
+      const { firstName, lastName, password, zipcode, interests, dietRestrictions } = req.body;
       const user = await User.findOne({ name });
+      if (firstName) user.firstName = firstName;
+      if (lastName) user.lastName = lastName;
       if (password) user.password = password;
       if (zipcode) user.zipcode = zipcode;
       if (interests) user.interests = interests;
@@ -90,8 +95,9 @@ function authHandlers(app) {
   app.get('/api/restaurant-search/:location/:term', async (req, res) => {
     const { term, location } = req.params;
 
-    // return res.json(require('./fixtures/example-restaurants'));
-
+    // if(process.env.TESTDATA) return res.json(require('./fixtures/example-restaurants'));
+    return res.json(require('./fixtures/example-restaurants'));
+    
     try {
       let response = await yelpSearch(term, location);
       const { businesses } = response.data;
@@ -125,7 +131,7 @@ function authHandlers(app) {
   });
 
   app.post(
-    '/api/restaurant-add',
+    '/api/restaurant-choice',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
       const {
@@ -149,22 +155,50 @@ function authHandlers(app) {
           url,
           rating,
           location,
+          coords: {type: 'Point', coordinates: coords},
           phone,
         });
       }
 
       try {
+        let restaurantId = restaurant._id;
         if (restaurant.users.indexOf(req.user._id) == -1) {
           restaurant.users.push(req.user._id);
           let result = await restaurant.save();
-          return res.json(result);
+          restaurantId = result._id;
         }
+        if(req.user.restaurantsList.map(e => e._id.toString()).indexOf(restaurantId.toString()) === -1) {
+          req.user.restaurantsList.push(restaurantId);
+          await req.user.save();
+          return res.send('Ok');
+        }
+        
         res.status(201).json('Restaurant already exists in your list');
       } catch (err) {
         res.status(500).send(err.message);
       }
     }
   );
-}
+
+  app.delete(
+    '/api/restaurant-choice',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+      const {id} = req.body;
+      try {
+        const { restaurantsList } = req.user;
+        const filtered = restaurantsList.filter(e => { return e._id.toString() !== id; });
+        req.user.restaurantsList = filtered;
+        await req.user.save();
+
+        await Restaurant.updateOne({_id: ObjectId(id)}, { $pullAll: { users: [req.user._id]}});
+        res.send('Ok');
+      } catch(err) {
+        res.status(500).send(err.message);
+      }
+    })  
+};
+
+
 
 module.exports = authHandlers;

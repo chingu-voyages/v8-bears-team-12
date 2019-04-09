@@ -10,7 +10,14 @@ function Header({ loggedIn, username }) {
       <div className="top-bar">
         <div />
         <h1>Meet and Eat</h1>
-        {loggedIn ? <h3>Welcome, {username}!</h3> : <div />}
+        {loggedIn ? (
+          <h3>
+            Welcome,
+            {' '}
+            { username }
+            !
+          </h3>
+        ) : null }
       </div>
       <NavMenu />
     </header>

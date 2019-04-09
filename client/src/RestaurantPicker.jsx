@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import RestaurantList from './RestaurantList';
-
-/*
-Will include a search box allow up to five restaurants to be added to a list 
-It should also allow removal of restaurants from the list
-*/
+import RestaurantsPicked from './RestaurantsPicked';
 
 function RestaurantPicker() {
   const [term, setTerm] = useState('');
@@ -15,12 +11,11 @@ function RestaurantPicker() {
   async function onSubmit(e) {
     e.preventDefault();
 
-    const response = await axios.get(`/api/restaurant-search/${location}/${term}`);
-
     try {
+      const response = await axios.get(`/api/restaurant-search/${location}/${term}`);
       setRestaurantList(response.data);
     } catch (err) {
-      console.log(err);
+      console.log(err); // eslint-disable-line no-console
     }
   }
 
@@ -43,10 +38,11 @@ function RestaurantPicker() {
         />
         <input
           type="submit"
-          value="Submit"
+          value="Find"
         />
         <RestaurantList restaurantList={restaurantList} />
       </form>
+      <RestaurantsPicked />
     </div>
   );
 }

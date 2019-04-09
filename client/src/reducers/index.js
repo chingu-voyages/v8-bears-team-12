@@ -1,18 +1,22 @@
-import actionTypes from '../actionTypes';
-
-const { LOGIN, LOGOUT } = actionTypes;
+import { LOGIN, LOGOUT } from '../actionTypes';
 
 const reducer = (state = { loggedIn: false, loading: true }, action) => {
   switch (action.type) {
     case LOGIN:
-      return { 
-        loggedIn: true, 
-        loading: false, 
-        username: action.username, 
-        restaurantList: action.restaurantList
+      const { firstName, lastName, zipcode, interests, dietRestrictions } = action.payload;
+      return {
+        loggedIn: true,
+        loading: false,
+        username: action.username,
+        firstName,
+        lastName,
+        zipcode,
+        interests,
+        dietRestrictions,
+        restaurantsList: action.restaurantsList,
       };
     case LOGOUT:
-      return { loggedIn: false, loading: false, username: null, restaurantList };
+      return { loggedIn: false, loading: false, username: null };
     default:
       return state;
   }
