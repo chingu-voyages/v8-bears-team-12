@@ -12,11 +12,11 @@ import Register from './Register';
 import RestaurantPicker from './RestaurantPicker';
 import NotFound from './NotFound';
 
-import { updateProfile } from './actionCreators';
+import { setProfileThunk } from './actionCreators';
 
-function RouterContainer({ loggedIn, dispatchUpdateProfile }) {
+function RouterContainer({ loggedIn, dispatchSetProfileThunk }) {
   useEffect(() => {
-    dispatchUpdateProfile();
+    dispatchSetProfileThunk();
   }, [loggedIn]);
 
   return (
@@ -37,12 +37,12 @@ function RouterContainer({ loggedIn, dispatchUpdateProfile }) {
 }
 
 RouterContainer.propTypes = {
-  dispatchUpdateProfile: PropTypes.func,
+  dispatchSetProfileThunk: PropTypes.func,
   loggedIn: PropTypes.bool,
 };
 
 RouterContainer.defaultProps = {
-  dispatchUpdateProfile: () => {},
+  dispatchSetProfileThunk: () => {},
   loggedIn: false,
 };
 
@@ -51,7 +51,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  dispatchUpdateProfile: updateProfile,
+  dispatchSetProfileThunk: setProfileThunk,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RouterContainer);
