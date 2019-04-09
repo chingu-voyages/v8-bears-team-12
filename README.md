@@ -48,6 +48,7 @@ npm run dev
 - `PORT`:  port for Express server
 - `SECRET`: secret for JWT signing
 - `YELP_APIKEY`: Yelp APIKEY
+- `TESTDATA`: Set this and `/api/restaurant-search` will return test data instead of reaching out to YELP
 
 ## Run Scripts
 
