@@ -95,9 +95,8 @@ function authHandlers(app) {
   app.get('/api/restaurant-search/:location/:term', async (req, res) => {
     const { term, location } = req.params;
 
-    // if(process.env.TESTDATA) return res.json(require('./fixtures/example-restaurants'));
-    return res.json(require('./fixtures/example-restaurants'));
-    
+    if(process.env.TESTDATA) return res.json(require('./fixtures/example-restaurants'));
+
     try {
       let response = await yelpSearch(term, location);
       const { businesses } = response.data;
