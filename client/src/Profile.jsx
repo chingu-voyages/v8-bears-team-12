@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Avatar from 'react-avatar-edit';
 
-import { saveProfile } from './actionCreators';
+import { saveProfile, uploadPhoto } from './actionCreators';
 
-function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZipcode, dispatchSaveProfile }) {
+function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZipcode, defaultDietRestrictions, dispatchSaveProfile, dispatchUploadPhoto }) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
   const [zipcode, setZipcode] = useState(defaultZipcode);
   const [interests, setInterests] = useState(defaultInterests);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [dietRestrictions, setDietRestrictions] = useState('');
-  
+  const [dietRestrictions, setDietRestrictions] = useState(defaultDietRestrictions);
+
   const [dietOptionOther, setDietOptionOther] = useState(false);
   const dietOptions = [
     'Choose one',
@@ -33,6 +33,10 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
       setDietOptionOther(true);
     }
     setDietRestrictions(e.target.value);
+  }
+
+  function onFileLoad(file) {
+    dispatchUploadPhoto(file);
   }
 
   function onSubmit(e) {
@@ -65,7 +69,6 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
 
       setPassword('');
       setConfirmPassword('');
-      setDietRestrictions('');
       specifyOtherDiet.current.value = '';
     }
     setDietOptionOther(false);
@@ -77,6 +80,7 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
         <Avatar 
           width={390}
           height={295}
+          onFileLoad={onFileLoad}
         />
       </div>
       <form onSubmit={e => onSubmit(e)}>
@@ -181,9 +185,11 @@ const mapStateToProps = state => ({
   defaultLastName: state.lastName,
   defaultZipcode: state.zipcode,
   defaultInterests: state.interests,
+  defaultDietRestrictions: state.dietRestrictions,
 });
 const mapDispatchToProps = {
   dispatchSaveProfile: saveProfile,
+  dispatchUploadPhoto: uploadPhoto,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

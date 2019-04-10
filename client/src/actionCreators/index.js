@@ -26,9 +26,20 @@ export const saveProfile = (firstName, lastName, password, zipcode, interests, d
   try {
     const response = await axios.post('/api/profile', { firstName, lastName, password, zipcode, interests, dietRestrictions });
     setProfileThunk()(dispatch);
-  } catch(err) {
+  } catch (err) {
     console.error(err.message);
   }
+};
+
+export const uploadPhoto = file => async (dispatch) => {
+  const formData = new FormData();
+  formData.append('image', file);
+  await axios.post('/api/profile-photo-upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  console.log({file});
 };
 
 export const addRestaurant = restaurant => async (dispatch) => {
