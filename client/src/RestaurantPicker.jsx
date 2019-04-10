@@ -20,7 +20,7 @@ function RestaurantPicker() {
   }
 
   return (
-    <div>
+    <>
       <form onSubmit={(e) => { onSubmit(e); setTerm(''); setLocation(''); }}>
         <input
           type="text"
@@ -43,7 +43,7 @@ function RestaurantPicker() {
         <RestaurantList restaurantList={restaurantList} />
       </form>
       <RestaurantsPicked />
-    </div>
+    </>
   );
 }
 
