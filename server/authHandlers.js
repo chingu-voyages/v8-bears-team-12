@@ -3,6 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
 const { ObjectId } = require('mongodb');
 
 const { SECRET } = process.env;
@@ -10,6 +11,8 @@ const { SECRET } = process.env;
 const User = require('./models/User');
 const Restaurant = require('./models/Restaurant');
 const yelpSearch = require('./api/yelpSearch');
+
+const upload = multer();
 
 var cookieExtractor = function(req) {
   var token = null;
@@ -195,9 +198,33 @@ function authHandlers(app) {
       } catch(err) {
         res.status(500).send(err.message);
       }
-    })  
+    })
+
+  app.post(
+    '/api/profile-photo-upload',
+    passport.authenticate('jwt', { session: false }),
+    upload.single('image'),
+    async (req, res) => {
+      console.log('got here');
+      console.log({file: req.file});
+      req.user.image = req.file.buffer;
+      req.user.imageType = req.file.mimetype;
+      await req.user.save();        
+    }
+  )
+
+  app.get('/api/profile-photo/:name', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    try {
+      const {name} = req.params;
+      const user = await User.findOne({name});
+      if(!user || !user.imageType) throw new Error('Not Found');
+      
+      res.type(user.imageType);
+      res.send(user.image);
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+  });
 };
-
-
 
 module.exports = authHandlers;
