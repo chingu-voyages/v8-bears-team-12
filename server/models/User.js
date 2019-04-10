@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const { Schema } = mongoose;
+const PointSchema = require('./PointSchema');
 
 const userSchema = new Schema({
   name: { type: String, unique: true, required: true },
@@ -13,6 +14,9 @@ const userSchema = new Schema({
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   zipcode: String,
+  searchCity: String,
+  searchState: String,
+  searchLocation: { type: PointSchema },
   interests: [String],
   dietRestrictions: String,
   restaurantsList: [{ type: Schema.Types.ObjectId, ref: "Restaurant" }]

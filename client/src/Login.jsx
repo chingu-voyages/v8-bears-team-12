@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
-import { login } from './actionCreators';
+import { loginThunk } from './actionCreators';
 
-function Login({ loginDispatch }) {
+function Login({ dispatchLoginThunk }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,8 +14,7 @@ function Login({ loginDispatch }) {
 
     // handle click
     try {
-      await axios.post('/api/login', { username, password });
-      loginDispatch(username);
+      dispatchLoginThunk({ username, password });
     } catch (err) {
       console.log(err.message); // eslint-disable-line no-console
     }
@@ -54,15 +52,15 @@ function Login({ loginDispatch }) {
 }
 
 Login.propTypes = {
-  loginDispatch: PropTypes.func,
+  dispatchLoginThunk: PropTypes.func,
 };
 
 Login.defaultProps = {
-  loginDispatch: () => {},
+  dispatchLoginThunk: () => {},
 };
 
 const mapDispatchToProps = {
-  loginDispatch: login,
+  dispatchLoginThunk: loginThunk,
 };
 
 export default connect(null, mapDispatchToProps)(Login);

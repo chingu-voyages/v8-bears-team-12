@@ -1,18 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-
-const pointSchema = new mongoose.Schema({
-  type: {
-    type: String,
-    enum: ['Point'],
-    required: true,
-  },
-  coordinates: {
-    type: [Number],
-    required: true,
-  },
-});
+const PointSchema = require('./PointSchema');
 
 const restaurantSchema = new Schema({
   id: { type: String, required: true, unique: true },
@@ -23,7 +12,7 @@ const restaurantSchema = new Schema({
   rating: Number,
   phone: String,
   coords: {
-    type: pointSchema,
+    type: PointSchema,
     required: false,
   },
   users: [{ type: [Schema.Types.ObjectId] }],

@@ -1,16 +1,17 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DiningMateSearch from './DiningMateSearch';
 import DiningMateList from './DiningMateList';
-import { logout } from './actionCreators';
+import { setSearchThunk, logoutThunk } from './actionCreators';
 
-function Dashboard({ logoutDispatch, username }) {
+function Dashboard({ dispatchLogoutThunk, dispatchSetSearchThunk, name, searchCity, searchState, searchLocation }) {
   const diningMates = [];
   function usePosition(position) {
-    console.log({ position }); // eslint-disable-line no-console
+    const { coords: { latitude: lat, longitude: lon }} = position;
+    dispatchSetSearchThunk({ lat, lon });
   }
 
   function doSearch(searchTerm) {
@@ -20,41 +21,53 @@ function Dashboard({ logoutDispatch, username }) {
     }
   }
 
-  async function doLogout() {
-    await axios.get('/api/logout');
-    logoutDispatch();
-  }
-
   return (
     <div>
       <h3>
         Welcome,
         { ' ' }
-        { username }
+        { name }
       </h3>
       <DiningMateSearch doSearch={doSearch} />
       <DiningMateList diningMates={diningMates} />
-      <button type="button" onClick={doLogout}>Logout</button>
+      <ul>
+        <li>city: {searchCity}</li>
+        <li>state: {searchState}</li>
+        <li>location: {searchLocation}</li>
+      </ul>
+      <button type="button" onClick={dispatchLogoutThunk}>Logout</button>
     </div>
   );
 }
 
 Dashboard.propTypes = {
-  username: PropTypes.string,
-  logoutDispatch: PropTypes.func,
+  name: PropTypes.string,
+  searchCity: PropTypes.string,
+  searchState: PropTypes.string,
+  searchLocation: PropTypes.string,
+  dispatchLogoutThunk: PropTypes.func,
+  dispatchSetSearchThunk: PropTypes.func,
 };
 
 Dashboard.defaultProps = {
-  username: '',
-  logoutDispatch: () => {},
+  name: '',
+  searchCity: '',
+  searchState: '',
+  searchLocation: '',
+  dispatchLogoutThunk: () => {},
+  dispatchSetSearchThunk: () => {},
 };
 
 const mapStateToProps = state => ({
-  username: state.username,
+  name: state.name,
+  searchCity: state.searchCity,
+  searchState: state.searchState,
+  searchLocation: state.searchLocation,
 });
 
 const mapDispatchToProps = {
-  logoutDispatch: logout,
+  dispatchLogoutThunk: logoutThunk,
+  dispatchSetSearchThunk: setSearchThunk,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
