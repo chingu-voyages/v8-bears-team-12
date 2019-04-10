@@ -4,8 +4,29 @@ import PropTypes from 'prop-types';
 
 import { addRestaurant, removeRestaurant } from './actionCreators';
 
+const styles = {
+  container: {
+    display: 'grid',
+    gridTemplateColumns: '0.5fr 1fr 0.5fr 0.2fr',
+    gridTemplateAreas: "'image name rating .' 'image location . .' 'image phone . .'",
+    padding: '10px',
+  },
+  name: {
+    gridArea: 'name',
+  },
+  rating: {
+    gridArea: 'rating',
+  },
+  location: {
+    gridArea: 'location',
+  },
+  phone: {
+    gridArea: 'phone',
+  },
+};
+
 function Restaurant({
- restaurant, picked, dispatchAddRestaurant, dispatchRemoveRestaurant 
+  restaurant, picked, dispatchAddRestaurant, dispatchRemoveRestaurant,
 }) {
   const {
     name,
@@ -21,13 +42,39 @@ function Restaurant({
   }
 
   return (
-    <div>
-      {name}
-      {/* {rating}
-      {location}
-      {phone} */}
-      { !picked ? <button type="button" onClick={handleClick}> Add </button> : null }
-      { picked ? <button type="button" onClick={() => dispatchRemoveRestaurant(restaurant._id)}>Remove</button> : null }
+    <div style={styles.container}>
+      <img
+        src={image_url}
+        alt="restaurant"
+        style={{ gridArea: 'image', width: '150px', height: '150px' }}
+      />
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={styles.name}
+      >
+        {name}
+      </a>
+      <div
+        style={styles.rating}
+      >
+        {rating}
+      </div>
+      <div
+        style={styles.location}
+      >
+        {location}
+      </div>
+      <div
+        style={styles.phone}
+      >
+        {phone}
+      </div>
+      <div>
+        { !picked ? <button type="button" onClick={handleClick}>Add</button> : null }
+        { picked ? <button type="button" onClick={() => dispatchRemoveRestaurant(restaurant._id)}>Remove</button> : null }
+      </div>
     </div>
   );
 }

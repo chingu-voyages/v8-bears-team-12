@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { SET_PROFILE, LOGOUT } from '../actionTypes';
 
 export const logout = () => ({ type: LOGOUT });
@@ -8,6 +9,7 @@ export const setProfileThunk = () => async (dispatch) => {
     const response = await axios.get('/api/profile');
     const { data } = response;
     const { user } = data;
+
     dispatch({ type: SET_PROFILE, payload: user });
   } catch (err) {
     dispatch({ type: LOGOUT });
