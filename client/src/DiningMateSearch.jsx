@@ -1,22 +1,36 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
-function DiningMateSearch(props) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const { doSearch } = props;
-
-  function onChange(event) {
-    setSearchTerm(event.target.value);
+function DiningMateSearch({ doSearch }) {
+  const [cities, setCities] = useState([]);
+  async function onChange(event) {
+    if (event.target.value) {
+      const res = await axios.get(`/api/city-choices/${event.target.value}`);
+      setCities(res.data);
+      console.log(res.data);
+    }
   }
+
+  function handleClick(city) {
+    console.log({city});
+  }
+
   return (
     <div>
+      <div>
       <input type="text" onChange={onChange} />
       <button type="button" onClick={() => doSearch(true)}>
-        My location
+        Current location
       </button>
-      <button type="button" onClick={() => doSearch(searchTerm)}>
-        Search
-      </button>
+      </div>
+      <ul>
+        { cities.map((city, i) => {
+          return (
+            <li key={i}><button onClick={() => handleClick(city)}>{city.name}, {city.adminCode}</button></li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
