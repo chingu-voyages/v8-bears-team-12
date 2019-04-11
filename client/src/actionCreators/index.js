@@ -57,7 +57,12 @@ export const logoutThunk = () => async (dispatch) => {
   dispatch({type: LOGOUT});
 }
 
-export const setSearchThunk = ({ lat, lon }) => async (dispatch) => {
-  console.log({ lat, lon });
+export const setSearchLocation = ({
+  lat, lon, city, state, country,
+}) => async (dispatch) => {
+  const data = {
+    lat, lon, city, state, country,
+  };
+  await axios.post('/api/set-search-location', data);
   setProfileThunk()(dispatch);
 };

@@ -11,7 +11,7 @@ const { SECRET } = process.env;
 const User = require('./models/User');
 const Restaurant = require('./models/Restaurant');
 const yelpSearch = require('./api/yelpSearch');
-const { getCityChoices } = require('./utils');
+const { getCityChoices, getClosestCity } = require('./utils');
 
 const upload = multer();
 
@@ -232,6 +232,23 @@ function authHandlers(app) {
       const { searchterm } = req.params;
       const choices = getCityChoices(searchterm);
       res.json(choices);
+  });
+
+  app.post('/api/set-search-location', passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+      let cityInfo = ['lat', 'lon', 'city', 'state', 'country']
+        .reduce((acc,prop) => (acc[prop]=req.body[prop], acc), {});
+
+      const { lat, lon, city } = cityInfo;
+      if ( !lat || !lon ) return res.status(500).send('lat and lon required');
+
+      if(!city) cityInfo = getClosestCity({lat, lon});
+
+      req.user.searchCity = cityInfo.city;
+      req.user.searchState = cityInfo.state;
+      req.user.searchLocation = {type: 'Point', coordinates: [cityInfo.lon, cityInfo.lat]};
+      await req.user.save();
+      res.json({});
   });
 };
 
