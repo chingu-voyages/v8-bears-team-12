@@ -8,7 +8,8 @@ function DiningMateSearch({ doSearch }) {
     if (event.target.value) {
       const res = await axios.get(`/api/city-choices/${event.target.value}`);
       setCities(res.data);
-      console.log(res.data);
+    } else {
+      setCities([]);
     }
   }
 
