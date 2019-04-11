@@ -1,5 +1,5 @@
 const cities = require('all-the-cities');
-
+const bigCities = cities.filter(e => e.country == 'US' && e.population > 4000)
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -19,10 +19,14 @@ function deg2rad(deg) {
 }
 
 function getClosestCity({lat, lon}) {
-  const bigCities = cities
-    .filter(e => e.country == 'US' && e.population > 4000)
+  const bigCitiesPlus = bigCities
     .map(e => ({...e, dist: getDistanceFromLatLonInKm(lat, lon, e.lat, e.lon)}));
-  return  bigCities.reduce((acc, curr) => (curr.dist < acc.dist) ? curr : acc, bigCities[0]);
+  return  bigCitiesPlus.reduce((acc, curr) => (curr.dist < acc.dist) ? curr : acc, bigCitiesPlus[0]);
 }
 
-module.exports = { getClosestCity };
+function getCityChoices(searchTerm) {
+  const regex = new RegExp(searchTerm, 'i');
+  return bigCities.filter(e => e.name.match(regex)).slice(0, 16);
+}
+
+module.exports = { getClosestCity, getCityChoices };

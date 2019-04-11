@@ -11,6 +11,7 @@ const { SECRET } = process.env;
 const User = require('./models/User');
 const Restaurant = require('./models/Restaurant');
 const yelpSearch = require('./api/yelpSearch');
+const { getCityChoices } = require('./utils');
 
 const upload = multer();
 
@@ -224,6 +225,13 @@ function authHandlers(app) {
     } catch (err) {
       res.status(500).send(err.message);
     }
+  });
+
+  app.get('/api/city-choices/:searchterm', passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+      const { searchterm } = req.params;
+      const choices = getCityChoices(searchterm);
+      res.json(choices);
   });
 };
 
