@@ -25,8 +25,9 @@ function getClosestCity({lat, lon}) {
 }
 
 function getCityChoices(searchTerm) {
-  const regex = new RegExp(searchTerm, 'i');
-  return bigCities.filter(e => e.name.match(regex)).slice(0, 16);
+  const term = searchTerm.replace(',', ' ').replace(/\s+/, ' ');
+  const regex = new RegExp(term, 'i');
+  return bigCities.filter(e => (e.name + ' ' + e.adminCode).match(regex)).slice(0, 16);
 }
 
 module.exports = { getClosestCity, getCityChoices };
