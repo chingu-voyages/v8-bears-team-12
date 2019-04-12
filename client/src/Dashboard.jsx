@@ -14,10 +14,10 @@ function Dashboard({ dispatchLogoutThunk, name, searchCity, searchState, searchL
   useEffect(() => {
     const fetchDiningMates = async () => {
       const res = await axios.get('/api/dining-mates');
-      setDiningMates(res.data);
+      setDiningMates(res.data.diningMatches);
     };
     if (searchCity) {
-      //fetchDiningMates();
+      fetchDiningMates();
     }
   }, [searchCity])
 

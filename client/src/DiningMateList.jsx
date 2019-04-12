@@ -7,7 +7,7 @@ function DiningMateList(props) {
   const { diningMates } = props;
   const diningMateElems = diningMates.map(e => (
     <DiningMate
-      key={e.id}
+      key={e._id}
       name={e.name}
       interests={e.interests}
       dietRestrictions={e.dietRestrictions}
