@@ -104,7 +104,7 @@ function authHandlers(app) {
     try {
       let response = await yelpSearch(term, location);
       const { businesses } = response.data;
-      let results = businesses.map(business => {
+      let restaurants = businesses.map(business => {
         const {
           id,
           name,
@@ -127,7 +127,7 @@ function authHandlers(app) {
           phone,
         };
       });
-      res.status(200).json(results);
+      res.status(200).json(restaurants);
     } catch (err) {
       res.status(500).send(err);
     }
@@ -254,15 +254,28 @@ function authHandlers(app) {
   app.get('/api/dining-mates', passport.authenticate('jwt', { session: false }),
     async (req, res) => {
       try {
-        const restaurants = await Restaurant.find({
+        let restaurants = await Restaurant.find({
           coords: {
             $near: {
               $geometry: req.user.searchLocation,
-              $maxDistance: 5000,
+              $maxDistance: 10000,
             },
           }
-        });
-        res.json(restaurants);
+        }, {_id: true, users: true});
+    
+        restaurants.forEach(result => { result.users = result.users.filter(e => !e.equals(req.user._id)); })
+        restaurants = restaurants.filter( e => e.users.length );
+
+        let userIds = new Set();
+        restaurants.forEach(restaurant => {
+          restaurant.users.forEach(userId => {
+            userIds.add(userId);
+            console.log(userId);
+          })
+        })
+        userIds = [...userIds];
+        const restaurantIds = restaurants.map(restaurant => restaurant._id);
+        res.json({restaurantIds, userIds});
       } catch (err) {
         res.status(500).send(err.message);
       }
