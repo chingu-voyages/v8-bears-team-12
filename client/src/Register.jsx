@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { registerUser } from './actionCreators';
 
-function Register() {
+function Register({ dispatchNewUser }) {
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-  const [zipcode, setZipcode] = useState('');
+  // const [zipcode, setZipcode] = useState('');
   const [interests, setInterests] = useState([]);
   const [dietRestrictions, setDietRestrictions] = useState('');
   const [optionOther, setOptionOther] = useState(false);
@@ -31,12 +33,12 @@ function Register() {
     }
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
 
     if (
-      password === password2 &&
-      (dietRestrictions !== '' && dietRestrictions !== 'Choose one...')
+      password === password2
+      && (dietRestrictions !== '' && dietRestrictions !== 'Choose one...')
     ) {
       // create new user
       const newUser = {
@@ -45,14 +47,14 @@ function Register() {
         lastName,
         email,
         password,
-        zipcode,
+        // zipcode,
         interests,
         dietRestrictions,
       };
 
-      console.log({newUser});
-      
-      axios.post('/api/register', {user: newUser});
+      console.log({ newUser });
+
+      dispatchNewUser(newUser);
 
       // reset all fields
       setUsername('');
@@ -61,7 +63,7 @@ function Register() {
       setEmail('');
       setPassword('');
       setPassword2('');
-      setZipcode('');
+      // setZipcode('');
       setInterests([]);
       setDietRestrictions('');
       setOptionOther(false);
@@ -82,7 +84,6 @@ function Register() {
     <div>
       <h1>Sign Up</h1>
       <p>Create your account</p>
-      {/* TODO: Add code for uploading image */}
       <form onSubmit={onSubmit}>
         <div />
         <div>
@@ -145,7 +146,7 @@ function Register() {
             required
           />
         </div>
-        <div>
+        {/* <div>
           <label>Zipcode: </label>
           <input
             type="text"
@@ -154,7 +155,7 @@ function Register() {
             onChange={e => setZipcode(e.target.value)}
             required
           />
-        </div>
+        </div> */}
         <div>
           <label>Interests: </label>
           <input
@@ -169,19 +170,13 @@ function Register() {
         </div>
         <div>
           <label>Diet Restrictions: </label>
-          <select
-            value={dietRestrictions}
-            // onChange={e => setDietRestrictions(e.target.value)}
-            onChange={e => handleOptions(e)}
-          >
+          <select value={dietRestrictions} onChange={e => handleOptions(e)}>
             <option>Choose one...</option>
-            {options.map((i, j) => {
-              return (
-                <option key={i} value={i}>
-                  {i}
-                </option>
-              );
-            })}
+            {options.map((i, j) => (
+              <option key={i} value={i}>
+                {i}
+              </option>
+            ))}
             <option>Other...</option>
           </select>
           <br />
@@ -200,4 +195,18 @@ function Register() {
   );
 }
 
-export default Register;
+Register.propTypes = {
+  dispatchNewUser: PropTypes.func,
+};
+
+Register.defaultProps = {
+  dispatchNewUser: () => {},
+};
+const mapDispatchToProps = {
+  dispatchNewUser: registerUser,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Register);

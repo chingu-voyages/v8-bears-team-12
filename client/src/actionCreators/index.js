@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { SET_PROFILE, LOGOUT } from '../actionTypes';
+import { SET_PROFILE, LOGOUT, GET_ERRORS } from '../actionTypes';
 
 export const logout = () => ({ type: LOGOUT });
 
@@ -20,13 +20,38 @@ export const setProfileThunk = () => async (dispatch) => {
 export const loginThunk = payload => async (dispatch) => {
   await axios.post('/api/login', payload);
   setProfileThunk()(dispatch);
-}
+};
 
-export const saveProfile = (firstName, lastName, password, zipcode, interests, dietRestrictions) => async (dispatch) => {
+// registering the user
+export const registerUser = userData => (dispatch) => {
+  axios
+    .post('/api/register', { user: userData })
+    .then(res => console.log(res.data))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    }));
+};
+
+export const saveProfile = (
+  firstName,
+  lastName,
+  password,
+  zipcode,
+  interests,
+  dietRestrictions,
+) => async (dispatch) => {
   try {
-    const response = await axios.post('/api/profile', { firstName, lastName, password, zipcode, interests, dietRestrictions });
+    const response = await axios.post('/api/profile', {
+      firstName,
+      lastName,
+      password,
+      zipcode,
+      interests,
+      dietRestrictions,
+    });
     setProfileThunk()(dispatch);
-  } catch(err) {
+  } catch (err) {
     console.error(err.message);
   }
 };
@@ -43,8 +68,8 @@ export const removeRestaurant = id => async (dispatch) => {
 
 export const logoutThunk = () => async (dispatch) => {
   await axios.get('/api/logout');
-  dispatch({type: LOGOUT});
-}
+  dispatch({ type: LOGOUT });
+};
 
 export const setSearchThunk = ({ lat, lon }) => async (dispatch) => {
   console.log({ lat, lon });
