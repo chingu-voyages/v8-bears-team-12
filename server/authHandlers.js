@@ -275,7 +275,12 @@ function authHandlers(app) {
         })
         userIds = [...userIds];
         const restaurantIds = restaurants.map(restaurant => restaurant._id);
-        res.json({restaurantIds, userIds});
+
+        const diningMatches = await User.find({_id: {$in: userIds}},
+          {name: true, interests: true, restaurantsList: true}
+          )
+          .populate({path: 'restaurantsList', select: '-users -__v'});
+        res.json({restaurantIds, userIds, diningMatches});
       } catch (err) {
         res.status(500).send(err.message);
       }
