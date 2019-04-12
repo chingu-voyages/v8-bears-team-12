@@ -250,6 +250,23 @@ function authHandlers(app) {
       await req.user.save();
       res.json({});
   });
+
+  app.get('/api/dining-mates', passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+      try {
+        const restaurants = await Restaurant.find({
+          coords: {
+            $near: {
+              $geometry: req.user.searchLocation,
+              $maxDistance: 5000,
+            },
+          }
+        });
+        res.json(restaurants);
+      } catch (err) {
+        res.status(500).send(err.message);
+      }
+  });
 };
 
 module.exports = authHandlers;

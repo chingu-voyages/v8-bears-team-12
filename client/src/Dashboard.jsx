@@ -1,14 +1,25 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import DiningMateSearch from './DiningMateSearch';
 import DiningMateList from './DiningMateList';
 import { logoutThunk } from './actionCreators';
 
 function Dashboard({ dispatchLogoutThunk, name, searchCity, searchState, searchLocation }) {
-  const diningMates = [];
+  const [diningMates, setDiningMates] = useState([]);
+
+  useEffect(() => {
+    const fetchDiningMates = async () => {
+      const res = await axios.get('/api/dining-mates');
+      setDiningMates(res.data);
+    };
+    if (searchCity) {
+      //fetchDiningMates();
+    }
+  }, [searchCity])
 
   return (
     <div>
@@ -18,12 +29,12 @@ function Dashboard({ dispatchLogoutThunk, name, searchCity, searchState, searchL
         { name }
       </h3>
       <DiningMateSearch />
-      <DiningMateList diningMates={diningMates} />
       <ul>
         <li>city: {searchCity}</li>
         <li>state: {searchState}</li>
         <li>location: {JSON.stringify(searchLocation.coordinates)}</li>
       </ul>
+      <DiningMateList diningMates={diningMates} />
       <button type="button" onClick={dispatchLogoutThunk}>Logout</button>
     </div>
   );

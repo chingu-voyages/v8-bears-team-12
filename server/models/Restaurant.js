@@ -18,4 +18,8 @@ const restaurantSchema = new Schema({
   users: [{ type: [Schema.Types.ObjectId] }],
 });
 
+restaurantSchema.index({
+  coords: '2dsphere',
+});
+
 module.exports = mongoose.model('Restaurant', restaurantSchema);
