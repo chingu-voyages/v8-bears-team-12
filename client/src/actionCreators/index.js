@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { SET_PROFILE, LOGOUT, GET_ERRORS } from '../actionTypes';
+import { SET_PROFILE, LOGOUT } from '../actionTypes';
 
 export const logout = () => ({ type: LOGOUT });
 
@@ -24,13 +24,7 @@ export const loginThunk = payload => async (dispatch) => {
 
 // registering the user
 export const registerUser = userData => (dispatch) => {
-  axios
-    .post('/api/register', { user: userData })
-    .then(res => console.log(res.data))
-    .catch(err => dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data,
-    }));
+  axios.post('/api/register', { user: userData });
 };
 
 export const saveProfile = (

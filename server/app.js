@@ -33,8 +33,15 @@ app.set('views', 'server/views');
 app.set('view engine', 'html');
 
 app.post('/api/register', async (req, res) => {
-  console.log({theBody: req.body});
-  const {firstName, lastName, name, email, password, interests} = req.body.user;
+  console.log({ theBody: req.body });
+  const {
+    firstName,
+    lastName,
+    name,
+    email,
+    password,
+    interests,
+  } = req.body.user;
   try {
     let user = new User({
       name,
@@ -45,14 +52,16 @@ app.post('/api/register', async (req, res) => {
       interests,
     });
 
+    const same = await User.findOne({ email });
+    if (same) throw new Error(`User with this email already exists: ${email}`);
+
     await user.save();
     res.send('ok');
   } catch (err) {
     console.error(err);
     res.status(500).send(err.message);
   }
-  
-})
+});
 
 authHandlers(app);
 app.get('*', (req, res) => {

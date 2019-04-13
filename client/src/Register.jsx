@@ -33,7 +33,7 @@ function Register({ dispatchNewUser }) {
     }
   }
 
-  async function onSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault();
 
     if (
@@ -69,6 +69,7 @@ function Register({ dispatchNewUser }) {
       setOptionOther(false);
       otherOption.current.value = '';
     }
+
     if (password !== password2) {
       alert("Passwords don't match!");
       setPassword('');

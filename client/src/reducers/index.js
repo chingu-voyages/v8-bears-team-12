@@ -1,9 +1,7 @@
-import { SET_PROFILE, LOGOUT, GET_ERRORS } from '../actionTypes';
+import { SET_PROFILE, LOGOUT } from '../actionTypes';
 
 const reducer = (state = { user: {}, loggedIn: false, loading: true }, action) => {
   switch (action.type) {
-    case GET_ERRORS:
-      return action.payload;
     case SET_PROFILE:
       return {
         ...state,
