@@ -25,6 +25,7 @@ if (DEBUG) {
 if (!DEBUG) app.use(express.static('./client/build'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
 
@@ -32,7 +33,7 @@ app.engine('html', es6Renderer);
 app.set('views', 'server/views');
 app.set('view engine', 'html');
 
-app.post('/api/register', async (req, res) => {
+app.post('/api/register', (req, res) => {
   console.log({ theBody: req.body });
   const {
     firstName,
@@ -42,25 +43,22 @@ app.post('/api/register', async (req, res) => {
     password,
     interests,
   } = req.body.user;
-  try {
-    let user = new User({
-      name,
-      firstName,
-      lastName,
-      email,
-      password,
-      interests,
-    });
 
-    const same = await User.findOne({ email });
-    if (same) throw new Error(`User with this email already exists: ${email}`);
-
-    await user.save();
-    res.send('ok');
-  } catch (err) {
-    console.error(err);
-    res.status(500).send(err.message);
-  }
+  User.findOne({ email }).then((user) => {
+    if (user) {
+      return res.status(400).json({ email: 'Email already exists' });
+    } else {
+      let user = new User({
+        name,
+        firstName,
+        lastName,
+        email,
+        password,
+        interests,
+      });
+      user.save().then((user) => res.json(user));
+    }
+  });
 });
 
 authHandlers(app);
