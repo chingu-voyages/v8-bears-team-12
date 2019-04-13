@@ -40,6 +40,13 @@ passport.use(
   })
 );
 
+function addJwtCookie(res, objId) {
+  const maxAge = 86400000;
+  const expiresIn = '1d';
+  const token = jwt.sign({ sub: objId.toString() }, SECRET, { expiresIn });
+  res.cookie('jwt', token, { maxAge, httpOnly: true });
+}
+
 function authHandlers(app) {
   app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
@@ -53,10 +60,7 @@ function authHandlers(app) {
       let same = await bcrypt.compare(password, user.password);
       if (!same) throw new Error(`Invalid password for ${username}`);
 
-      const maxAge = 86400000;
-      const expiresIn = '1d';
-      const token = jwt.sign({ sub: user._id.toString() }, SECRET, { expiresIn });
-      res.cookie('jwt', token, { maxAge, httpOnly: true });
+      addJwtCookie(res, user._id)
       res.send('Ok');
     } catch (err) {
       console.log(err.message);
