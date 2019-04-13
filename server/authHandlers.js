@@ -274,12 +274,16 @@ function authHandlers(app) {
           })
         })
         userIds = [...userIds];
-        const restaurantIds = restaurants.map(restaurant => restaurant._id);
+        const restaurantIds = restaurants.map(restaurant => restaurant._id).toString();
 
         const diningMatches = await User.find({_id: {$in: userIds}},
           {name: true, interests: true, dietRestrictions: true, restaurantsList: true}
           )
           .populate({path: 'restaurantsList', select: '-users -__v'});
+        diningMatches.forEach(match => {
+          match.restaurantsList = match.restaurantsList.filter(
+            e => restaurantIds.indexOf(e._id.toString()) !== -1);
+        });
         res.json({restaurantIds, userIds, diningMatches});
       } catch (err) {
         res.status(500).send(err.message);
