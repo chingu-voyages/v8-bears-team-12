@@ -48,7 +48,7 @@ function Register({ dispatchNewUser }) {
         email,
         password,
         // zipcode,
-        interests,
+        interests: interests.split(',').splice(0, 5),
         dietRestrictions,
       };
 
