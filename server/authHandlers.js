@@ -31,7 +31,7 @@ passport.use(
   new JwtStrategy(opts, async function(jwt_payload, done) {
     try {
       const { sub } = jwt_payload;
-      const user = await User.findOne({ name: sub }, { password: false })
+      const user = await User.findOne({ _id: ObjectId(sub) }, { password: false })
         .populate({path: 'restaurantsList', select: '-users'});
       done(null, user || false);
     } catch (err) {
@@ -55,7 +55,7 @@ function authHandlers(app) {
 
       const maxAge = 86400000;
       const expiresIn = '1d';
-      const token = jwt.sign({ sub: username }, SECRET, { expiresIn });
+      const token = jwt.sign({ sub: user._id.toString() }, SECRET, { expiresIn });
       res.cookie('jwt', token, { maxAge, httpOnly: true });
       res.send('Ok');
     } catch (err) {
