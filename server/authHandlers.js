@@ -36,6 +36,7 @@ function authHandlers(app) {
   require('./api/login')(app);
   require('./api/profile')(app);
   require('./api/logout')(app);
+  require('./api/forgot')(app);
   require('./api/restaurant-search')(app);
   require('./api/restaurant-choice')(app);
   require('./api/profile-photo-upload')(app);
