@@ -10,7 +10,7 @@ const { SECRET } = process.env;
 
 const User = require('./models/User');
 const Restaurant = require('./models/Restaurant');
-const yelpSearch = require('./api/yelpSearch');
+const yelpSearch = require('./yelpSearch');
 const { getCityChoices, getClosestCity } = require('./utils');
 
 const upload = multer();
