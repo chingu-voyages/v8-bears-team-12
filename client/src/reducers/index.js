@@ -5,7 +5,7 @@ const reducer = (state = { user: {}, loggedIn: false, loading: true }, action) =
     case SET_PROFILE:
       return {
         ...state,
-        user: action.payload,
+        ...action.payload,
         loggedIn: true,
         loading: false,
       };
