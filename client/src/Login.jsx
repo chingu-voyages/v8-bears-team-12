@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
 
 import { loginThunk } from './actionCreators';
 
@@ -41,7 +42,13 @@ function Login({ dispatchLoginThunk }) {
             required
           />
         </div>
-        <input type="submit" />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Submit
+        </Button>
       </form>
       <span>
         New user?

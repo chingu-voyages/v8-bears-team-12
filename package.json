@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/chingu-voyages/v8-bears-team-12#readme",
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "all-the-cities": "^2.0.1",
     "axios": "^0.18.0",
     "babel-jest": "^24.7.0",
