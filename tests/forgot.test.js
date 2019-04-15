@@ -1,9 +1,9 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const request = require('supertest');
-const express = require('express');
-const forgot = require('../server/api/forgot');
-const mongoose = require('mongoose');
+const request = require("supertest");
+const express = require("express");
+const forgot = require("../server/api/forgot");
+const mongoose = require("mongoose");
 
 let connection;
 
@@ -15,14 +15,16 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-jest.mock('../server/models/User', () => ({
-  findOne: () => { return Promise.resolve({
-    _id: 12345,
-    save: () => {}
-  })},
+jest.mock("../server/models/User", () => ({
+  findOne: () => {
+    return Promise.resolve({
+      _id: 12345,
+      save: () => {}
+    });
+  }
 }));
 
-it('sends email to user to reset password', async () => {
+it("sends email to user to reset password", async () => {
   expect.assertions(1);
 
   const app = express();
@@ -30,9 +32,7 @@ it('sends email to user to reset password', async () => {
   forgot(app);
 
   const response = await request(app)
-    .post('/api/forgot')
-    .send({'email': 'sohyunlee53@gmail.com'})
-  ;
-
+    .post("/api/forgot")
+    .send({ email: process.env.TESTEMAIL });
   expect(response.status).toBe(200);
 });
