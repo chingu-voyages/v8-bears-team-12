@@ -33,6 +33,7 @@ passport.use(
 );
 
 function authHandlers(app) {
+  require('./api/register')(app);
   require('./api/login')(app);
   require('./api/profile')(app);
   require('./api/logout')(app);
