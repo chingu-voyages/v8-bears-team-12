@@ -20,11 +20,30 @@ export const setProfileThunk = () => async (dispatch) => {
 export const loginThunk = payload => async (dispatch) => {
   await axios.post('/api/login', payload);
   setProfileThunk()(dispatch);
-}
+};
 
-export const saveProfile = (firstName, lastName, password, zipcode, interests, dietRestrictions) => async (dispatch) => {
+// registering the user
+export const registerUser = userData => (dispatch) => {
+  axios.post('/api/register', { user: userData });
+};
+
+export const saveProfile = (
+  firstName,
+  lastName,
+  password,
+  zipcode,
+  interests,
+  dietRestrictions,
+) => async (dispatch) => {
   try {
-    const response = await axios.post('/api/profile', { firstName, lastName, password, zipcode, interests, dietRestrictions });
+    const response = await axios.post('/api/profile', {
+      firstName,
+      lastName,
+      password,
+      zipcode,
+      interests,
+      dietRestrictions,
+    });
     setProfileThunk()(dispatch);
   } catch (err) {
     console.error(err.message);
@@ -54,8 +73,8 @@ export const removeRestaurant = id => async (dispatch) => {
 
 export const logoutThunk = () => async (dispatch) => {
   await axios.get('/api/logout');
-  dispatch({type: LOGOUT});
-}
+  dispatch({ type: LOGOUT });
+};
 
 export const setSearchLocation = ({
   lat, lon, city, state, country,
