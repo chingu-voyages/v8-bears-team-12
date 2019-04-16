@@ -29,6 +29,10 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
     setPreview(currView);
   }
 
+  function onClose() {
+    setPreview(null);
+  }
+
   function onFileLoad(file) {
     dispatchUploadPhoto(file);
   }
@@ -82,7 +86,7 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
           width={390}
           height={295}
           onCrop={onCrop}
-          // onClose={}
+          onClose={onClose}
           // onBeforeFileLoad={}
           // src={}
           onFileLoad={onFileLoad}
