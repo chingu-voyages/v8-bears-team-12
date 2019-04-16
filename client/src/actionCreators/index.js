@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-import { SET_PROFILE, LOGOUT } from '../actionTypes';
-
-export const logout = () => ({ type: LOGOUT });
+import { SET_PROFILE, REMOVE_PROFILE } from '../actionTypes';
 
 export const setProfileThunk = () => async (dispatch) => {
   try {
@@ -12,7 +10,7 @@ export const setProfileThunk = () => async (dispatch) => {
 
     dispatch({ type: SET_PROFILE, payload: user });
   } catch (err) {
-    dispatch({ type: LOGOUT });
+    dispatch({ type: REMOVE_PROFILE });
     console.log(err.message); // eslint-disable-line no-console
   }
 };
@@ -58,7 +56,7 @@ export const uploadPhoto = file => async (dispatch) => {
       'Content-Type': 'multipart/form-data',
     },
   });
-  console.log({file});
+  console.log({ file });
 };
 
 export const addRestaurant = restaurant => async (dispatch) => {
@@ -73,14 +71,18 @@ export const removeRestaurant = id => async (dispatch) => {
 
 export const logoutThunk = () => async (dispatch) => {
   await axios.get('/api/logout');
-  dispatch({ type: LOGOUT });
+  dispatch({ type: REMOVE_PROFILE });
 };
 
 export const setSearchLocation = ({
   lat, lon, city, state, country,
 }) => async (dispatch) => {
   const data = {
-    lat, lon, city, state, country,
+    lat,
+    lon,
+    city,
+    state,
+    country,
   };
   await axios.post('/api/set-search-location', data);
   setProfileThunk()(dispatch);
