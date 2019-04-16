@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const es6Renderer = require('express-es6-template-engine');
 
@@ -24,37 +23,16 @@ if (DEBUG) {
 
 if (!DEBUG) app.use(express.static('./client/build'));
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.engine('html', es6Renderer);
 app.set('views', 'server/views');
 app.set('view engine', 'html');
 
-app.post('/api/register', async (req, res) => {
-  console.log({theBody: req.body});
-  const {firstName, lastName, name, email, password, interests} = req.body.user;
-  try {
-    let user = new User({
-      name,
-      firstName,
-      lastName,
-      email,
-      password,
-      interests,
-    });
-
-    await user.save();
-    res.send('ok');
-  } catch (err) {
-    console.error(err);
-    res.status(500).send(err.message);
-  }
-  
-})
-
 authHandlers(app);
+
 app.get('*', (req, res) => {
   res.render('index', { locals: { DEBUG } });
 });

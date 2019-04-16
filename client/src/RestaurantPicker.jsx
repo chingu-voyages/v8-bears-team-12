@@ -3,11 +3,6 @@ import axios from 'axios';
 import RestaurantList from './RestaurantList';
 import RestaurantsPicked from './RestaurantsPicked';
 
-/*
-Will include a search box allow up to five restaurants to be added to a list
-It should also allow removal of restaurants from the list
-*/
-
 function RestaurantPicker() {
   const [term, setTerm] = useState('');
   const [location, setLocation] = useState('');
@@ -25,7 +20,7 @@ function RestaurantPicker() {
   }
 
   return (
-    <div>
+    <>
       <form onSubmit={(e) => { onSubmit(e); setTerm(''); setLocation(''); }}>
         <input
           type="text"
@@ -43,12 +38,12 @@ function RestaurantPicker() {
         />
         <input
           type="submit"
-          value="Submit"
+          value="Find"
         />
         <RestaurantList restaurantList={restaurantList} />
       </form>
       <RestaurantsPicked />
-    </div>
+    </>
   );
 }
 

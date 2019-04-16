@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { SET_PROFILE, LOGOUT } from '../actionTypes';
 
 export const logout = () => ({ type: LOGOUT });
@@ -8,6 +9,7 @@ export const setProfileThunk = () => async (dispatch) => {
     const response = await axios.get('/api/profile');
     const { data } = response;
     const { user } = data;
+
     dispatch({ type: SET_PROFILE, payload: user });
   } catch (err) {
     dispatch({ type: LOGOUT });
@@ -18,15 +20,45 @@ export const setProfileThunk = () => async (dispatch) => {
 export const loginThunk = payload => async (dispatch) => {
   await axios.post('/api/login', payload);
   setProfileThunk()(dispatch);
-}
+};
 
-export const saveProfile = (firstName, lastName, password, zipcode, interests, dietRestrictions) => async (dispatch) => {
+// registering the user
+export const registerUser = userData => (dispatch) => {
+  axios.post('/api/register', { user: userData });
+};
+
+export const saveProfile = (
+  firstName,
+  lastName,
+  password,
+  zipcode,
+  interests,
+  dietRestrictions,
+) => async (dispatch) => {
   try {
-    const response = await axios.post('/api/profile', { firstName, lastName, password, zipcode, interests, dietRestrictions });
+    const response = await axios.post('/api/profile', {
+      firstName,
+      lastName,
+      password,
+      zipcode,
+      interests,
+      dietRestrictions,
+    });
     setProfileThunk()(dispatch);
-  } catch(err) {
+  } catch (err) {
     console.error(err.message);
   }
+};
+
+export const uploadPhoto = file => async (dispatch) => {
+  const formData = new FormData();
+  formData.append('image', file);
+  await axios.post('/api/profile-photo-upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  console.log({file});
 };
 
 export const addRestaurant = restaurant => async (dispatch) => {
@@ -41,10 +73,15 @@ export const removeRestaurant = id => async (dispatch) => {
 
 export const logoutThunk = () => async (dispatch) => {
   await axios.get('/api/logout');
-  dispatch({type: LOGOUT});
-}
+  dispatch({ type: LOGOUT });
+};
 
-export const setSearchThunk = ({ lat, lon }) => async (dispatch) => {
-  console.log({ lat, lon });
+export const setSearchLocation = ({
+  lat, lon, city, state, country,
+}) => async (dispatch) => {
+  const data = {
+    lat, lon, city, state, country,
+  };
+  await axios.post('/api/set-search-location', data);
   setProfileThunk()(dispatch);
 };

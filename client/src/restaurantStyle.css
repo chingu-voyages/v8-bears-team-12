@@ -1,0 +1,27 @@
+.container {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 0.5fr 0.2fr;
+  grid-template-areas: 'image name rating .' 'image location . .' 'image phone . .';
+  padding: 7px;
+}
+
+.container > div {
+  font-size: 15px;
+  text-align: left;
+}
+
+.name {
+  grid-area: name;
+}
+
+.rating {
+  grid-area: rating;
+}
+
+.location {
+  grid-area: location;
+}
+
+.phone {
+  grid-area: phone;
+}

@@ -18,9 +18,10 @@ function DiningMate(props) {
       <ul>
         <li>{name}</li>
         <li>{interests.join(', ')}</li>
-        <li>{dietRestrictions.join(', ')}</li>
-        <li>{restaurantsList.join(', ')}</li>
+        <li>{dietRestrictions}</li>
+        <li>{restaurantsList.map(e => e.name).join(', ')}</li>
       </ul>
+
     </div>
   );
 }
@@ -29,7 +30,7 @@ DiningMate.propTypes = {
   name: PropTypes.string,
   interests: PropTypes.arrayOf(PropTypes.string),
   dietRestrictions: PropTypes.arrayOf(PropTypes.string),
-  restaurantsList: PropTypes.arrayOf(PropTypes.string),
+  restaurantsList: PropTypes.arrayOf(PropTypes.object),
 };
 
 DiningMate.defaultProps = {
