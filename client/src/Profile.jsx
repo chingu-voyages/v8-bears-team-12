@@ -33,6 +33,13 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
     setPreview(null);
   }
 
+  function onBeforeFileLoad(file) {
+    if (file.target.files[0].size > 300000) {
+      alert('File is too big!');
+      file.target.value = '';
+    }
+  }
+
   function onFileLoad(file) {
     dispatchUploadPhoto(file);
   }
@@ -82,12 +89,12 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
   return (
     <div>
       <div>
-        <Avatar 
+        <Avatar
           width={390}
           height={295}
           onCrop={onCrop}
           onClose={onClose}
-          // onBeforeFileLoad={}
+          onBeforeFileLoad={onBeforeFileLoad}
           // src={}
           onFileLoad={onFileLoad}
         />
