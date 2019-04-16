@@ -12,8 +12,9 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [dietRestrictions, setDietRestrictions] = useState(defaultDietRestrictions);
-
   const [dietOptionOther, setDietOptionOther] = useState(false);
+  const [preview, setPreview] = useState(null);
+  // const [src, setSrc] = useState('');
   const dietOptions = [
     'Choose one',
     'None - I eat anything & everything!',
@@ -24,19 +25,19 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
   ];
   const specifyOtherDiet = React.createRef();
 
-  // May use later for the avatar
-  // const [preview, setPreview] = useState(null);
-  // const [src, setSrc] = useState('');
+  function onCrop(currView) {
+    setPreview(currView);
+  }
+
+  function onFileLoad(file) {
+    dispatchUploadPhoto(file);
+  }
 
   function handleDietOption(e) {
     if (e.target.value === 'Other') {
       setDietOptionOther(true);
     }
     setDietRestrictions(e.target.value);
-  }
-
-  function onFileLoad(file) {
-    dispatchUploadPhoto(file);
   }
 
   function onSubmit(e) {
@@ -80,8 +81,13 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
         <Avatar 
           width={390}
           height={295}
+          onCrop={onCrop}
+          // onClose={}
+          // onBeforeFileLoad={}
+          // src={}
           onFileLoad={onFileLoad}
         />
+        <img src={preview} alt="Preview" />
       </div>
       <form onSubmit={e => onSubmit(e)}>
         <label>
