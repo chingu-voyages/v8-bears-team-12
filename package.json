@@ -24,11 +24,11 @@
   "homepage": "https://github.com/chingu-voyages/v8-bears-team-12#readme",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
     "all-the-cities": "^2.0.1",
     "axios": "^0.18.0",
     "babel-jest": "^24.7.0",
     "bcrypt": "^3.0.5",
-    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
     "css-loader": "^2.1.1",
     "dotenv": "^7.0.0",
