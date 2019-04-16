@@ -4,17 +4,27 @@ import Avatar from 'react-avatar-edit';
 
 import { saveProfile, uploadPhoto } from './actionCreators';
 
-function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZipcode, defaultDietRestrictions, dispatchSaveProfile, dispatchUploadPhoto }) {
+function Profile({
+  defaultFirstName,
+  defaultLastName,
+  defaultInterests,
+  defaultZipcode,
+  defaultDietRestrictions,
+  dispatchSaveProfile,
+  dispatchUploadPhoto,
+}) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
   const [zipcode, setZipcode] = useState(defaultZipcode);
   const [interests, setInterests] = useState(defaultInterests);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [dietRestrictions, setDietRestrictions] = useState(defaultDietRestrictions);
+  const [dietRestrictions, setDietRestrictions] = useState(
+    defaultDietRestrictions,
+  );
   const [dietOptionOther, setDietOptionOther] = useState(false);
   const [preview, setPreview] = useState(null);
-  // const [src, setSrc] = useState('');
+  const [src] = useState('');
   const dietOptions = [
     'Choose one',
     'None - I eat anything & everything!',
@@ -27,6 +37,7 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
 
   function onCrop(currView) {
     setPreview(currView);
+    console.log('this is src', src);
   }
 
   function onClose() {
@@ -64,7 +75,10 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
       alert('choose an option for diet restriction');
     }
 
-    if (password === confirmPassword && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')) {
+    if (
+      password === confirmPassword &&
+      (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
+    ) {
       // alert('changes are successfully saved');
 
       const userChanges = {
@@ -76,7 +90,14 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
         dietRestrictions,
       };
 
-      dispatchSaveProfile(firstName, lastName, password, zipcode, interests, dietRestrictions);
+      dispatchSaveProfile(
+        firstName,
+        lastName,
+        password,
+        zipcode,
+        interests,
+        dietRestrictions
+      );
       console.log('this is userChanges', userChanges);
 
       setPassword('');
@@ -95,7 +116,7 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
           onCrop={onCrop}
           onClose={onClose}
           onBeforeFileLoad={onBeforeFileLoad}
-          // src={}
+          src={src}
           onFileLoad={onFileLoad}
         />
         <img src={preview} alt="Preview" />
@@ -169,10 +190,7 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
           >
             {dietOptions.map((option, i) => {
               return (
-                <option
-                  key={i}
-                  value={option}
-                >
+                <option key={i} value={option}>
                   {option}
                 </option>
               );
@@ -188,10 +206,7 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
           onChange={e => handleDietOption(e)}
         />
         <br />
-        <input
-          type="submit"
-          value="Save"
-        />
+        <input type="submit" value="Save" />
       </form>
     </div>
   );
@@ -209,4 +224,7 @@ const mapDispatchToProps = {
   dispatchUploadPhoto: uploadPhoto,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Profile);
