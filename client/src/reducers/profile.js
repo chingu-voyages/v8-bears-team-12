@@ -6,7 +6,6 @@ const profile = (state = {}, action) => {
       return {
         ...state,
         ...action.payload,
-        user: {},
         loggedIn: true,
         loading: false,
       };
