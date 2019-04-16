@@ -2,6 +2,11 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
 import { registerUser } from './actionCreators';
 
 const validate = (values) => {
@@ -29,11 +34,11 @@ const renderField = ({
   input, label, type, meta: { touched, error, warning },
 }) => (
   <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type} />
+    <FormControl>
+      <InputLabel>{label}</InputLabel>
+      <Input {...input} type={type} />
       {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-    </div>
+    </FormControl>
   </div>
 );
 
@@ -79,30 +84,43 @@ const Register = ({
         <Field name="email" type="email" component={renderField} label="Email" />
         <Field name="password" type="password" component={renderField} label="Password" />
         <Field name="interests" type="text" component={renderField} label="Interests" />
-        <label>Diet Restrictions</label>
-        <div>
-          <Field name="dietRestrictions" component="select">
-            <option />
+        <FormControl style={{ marginTop: '35px', marginBottom: '20px' }}>
+          <InputLabel style={{ marginTop: '-40px' }}>Diet Restrictions</InputLabel>
+          <Field
+            style={{ minHeight: '30px', fontSize: '105%' }}
+            name="dietRestrictions"
+            component="select"
+          >
+            <option> Select </option>
             {options.map((i, j) => (
               <option key={i} value={i}>
                 {i}
               </option>
             ))}
           </Field>
-        </div>
+          {/* <FormHelperText>Diet Restrictions</FormHelperText> */}
+        </FormControl>
         <br />
         <div>
-          <button type="submit" disabled={submitting} style={{ margin: '5px' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={submitting}
+            style={{ margin: '5px' }}
+          >
             Submit
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            type="Button"
+            variant="contained"
+            color="primary"
             style={{ margin: '5px' }}
             disabled={pristine || submitting}
             onClick={reset}
           >
             Clear Values
-          </button>
+          </Button>
         </div>
       </form>
     </div>
