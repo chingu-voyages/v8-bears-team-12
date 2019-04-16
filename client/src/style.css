@@ -50,3 +50,12 @@ main {
   align-items: center;
   overflow-y: scroll;
 }
+
+span {
+  color: red;
+  display: inline;
+}
+
+button span {
+  color: white;
+}

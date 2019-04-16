@@ -29,9 +29,9 @@ function Header({ loggedIn, name }) {
   );
 }
 
-const mapStateToProps = state => ({
-  loggedIn: state.loggedIn,
-  name: state.name,
+const mapStateToProps = ({ profile }) => ({
+  loggedIn: profile.loggedIn,
+  name: profile.name,
 });
 
 Header.propTypes = {
@@ -44,4 +44,7 @@ Header.defaultProps = {
   name: '',
 };
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(
+  mapStateToProps,
+  null,
+)(Header);

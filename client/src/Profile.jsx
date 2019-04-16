@@ -110,6 +110,7 @@ function Profile({
   return (
     <div>
       <div>
+
         <Avatar
           width={390}
           height={295}
@@ -144,11 +145,7 @@ function Profile({
         <br />
         <label>
           Password:
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         </label>
         <br />
         <label>
@@ -162,12 +159,7 @@ function Profile({
         <br />
         <label>
           Zipcode:
-          <input
-            type="text"
-            value={zipcode}
-            onChange={e => setZipcode(e.target.value)}
-            required
-          />
+          <input type="text" value={zipcode} onChange={e => setZipcode(e.target.value)} required />
         </label>
         <br />
         <label>
@@ -183,18 +175,12 @@ function Profile({
         <br />
         <label>
           Diet Restrictions:
-          <select
-            value={dietRestrictions}
-            onChange={e => handleDietOption(e)}
-            required
-          >
-            {dietOptions.map((option, i) => {
-              return (
-                <option key={i} value={option}>
-                  {option}
-                </option>
-              );
-            })}
+          <select value={dietRestrictions} onChange={e => handleDietOption(e)} required>
+            {dietOptions.map((option, i) => (
+              <option key={i} value={option}>
+                {option}
+              </option>
+            ))}
           </select>
         </label>
         <input
@@ -212,12 +198,12 @@ function Profile({
   );
 }
 
-const mapStateToProps = state => ({
-  defaultFirstName: state.firstName,
-  defaultLastName: state.lastName,
-  defaultZipcode: state.zipcode,
-  defaultInterests: state.interests,
-  defaultDietRestrictions: state.dietRestrictions,
+const mapStateToProps = ({ profile }) => ({
+  defaultFirstName: profile.firstName,
+  defaultLastName: profile.lastName,
+  defaultZipcode: profile.zipcode,
+  defaultInterests: profile.interests,
+  defaultDietRestrictions: profile.dietRestrictions,
 });
 const mapDispatchToProps = {
   dispatchSaveProfile: saveProfile,

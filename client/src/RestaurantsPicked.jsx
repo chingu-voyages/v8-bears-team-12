@@ -8,14 +8,16 @@ function RestaurantsPicked({ restaurantsList }) {
     <div>
       <h3>My Restaurants</h3>
       <div>
-        {restaurantsList.map(e => <Restaurant key={e.id} picked restaurant={e} />)}
+        {restaurantsList.map(e => (
+          <Restaurant key={e.id} picked restaurant={e} />
+        ))}
       </div>
     </div>
   );
 }
 
-const mapStateToProps = state => ({
-  restaurantsList: state.restaurantsList,
+const mapStateToProps = ({ profile }) => ({
+  restaurantsList: profile.restaurantsList,
 });
 
 RestaurantsPicked.propTypes = {

@@ -10,9 +10,9 @@ function Home({ loggedIn, loading }) {
   return <>{loggedIn ? <Dashboard /> : <Login />}</>;
 }
 
-const mapStateToProps = state => ({
-  loggedIn: state.loggedIn,
-  loading: state.loading,
+const mapStateToProps = ({ profile }) => ({
+  loggedIn: profile.loggedIn,
+  loading: profile.loading,
 });
 
 Home.propTypes = {
@@ -25,4 +25,7 @@ Home.defaultProps = {
   loading: true,
 };
 
-export default connect(mapStateToProps, null)(Home);
+export default connect(
+  mapStateToProps,
+  null,
+)(Home);
