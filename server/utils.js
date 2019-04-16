@@ -1,4 +1,5 @@
 const cities = require('all-the-cities');
+
 const bigCities = cities.filter(e => e.country == 'US' && e.population > 4000)
   .map(e => { 
     e.state = e.adminCode;
@@ -8,6 +9,7 @@ const bigCities = cities.filter(e => e.country == 'US' && e.population > 4000)
     delete e.featureCode;
     return e;
   });
+
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
