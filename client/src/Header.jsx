@@ -12,21 +12,20 @@ function Header({ loggedIn, name }) {
         <h1>Meet and Eat</h1>
         {loggedIn ? (
           <h3>
-            Welcome,
-            {' '}
-            { name }
-            !
+Welcome,
+            {name}
+!
           </h3>
-        ) : null }
+        ) : null}
       </div>
       <NavMenu />
     </header>
   );
 }
 
-const mapStateToProps = state => ({
-  loggedIn: state.loggedIn,
-  name: state.name,
+const mapStateToProps = ({ profile }) => ({
+  loggedIn: profile.loggedIn,
+  name: profile.name,
 });
 
 Header.propTypes = {
@@ -39,4 +38,7 @@ Header.defaultProps = {
   name: '',
 };
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(
+  mapStateToProps,
+  null,
+)(Header);

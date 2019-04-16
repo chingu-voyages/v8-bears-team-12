@@ -4,7 +4,15 @@ import Avatar from 'react-avatar-edit';
 
 import { saveProfile, uploadPhoto } from './actionCreators';
 
-function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZipcode, defaultDietRestrictions, dispatchSaveProfile, dispatchUploadPhoto }) {
+function Profile({
+  defaultFirstName,
+  defaultLastName,
+  defaultInterests,
+  defaultZipcode,
+  defaultDietRestrictions,
+  dispatchSaveProfile,
+  dispatchUploadPhoto,
+}) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
   const [zipcode, setZipcode] = useState(defaultZipcode);
@@ -52,7 +60,10 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
       alert('choose an option for diet restriction');
     }
 
-    if (password === confirmPassword && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')) {
+    if (
+      password === confirmPassword
+      && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
+    ) {
       // alert('changes are successfully saved');
 
       const userChanges = {
@@ -77,11 +88,7 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
   return (
     <div>
       <div>
-        <Avatar 
-          width={390}
-          height={295}
-          onFileLoad={onFileLoad}
-        />
+        <Avatar width={390} height={295} onFileLoad={onFileLoad} />
       </div>
       <form onSubmit={e => onSubmit(e)}>
         <label>
@@ -106,11 +113,7 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
         <br />
         <label>
           Password:
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         </label>
         <br />
         <label>
@@ -124,12 +127,7 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
         <br />
         <label>
           Zipcode:
-          <input
-            type="text"
-            value={zipcode}
-            onChange={e => setZipcode(e.target.value)}
-            required
-          />
+          <input type="text" value={zipcode} onChange={e => setZipcode(e.target.value)} required />
         </label>
         <br />
         <label>
@@ -145,21 +143,12 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
         <br />
         <label>
           Diet Restrictions:
-          <select
-            value={dietRestrictions}
-            onChange={e => handleDietOption(e)}
-            required
-          >
-            {dietOptions.map((option, i) => {
-              return (
-                <option
-                  key={i}
-                  value={option}
-                >
-                  {option}
-                </option>
-              );
-            })}
+          <select value={dietRestrictions} onChange={e => handleDietOption(e)} required>
+            {dietOptions.map((option, i) => (
+              <option key={i} value={option}>
+                {option}
+              </option>
+            ))}
           </select>
         </label>
         <input
@@ -171,25 +160,25 @@ function Profile({ defaultFirstName, defaultLastName, defaultInterests, defaultZ
           onChange={e => handleDietOption(e)}
         />
         <br />
-        <input
-          type="submit"
-          value="Save"
-        />
+        <input type="submit" value="Save" />
       </form>
     </div>
   );
 }
 
-const mapStateToProps = state => ({
-  defaultFirstName: state.firstName,
-  defaultLastName: state.lastName,
-  defaultZipcode: state.zipcode,
-  defaultInterests: state.interests,
-  defaultDietRestrictions: state.dietRestrictions,
+const mapStateToProps = ({ profile }) => ({
+  defaultFirstName: profile.firstName,
+  defaultLastName: profile.lastName,
+  defaultZipcode: profile.zipcode,
+  defaultInterests: profile.interests,
+  defaultDietRestrictions: profile.dietRestrictions,
 });
 const mapDispatchToProps = {
   dispatchSaveProfile: saveProfile,
   dispatchUploadPhoto: uploadPhoto,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Profile);

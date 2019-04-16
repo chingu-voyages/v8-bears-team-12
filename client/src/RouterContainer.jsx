@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  BrowserRouter as Router, Switch, Route,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from './Header';
@@ -26,9 +24,9 @@ function RouterContainer({ loggedIn, dispatchSetProfileThunk }) {
       <main>
         <Switch>
           <Route path="/" exact component={Home} />
-          { loggedIn ? <Route path="/profile" component={Profile} /> : null }
-          { loggedIn ? null : <Route path="/register" component={Register} /> }
-          { loggedIn ? <Route path="/restaurantPicker" component={RestaurantPicker} /> : null }
+          {loggedIn ? <Route path="/profile" component={Profile} /> : null}
+          {loggedIn ? null : <Route path="/register" component={Register} />}
+          {loggedIn ? <Route path="/restaurantPicker" component={RestaurantPicker} /> : null}
           <Route path="" component={NotFound} />
         </Switch>
       </main>
@@ -46,12 +44,15 @@ RouterContainer.defaultProps = {
   loggedIn: false,
 };
 
-const mapStateToProps = state => ({
-  loggedIn: state.loggedIn,
+const mapStateToProps = ({ profile }) => ({
+  loggedIn: profile.loggedIn,
 });
 
 const mapDispatchToProps = {
   dispatchSetProfileThunk: setProfileThunk,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RouterContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(RouterContainer);
