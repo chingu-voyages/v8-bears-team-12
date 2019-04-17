@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -26,6 +27,14 @@ function NavMenu({ loggedIn }) {
     </ul>
   );
 }
+
+NavMenu.propTypes = {
+  loggedIn: PropTypes.bool,
+};
+
+NavMenu.defaultProps = {
+  loggedIn: false,
+};
 
 const mapStateToProps = ({ profile }) => ({
   loggedIn: profile.loggedIn,
