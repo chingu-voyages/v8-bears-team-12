@@ -23,8 +23,10 @@ passport.use(
   new JwtStrategy(opts, async function(jwt_payload, done) {
     try {
       const { sub } = jwt_payload;
-      const user = await User.findOne({ _id: ObjectId(sub) }, { password: false })
-        .populate({path: 'restaurantsList', select: '-users'});
+      const user = await User.findOne(
+        { _id: ObjectId(sub) },
+        { password: false }
+      ).populate({ path: 'restaurantsList', select: '-users' });
       done(null, user || false);
     } catch (err) {
       done(err, false);
@@ -35,6 +37,7 @@ passport.use(
 function authHandlers(app) {
   require('./api/register')(app);
   require('./api/login')(app);
+  require('./api/reset')(app);
   require('./api/profile')(app);
   require('./api/logout')(app);
   require('./api/forgot')(app);
@@ -45,6 +48,6 @@ function authHandlers(app) {
   require('./api/city-choices')(app);
   require('./api/set-search-location')(app);
   require('./api/dining-mates')(app);
-};
+}
 
 module.exports = authHandlers;

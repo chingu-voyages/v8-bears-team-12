@@ -9,6 +9,7 @@ import Profile from './Profile';
 import Register from './Register';
 import RestaurantPicker from './RestaurantPicker';
 import NotFound from './NotFound';
+import Forgot from './Forgot';
 
 import { setProfileThunk } from './actionCreators';
 
@@ -26,6 +27,7 @@ function RouterContainer({ loggedIn, dispatchSetProfileThunk }) {
           <Route path="/" exact component={Home} />
           {loggedIn ? <Route path="/profile" component={Profile} /> : null}
           {loggedIn ? null : <Route path="/register" component={Register} />}
+          {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
           {loggedIn ? <Route path="/restaurantPicker" component={RestaurantPicker} /> : null}
           <Route path="" component={NotFound} />
         </Switch>

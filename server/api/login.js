@@ -1,16 +1,7 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const User = require('../models/User');
-
-const { SECRET } = process.env;
-
-function addJwtCookie(res, objId) {
-  const maxAge = 86400000;
-  const expiresIn = '1d';
-  const token = jwt.sign({ sub: objId.toString() }, SECRET, { expiresIn });
-  res.cookie('jwt', token, { maxAge, httpOnly: true });
-}
+const { addJwtCookie } = require('../utils');
 
 module.exports = (app) => {
   app.post('/api/login', async (req, res) => {

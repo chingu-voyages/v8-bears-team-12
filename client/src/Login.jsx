@@ -42,18 +42,16 @@ function Login({ dispatchLoginThunk }) {
             required
           />
         </div>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-        >
+        <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
       </form>
-      <span>
+      <div>
         New user?
         <Link to="/register"> Register here</Link>
-      </span>
+        <br />
+        <Link to="/forgot"> Forgot Password?</Link>
+      </div>
     </div>
   );
 }
@@ -70,4 +68,7 @@ const mapDispatchToProps = {
   dispatchLoginThunk: loginThunk,
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Login);

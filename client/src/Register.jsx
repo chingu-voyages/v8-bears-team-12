@@ -6,7 +6,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
 import { registerUser } from './actionCreators';
 
 const validate = (values) => {
@@ -33,10 +32,10 @@ const validate = (values) => {
 const renderField = ({
   input, label, type, meta: { touched, error, warning },
 }) => (
-  <div>
+  <div className="formText">
     <FormControl>
       <InputLabel>{label}</InputLabel>
-      <Input {...input} type={type} />
+      <Input {...input} type={type} className="form-input" />
       {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </FormControl>
   </div>
@@ -74,10 +73,9 @@ const Register = ({
   }
 
   return (
-    <div>
+    <div className="signupform">
       <h1>Sign Up</h1>
-      <p>Create your account</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
         <Field name="username" type="text" component={renderField} label="Username" />
         <Field name="firstName" type="text" component={renderField} label="First Name" />
         <Field name="lastName" type="text" component={renderField} label="Last Name" />
