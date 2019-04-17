@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -12,20 +12,22 @@ import NavMenu from './NavMenu';
 
 function Header({ loggedIn, name }) {
   return (
-    <AppBar position="static">
-      <Toolbar disableGutters>
-        <IconButton color="inherit" aria-label="Menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
-          Pal-a-table
-        </Typography>
-        <Typography variant="h6" color="inherit" style={{ paddingRight: '8px '}}>
-          {name}
-        </Typography>
-      </Toolbar>
+    <div>
+      <AppBar position="static">
+        <Toolbar disableGutters>
+          <IconButton color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
+            Pal-a-table
+          </Typography>
+          <Typography variant="h6" color="inherit" style={{ paddingRight: '8px' }}>
+            { loggedIn ? name : '' }
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <NavMenu />
-    </AppBar>
+    </div>
   );
 }
 
