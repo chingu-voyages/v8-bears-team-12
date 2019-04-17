@@ -60,10 +60,10 @@ Dashboard.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  name: state.name,
-  searchCity: state.searchCity,
-  searchState: state.searchState,
-  searchLocation: state.searchLocation,
+  name: state.profile.name,
+  searchCity: state.profile.searchCity,
+  searchState: state.profile.searchState,
+  searchLocation: state.profile.searchLocation,
 });
 
 const mapDispatchToProps = {
