@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import { loginThunk } from './actionCreators';
 
@@ -27,30 +31,40 @@ function Login({ dispatchLoginThunk }) {
       <h1>Log In</h1>
       <form action="" onSubmit={onSubmit}>
         <div>
-          <input
+          <TextField
             type="username"
-            placeholder="Username"
+            label="Username"
             onChange={e => setUsername(e.target.value)}
+            variant="outlined"
+            margin="dense"
             required
           />
         </div>
         <div>
-          <input
+          <TextField
             type="password"
-            placeholder="Password"
+            label="Password"
             onChange={e => setPassword(e.target.value)}
+            variant="outlined"
+            margin="dense"
             required
           />
         </div>
-        <Button type="submit" variant="contained" color="primary">
-          Submit
+        
+        <Button type="submit" variant="contained" fullWidth={true} color="primary">
+          Sign In
         </Button>
+        
       </form>
-      <div>
-        New user?
-        <Link to="/register"> Register here</Link>
-        <br />
-        <Link to="/forgot"> Forgot Password?</Link>
+
+      <div className="login-page-links">
+        <div>
+          New user?
+          <Link to="/register"> Register here</Link>
+        </div>
+        <div>
+          <Link to="/forgot"> Forgot Password?</Link>
+        </div>
       </div>
     </div>
   );
