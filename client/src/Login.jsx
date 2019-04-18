@@ -5,25 +5,31 @@ import { connect } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { loginThunk } from './actionCreators';
 
 function Login({ dispatchLoginThunk }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const [snackbar, setSnackbar] = useState(false);
   async function onSubmit(e) {
     e.preventDefault();
 
     // handle click
     try {
       dispatchLoginThunk({ username, password });
+      setSnackbar(true);
     } catch (err) {
       console.log(err.message); // eslint-disable-line no-console
     }
     // console.log(user);
+  }
+
+  function handleClose() {
+    setSnackbar(false);
   }
 
   return (
@@ -50,11 +56,9 @@ function Login({ dispatchLoginThunk }) {
             required
           />
         </div>
-        
         <Button type="submit" variant="contained" fullWidth={true} color="primary">
           Sign In
-        </Button>
-        
+        </Button>      
       </form>
 
       <div className="login-page-links">
@@ -66,6 +70,30 @@ function Login({ dispatchLoginThunk }) {
           <Link to="/forgot"> Forgot Password?</Link>
         </div>
       </div>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={snackbar}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">Attempting Login...</span>}
+        action={[    
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
     </div>
   );
 }
