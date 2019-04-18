@@ -8,14 +8,12 @@ function Profile({
   defaultFirstName,
   defaultLastName,
   defaultInterests,
-  defaultZipcode,
   defaultDietRestrictions,
   dispatchSaveProfile,
   dispatchUploadPhoto,
 }) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
-  const [zipcode, setZipcode] = useState(defaultZipcode);
   const [interests, setInterests] = useState(defaultInterests);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -85,7 +83,6 @@ function Profile({
         firstName,
         lastName,
         password,
-        zipcode,
         interests,
         dietRestrictions,
       };
@@ -94,7 +91,6 @@ function Profile({
         firstName,
         lastName,
         password,
-        zipcode,
         interests,
         dietRestrictions
       );
@@ -158,11 +154,6 @@ function Profile({
         </label>
         <br />
         <label>
-          Zipcode:
-          <input type="text" value={zipcode} onChange={e => setZipcode(e.target.value)} required />
-        </label>
-        <br />
-        <label>
           Interests:
           <input
             type="text"
@@ -201,7 +192,6 @@ function Profile({
 const mapStateToProps = ({ profile }) => ({
   defaultFirstName: profile.firstName,
   defaultLastName: profile.lastName,
-  defaultZipcode: profile.zipcode,
   defaultInterests: profile.interests,
   defaultDietRestrictions: profile.dietRestrictions,
 });
