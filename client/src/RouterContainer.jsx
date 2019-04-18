@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 import Header from './Header';
 import Home from './Home';
 import Profile from './Profile';
@@ -11,9 +15,15 @@ import RestaurantPicker from './RestaurantPicker';
 import NotFound from './NotFound';
 import Forgot from './Forgot';
 
-import { setProfileThunk } from './actionCreators';
+import { setProfileThunk, removeSnackbar } from './actionCreators';
 
-function RouterContainer({ loggedIn, dispatchSetProfileThunk }) {
+function RouterContainer({
+  loggedIn,
+  open,
+  errorMessage,
+  dispatchRemoveSnackbar,
+  dispatchSetProfileThunk,
+}) {
   useEffect(() => {
     dispatchSetProfileThunk();
   }, [loggedIn]);
@@ -32,26 +42,58 @@ function RouterContainer({ loggedIn, dispatchSetProfileThunk }) {
           <Route path="" component={NotFound} />
         </Switch>
       </main>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={open}
+        autoHideDuration={3000}
+        onClose={dispatchRemoveSnackbar}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">{errorMessage}</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={dispatchRemoveSnackbar}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
     </Router>
   );
 }
 
 RouterContainer.propTypes = {
+  dispatchRemoveSnackbar: PropTypes.func,
   dispatchSetProfileThunk: PropTypes.func,
   loggedIn: PropTypes.bool,
+  open: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };
 
 RouterContainer.defaultProps = {
+  dispatchRemoveSnackbar: () => {},
   dispatchSetProfileThunk: () => {},
   loggedIn: false,
+  open: false,
+  errorMessage: '',
 };
 
-const mapStateToProps = ({ profile }) => ({
+const mapStateToProps = ({ profile, snackbar }) => ({
+  open: snackbar.open,
+  errorMessage: snackbar.message,
   loggedIn: profile.loggedIn,
 });
 
 const mapDispatchToProps = {
   dispatchSetProfileThunk: setProfileThunk,
+  dispatchRemoveSnackbar: removeSnackbar,
 };
 
 export default connect(

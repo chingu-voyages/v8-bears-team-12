@@ -1,6 +1,21 @@
 import axios from 'axios';
 
-import { SET_PROFILE, REMOVE_PROFILE } from '../actionTypes';
+import {
+  SET_PROFILE,
+  REMOVE_PROFILE,
+  SET_SNACKBAR,
+  REMOVE_SNACKBAR,
+} from '../actionTypes';
+
+export const setSnackbar = message => ({
+  type: SET_SNACKBAR,
+  message,
+});
+
+export const removeSnackbar = () => ({
+  type: REMOVE_SNACKBAR,
+  message: '',
+});
 
 export const setProfileThunk = () => async (dispatch) => {
   try {
@@ -16,13 +31,17 @@ export const setProfileThunk = () => async (dispatch) => {
 };
 
 export const loginThunk = payload => async (dispatch) => {
-  await axios.post('/api/login', payload);
+  const response = await axios.post('/api/login', payload);
+  const { error } = response.data;
+  if (error) dispatch(setSnackbar(error.message));
   setProfileThunk()(dispatch);
 };
 
 // registering the user
 export const registerUser = userData => (dispatch) => {
-  axios.post('/api/register', { user: userData });
+  const response = axios.post('/api/register', { user: userData });
+  const { error } = response.data;
+  if (error) dispatch(setSnackbar(error.message));
 };
 
 export const saveProfile = (
@@ -42,21 +61,24 @@ export const saveProfile = (
       interests,
       dietRestrictions,
     });
+    const { error } = response.data;
+    if (error) dispatch(setSnackbar(error.message));
     setProfileThunk()(dispatch);
-  } catch (err) {
-    console.error(err.message);
+  } catch (error) {
+    dispatch(setSnackbar(error.message));
   }
 };
 
 export const uploadPhoto = file => async (dispatch) => {
   const formData = new FormData();
   formData.append('image', file);
-  await axios.post('/api/profile-photo-upload', formData, {
+  const response = await axios.post('/api/profile-photo-upload', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
-  console.log({ file });
+  const { error } = response.data;
+  if (error) dispatch(setSnackbar(error.message));
 };
 
 export const addRestaurant = restaurant => async (dispatch) => {

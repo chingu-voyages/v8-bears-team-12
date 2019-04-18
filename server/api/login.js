@@ -20,7 +20,7 @@ module.exports = (app) => {
       res.send('Ok');
     } catch (err) {
       console.log(err.message);
-      res.status(401).send('Unauthorized');
+      res.send({error: { message: err.message}});
     }
   });
 };

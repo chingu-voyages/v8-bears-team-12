@@ -1,3 +1,5 @@
 export const SET_PROFILE = 'SET_PROFILE';
 export const REMOVE_PROFILE = 'REMOVE_PROFILE';
 export const GET_ERRORS = 'GET_ERRORS';
+export const SET_SNACKBAR = 'SET_SNACKBAR';
+export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR';
