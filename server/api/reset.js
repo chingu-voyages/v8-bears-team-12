@@ -7,15 +7,20 @@ module.exports = (app) => {
     const { id, token } = req.params;
 
     var today = new Date();
-    var tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 1);
+    //var tomorrow = new Date();
+    //tomorrow.setDate(today.getDate() + 1);
     try {
       const user = await User.findOne({
         _id: ObjectId(id),
         resetPasswordToken: token,
         resetPasswordExpires: { $gte: today },
       });
+
       if (!user) throw new Error('Access Denied');
+      user.active = true;
+      user.resetPasswordExpires = null;
+      user.resetPasswordToken = null;
+      await user.save();
 
       addJwtCookie(res, user._id);
       //res.json({ id, token });
