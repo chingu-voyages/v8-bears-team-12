@@ -18,9 +18,15 @@ module.exports = (app) => {
       const token = buf.toString('hex');
       let user = await User.findOne({ email });
       if (!user)
-        return res.status(200).json({ error: true, message: 'no such email' });
+        return res.json({ error: true, message: 'no such email' });
+
+      const now = new Date();
+      if (user.resetPasswordToken && now < user.resetPasswordExpires ) {
+        return res.json({ error: true, message: 'an unexpired password reset exists. check your email.'});
+      }
+
       user.resetPasswordToken = token;
-      user.resetPasswordExpires = Date.now() + 3600000;
+      user.resetPasswordExpires = Date.now() + 7200000;
       await user.save();
       const auth = {
         auth: {
@@ -28,7 +34,7 @@ module.exports = (app) => {
           domain: MAILGUN_DOMAIN,
         },
       };
-      console.log({ auth, email });
+
       let smtpTransport = nodemailer.createTransport(mg(auth));
 
       const mailOptions = {
@@ -40,7 +46,7 @@ module.exports = (app) => {
         }/api/reset/${user._id.toString()}/${token}\n\nIf you did not request this, please ignore this email and your password will remain unchanged`,
       };
       await smtpTransport.sendMail(mailOptions);
-      res.end();
+      res.json({error: false, message: 'password reset email sent'});
     } catch (err) {
       console.error(err);
       res.status(500).send(err.message);
