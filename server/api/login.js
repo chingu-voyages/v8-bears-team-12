@@ -10,7 +10,7 @@ module.exports = (app) => {
 
     try {
       if (!username || !password) throw new Error('username or password empty');
-      const user = await User.findOne({ name: username });
+      const user = await User.findOne({ name: username, active: true });
       if (!user) throw new Error(`Unable to find username: ${username}`);
 
       let same = await bcrypt.compare(password, user.password);
