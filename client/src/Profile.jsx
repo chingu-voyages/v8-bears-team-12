@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Avatar from 'react-avatar-edit';
-
 import { saveProfile, uploadPhoto } from './actionCreators';
+import TextField from '@material-ui/core/TextField';
 
 function Profile({
   defaultFirstName,
@@ -119,52 +119,49 @@ function Profile({
         <img src={preview} alt="Preview" />
       </div>
       <form onSubmit={e => onSubmit(e)}>
-        <label>
-          First Name:
-          <input
-            type="text"
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-            required
-          />
-        </label>
+        <TextField
+          label="First Name"
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Last Name:
-          <input
-            type="text"
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-            required
-          />
-        </label>
+        <TextField
+          label="Last Name"
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Password:
-          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-        </label>
+        <TextField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Confirm password:
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
-          />
-        </label>
+        <TextField
+          label="Confirm password"
+          type="password"
+          value={confirmPassword}
+          onChange={e => setConfirmPassword(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Interests:
-          <input
-            type="text"
-            value={interests}
-            placeholder="Up to 5 separated by commas"
-            onChange={e => setInterests(e.target.value)}
-            required
-          />
-        </label>
+        <TextField
+          label="Interests"
+          value={interests}
+          placeholder="Up to 5 separated by commas"
+          onChange={e => setInterests(e.target.value)}
+          required
+        />
         <br />
-        <label>
+        <TextField
+          select
+          label="Diet Restrictions"
+          
+        />
           Diet Restrictions:
           <select value={dietRestrictions} onChange={e => handleDietOption(e)} required>
             {dietOptions.map((option, i) => (
