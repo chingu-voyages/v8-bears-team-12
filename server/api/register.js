@@ -14,7 +14,7 @@ module.exports = app => {
   
     User.findOne({ email }).then((user) => {
       if (user) {
-        return res.status(400).json({ email: 'Email already exists' });
+        return res.json({error: {message: 'Email already exists' }});
       } else {
         let user = new User({
           name,
