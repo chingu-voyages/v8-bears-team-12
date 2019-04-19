@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Avatar from 'react-avatar-edit';
 import { saveProfile, uploadPhoto } from './actionCreators';
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function Profile({
   defaultFirstName,
@@ -24,7 +25,6 @@ function Profile({
   const [preview, setPreview] = useState(null);
   const [src] = useState('');
   const dietOptions = [
-    'Choose one',
     'None - I eat anything & everything!',
     'Vegan',
     'Vegetarian',
@@ -106,7 +106,6 @@ function Profile({
   return (
     <div>
       <div>
-
         <Avatar
           width={390}
           height={295}
@@ -159,20 +158,19 @@ function Profile({
         <br />
         <TextField
           select
-          label="Diet Restrictions"
-          
-        />
-          Diet Restrictions:
-          <select value={dietRestrictions} onChange={e => handleDietOption(e)} required>
-            {dietOptions.map((option, i) => (
-              <option key={i} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </label>
-        <input
-          type="text"
+          value={dietRestrictions}
+          onChange={e => handleDietOption(e)}
+          helperText="Select your dietary option"
+          required
+        >
+          {dietOptions.map((option, i) => (
+            <option key={i} value={option}>
+              {option}
+            </option>
+          ))}
+        </TextField>
+        <TextField
+          placeholder="Specify your dietary option"
           style={{
             display: dietOptionOther ? 'block' : 'none',
           }}
