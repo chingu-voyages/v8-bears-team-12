@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Avatar from 'react-avatar-edit';
-import { saveProfile, uploadPhoto } from './actionCreators';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import { saveProfile, uploadPhoto } from './actionCreators';
+
+const styles = {
+  avatarContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 50,
+    marginBottom: 50,
+  },
+  textField: {
+    width: 500,
+  },
+};
 
 function Profile({
   defaultFirstName,
@@ -74,8 +87,8 @@ function Profile({
     }
 
     if (
-      password === confirmPassword &&
-      (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
+      password === confirmPassword
+      && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
     ) {
       // alert('changes are successfully saved');
 
@@ -105,10 +118,10 @@ function Profile({
 
   return (
     <div>
-      <div>
+      <div style={styles.avatarContainer}>
         <Avatar
-          width={390}
-          height={295}
+          width={295}
+          height={200}
           onCrop={onCrop}
           onClose={onClose}
           onBeforeFileLoad={onBeforeFileLoad}
@@ -119,6 +132,7 @@ function Profile({
       </div>
       <form onSubmit={e => onSubmit(e)}>
         <TextField
+          style={styles.textField}
           label="First Name"
           value={firstName}
           onChange={e => setFirstName(e.target.value)}
@@ -126,6 +140,7 @@ function Profile({
         />
         <br />
         <TextField
+          style={styles.textField}
           label="Last Name"
           value={lastName}
           onChange={e => setLastName(e.target.value)}
@@ -133,6 +148,7 @@ function Profile({
         />
         <br />
         <TextField
+          style={styles.textField}
           label="Password"
           type="password"
           value={password}
@@ -141,6 +157,7 @@ function Profile({
         />
         <br />
         <TextField
+          style={styles.textField}
           label="Confirm password"
           type="password"
           value={confirmPassword}
@@ -149,6 +166,7 @@ function Profile({
         />
         <br />
         <TextField
+          style={styles.textField}
           label="Interests"
           value={interests}
           placeholder="Up to 5 separated by commas"
@@ -158,17 +176,19 @@ function Profile({
         <br />
         <TextField
           select
+          style={styles.textField}
           value={dietRestrictions}
           onChange={e => handleDietOption(e)}
           helperText="Select your dietary option"
           required
         >
           {dietOptions.map((option, i) => (
-            <option key={i} value={option}>
+            <MenuItem key={i} value={option}>
               {option}
-            </option>
+            </MenuItem>
           ))}
         </TextField>
+        <br />
         <TextField
           placeholder="Specify your dietary option"
           style={{
@@ -178,7 +198,13 @@ function Profile({
           onChange={e => handleDietOption(e)}
         />
         <br />
-        <input type="submit" value="Save" />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Save
+        </Button>
       </form>
     </div>
   );
