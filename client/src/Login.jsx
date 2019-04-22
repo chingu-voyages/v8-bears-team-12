@@ -24,7 +24,7 @@ function Login({ dispatchLoginThunk }) {
   }
 
   return (
-    <div className="login">
+    <div className="simple-card">
       <h1>Log In</h1>
       <form action="" onSubmit={onSubmit}>
         <div>

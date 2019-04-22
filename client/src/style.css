@@ -51,7 +51,8 @@ main {
   overflow-y: scroll;
 }
 
-a:link, a:visited {
+a:link,
+a:visited {
   text-decoration: none;
   color: #4285f4;
 }
@@ -85,7 +86,7 @@ a:link, a:visited {
 .formText label {
 }
 
-.signupform, .login {
+.simple-card {
   padding: 10px;
   margin: auto;
   margin-top: 10%;
