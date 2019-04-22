@@ -39,7 +39,7 @@ function DiningMateSearch({ dispatchSetSearchLocation }) {
         </button>
       </div>
       <ul>
-        {cities.map((city) => {
+        {cities.map(city => {
           const current = `${city.city}, ${city.state}`;
           return (
             <li key={current}>
