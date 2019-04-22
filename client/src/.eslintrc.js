@@ -15,9 +15,9 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ['react'],
   rules: {
+    'object-curly-newline': 'off',
+    'no-underscore-dangle': 'off',
   },
 };
