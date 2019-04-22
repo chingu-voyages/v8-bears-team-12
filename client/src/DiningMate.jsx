@@ -24,14 +24,14 @@ function DiningMate({ name, interests, dietRestrictions, restaurantsList }) {
 DiningMate.propTypes = {
   name: PropTypes.string,
   interests: PropTypes.arrayOf(PropTypes.string),
-  dietRestrictions: PropTypes.arrayOf(PropTypes.string),
+  dietRestrictions: PropTypes.string,
   restaurantsList: PropTypes.arrayOf(PropTypes.object),
 };
 
 DiningMate.defaultProps = {
   name: '',
   interests: [],
-  dietRestrictions: [],
+  dietRestrictions: '',
   restaurantsList: [],
 };
 
