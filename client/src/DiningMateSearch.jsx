@@ -9,7 +9,9 @@ function DiningMateSearch({ dispatchSetSearchLocation }) {
 
   function getCurrentPosition() {
     function usePosition(position) {
-      const { coords: { latitude: lat, longitude: lon }} = position;
+      const {
+        coords: { latitude: lat, longitude: lon },
+      } = position;
       dispatchSetSearchLocation({ lat, lon });
     }
     navigator.geolocation.getCurrentPosition(usePosition);
@@ -31,15 +33,20 @@ function DiningMateSearch({ dispatchSetSearchLocation }) {
   return (
     <div>
       <div>
-      <input type="text" onChange={onChange} />
-      <button type="button" onClick={getCurrentPosition}>
-        Current location
-      </button>
+        <input type="text" onChange={onChange} />
+        <button type="button" onClick={getCurrentPosition}>
+          Current location
+        </button>
       </div>
       <ul>
-        { cities.map((city, i) => {
+        {cities.map((city) => {
+          const current = `${city.city}, ${city.state}`;
           return (
-            <li key={i}><button onClick={() => handleClick(city)}>{city.city}, {city.state}</button></li>
+            <li key={current}>
+              <button type="button" onClick={() => handleClick(city)}>
+                {current}
+              </button>
+            </li>
           );
         })}
       </ul>
@@ -48,17 +55,18 @@ function DiningMateSearch({ dispatchSetSearchLocation }) {
 }
 
 DiningMateSearch.propTypes = {
-  doSearch: PropTypes.func,
   dispatchSetSearchLocation: PropTypes.func,
 };
 
 DiningMateSearch.defaultProps = {
-  doSearch: () => {},
   dispatchSetSearchLocation: () => {},
 };
 
 const mapDispatchToProps = {
   dispatchSetSearchLocation: setSearchLocation,
-}
+};
 
-export default connect(null, mapDispatchToProps)(DiningMateSearch);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(DiningMateSearch);
