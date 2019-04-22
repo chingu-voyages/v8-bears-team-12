@@ -19,5 +19,6 @@ module.exports = {
   rules: {
     'object-curly-newline': 'off',
     'no-underscore-dangle': 'off',
+    'arrow-parens': 'avoid',
   },
 };
