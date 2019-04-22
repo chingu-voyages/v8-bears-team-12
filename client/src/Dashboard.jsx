@@ -9,7 +9,11 @@ import DiningMateList from './DiningMateList';
 import { logoutThunk } from './actionCreators';
 
 function Dashboard({
-  dispatchLogoutThunk, name, searchCity, searchState, searchLocation,
+  dispatchLogoutThunk,
+  name,
+  searchCity,
+  searchState,
+  searchLocation,
 }) {
   const [diningMates, setDiningMates] = useState([]);
 
