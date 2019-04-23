@@ -16,12 +16,11 @@ module.exports = app => {
       async function(req, res) {
         const { name } = req.user;
         console.log({body: req.body});
-        const { firstName, lastName, password, zipcode, interests, dietRestrictions } = req.body;
+        const { firstName, lastName, password, interests, dietRestrictions } = req.body;
         const user = await User.findOne({ name });
         if (firstName) user.firstName = firstName;
         if (lastName) user.lastName = lastName;
         if (password) user.password = password;
-        if (zipcode) user.zipcode = zipcode;
         if (interests) user.interests = interests;
         if (dietRestrictions) user.dietRestrictions = dietRestrictions;
         let result = await user.save();
