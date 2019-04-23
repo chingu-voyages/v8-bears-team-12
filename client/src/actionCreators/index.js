@@ -44,9 +44,8 @@ export const loginThunk = (payload) => async (dispatch) => {
 export const registerUser = (userData) => async (dispatch) => {
   const response = await axios.post('/api/register', { user: userData });
   const { error } = response.data;
-  console.log(error);
 
-  dispatch(setSnackbar(error ? error.message : 'Please check your email'));
+  if (error) dispatch(setSnackbar(error.message));
 };
 
 export const saveProfile = (

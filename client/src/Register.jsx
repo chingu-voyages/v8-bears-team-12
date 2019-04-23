@@ -8,7 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { registerUser } from './actionCreators';
 
-const validate = values => {
+const validate = (values) => {
   const errors = {};
   if (!values.username) {
     errors.username = 'Required';
@@ -75,7 +75,7 @@ const Register = ({
       lastName,
       email,
       password,
-      interests: interests.split(',').splice(0, 5),
+      interests: interests && interests.split(',').splice(0, 5),
       dietRestrictions,
     };
 

@@ -61,7 +61,14 @@ module.exports = (app) => {
         }/api/reset/${user._id.toString()}/${token}\n\nIf you did not request this, please ignore this email and your password will remain unchanged`,
       };
       await smtpTransport.sendMail(mailOptions);
-      await user.save().then((user) => res.json(user));
+      await user
+        .save()
+        .then((user) =>
+          res.json({
+            user,
+            error: { message: 'Please check your email for verification link' },
+          }),
+        );
     } catch (err) {
       console.error(err);
       res.status(500).send(err.message);
