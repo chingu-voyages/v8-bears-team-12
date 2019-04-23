@@ -10,6 +10,7 @@ module.exports = app => {
       email,
       password,
       interests,
+      dietRestrictions,
     } = req.body.user;
   
     User.findOne({ email }).then((user) => {
@@ -23,6 +24,7 @@ module.exports = app => {
           email,
           password,
           interests,
+          dietRestrictions,
         });
         user.save().then((user) => res.json(user));
       }
