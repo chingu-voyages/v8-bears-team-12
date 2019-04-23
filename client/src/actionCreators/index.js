@@ -33,8 +33,11 @@ export const setProfileThunk = () => async (dispatch) => {
 export const loginThunk = (payload) => async (dispatch) => {
   const response = await axios.post('/api/login', payload);
   const { error } = response.data;
-  if (error) dispatch(setSnackbar(error.message));
-  setProfileThunk()(dispatch);
+  if (error) {
+    dispatch(setSnackbar(error.message));
+  } else {
+    setProfileThunk()(dispatch);
+  }
 };
 
 // registering the user
