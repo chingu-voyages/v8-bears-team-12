@@ -10,8 +10,11 @@ module.exports = (app) => {
 
     try {
       if (!username || !password) throw new Error('username or password empty');
-      const user = await User.findOne({ name: username, active: true });
+      const user = await User.findOne({ name: username });
       if (!user) throw new Error(`Unable to find username: ${username}`);
+
+      if (!user.active)
+        throw new Error('Please check your email for the verification link');
 
       let same = await bcrypt.compare(password, user.password);
       if (!same) throw new Error(`Invalid password for ${username}`);
@@ -20,7 +23,7 @@ module.exports = (app) => {
       res.send('Ok');
     } catch (err) {
       console.log(err.message);
-      res.send({error: { message: err.message}});
+      res.send({ error: { message: err.message } });
     }
   });
 };
