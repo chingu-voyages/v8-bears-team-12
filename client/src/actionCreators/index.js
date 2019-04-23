@@ -7,7 +7,7 @@ import {
   REMOVE_SNACKBAR,
 } from '../actionTypes';
 
-export const setSnackbar = message => ({
+export const setSnackbar = (message) => ({
   type: SET_SNACKBAR,
   message,
 });
@@ -30,19 +30,22 @@ export const setProfileThunk = () => async (dispatch) => {
   }
 };
 
-export const loginThunk = payload => async (dispatch) => {
+export const loginThunk = (payload) => async (dispatch) => {
   const response = await axios.post('/api/login', payload);
   const { error } = response.data;
-  if (error) dispatch(setSnackbar(error.message));
-  setProfileThunk()(dispatch);
+  if (error) {
+    dispatch(setSnackbar(error.message));
+  } else {
+    setProfileThunk()(dispatch);
+  }
 };
 
 // registering the user
-export const registerUser = userData => async (dispatch) => {
+export const registerUser = (userData) => async (dispatch) => {
   const response = await axios.post('/api/register', { user: userData });
   const { error } = response.data;
 
-  dispatch(setSnackbar(error ? error.message : 'Please check your email'));
+  if (error) dispatch(setSnackbar(error.message));
 };
 
 export const saveProfile = (
@@ -70,7 +73,7 @@ export const saveProfile = (
   }
 };
 
-export const uploadPhoto = file => async (dispatch) => {
+export const uploadPhoto = (file) => async (dispatch) => {
   const formData = new FormData();
   formData.append('image', file);
   const response = await axios.post('/api/profile-photo-upload', formData, {
@@ -82,12 +85,12 @@ export const uploadPhoto = file => async (dispatch) => {
   if (error) dispatch(setSnackbar(error.message));
 };
 
-export const addRestaurant = restaurant => async (dispatch) => {
+export const addRestaurant = (restaurant) => async (dispatch) => {
   await axios.post('/api/restaurant-choice', { restaurant });
   setProfileThunk()(dispatch);
 };
 
-export const removeRestaurant = id => async (dispatch) => {
+export const removeRestaurant = (id) => async (dispatch) => {
   await axios.delete('/api/restaurant-choice', { data: { id } });
   setProfileThunk()(dispatch);
 };
@@ -97,9 +100,9 @@ export const logoutThunk = () => async (dispatch) => {
   dispatch({ type: REMOVE_PROFILE });
 };
 
-export const setSearchLocation = ({
-  lat, lon, city, state, country,
-}) => async (dispatch) => {
+export const setSearchLocation = ({ lat, lon, city, state, country }) => async (
+  dispatch,
+) => {
   const data = {
     lat,
     lon,
