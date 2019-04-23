@@ -11,7 +11,10 @@ function NavMenu({ loggedIn }) {
   const { location } = useReactRouter();
   const { pathname } = location;
 
-  const notLoggedInTabs = [{ label: 'Login', to: '/' }, { label: 'Register', to: '/register' }];
+  const notLoggedInTabs = [
+    { label: 'Login', to: '/' },
+    { label: 'Register', to: '/register' },
+  ];
 
   const loggedInTabs = [
     { label: 'Home', to: '/' },
@@ -25,12 +28,15 @@ function NavMenu({ loggedIn }) {
     ? pathname
     : false;
 
-  console.log({ tabsValue });
-
   const tabs = loggedIn ? loggedInTabs : notLoggedInTabs;
   return (
     <div>
-      <Tabs value={tabsValue} indicatorColor="primary" textColor="primary" variant="fullWidth">
+      <Tabs
+        value={tabsValue}
+        indicatorColor="primary"
+        textColor="primary"
+        variant="fullWidth"
+      >
         {tabs.map(({ label, to }) => (
           <Tab key={to} component={Link} label={label} value={to} to={to} />
         ))}

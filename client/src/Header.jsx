@@ -21,8 +21,12 @@ function Header({ loggedIn, name }) {
           <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
             Pal-a-table
           </Typography>
-          <Typography variant="h6" color="inherit" style={{ paddingRight: '8px' }}>
-            { loggedIn ? name : '' }
+          <Typography
+            variant="h6"
+            color="inherit"
+            style={{ paddingRight: '8px' }}
+          >
+            {loggedIn ? name : ''}
           </Typography>
         </Toolbar>
       </AppBar>

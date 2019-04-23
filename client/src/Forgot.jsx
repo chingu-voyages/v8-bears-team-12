@@ -18,10 +18,15 @@ function Forgot() {
     }, 3000);
   }
   return (
-    <div>
+    <div className="simple-card">
+      <h1>Forgot Password?</h1>
       <form onSubmit={onSubmit}>
         <label htmlFor="email">Email: </label>
-        <input name="email" type="email" onChange={e => setEmail(e.target.value)} />
+        <input
+          name="email"
+          type="email"
+          onChange={e => setEmail(e.target.value)}
+        />
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>

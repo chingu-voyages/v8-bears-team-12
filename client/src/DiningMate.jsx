@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function DiningMate(props) {
-  const {
-    name, interests, dietRestrictions, restaurantsList,
-  } = props;
-
+function DiningMate({ name, interests, dietRestrictions, restaurantsList }) {
   function handleClick() {
     // console.log('TODO: initiate chat');
   }
@@ -21,7 +17,6 @@ function DiningMate(props) {
         <li>{dietRestrictions}</li>
         <li>{restaurantsList.map(e => e.name).join(', ')}</li>
       </ul>
-
     </div>
   );
 }
@@ -29,14 +24,14 @@ function DiningMate(props) {
 DiningMate.propTypes = {
   name: PropTypes.string,
   interests: PropTypes.arrayOf(PropTypes.string),
-  dietRestrictions: PropTypes.arrayOf(PropTypes.string),
+  dietRestrictions: PropTypes.string,
   restaurantsList: PropTypes.arrayOf(PropTypes.object),
 };
 
 DiningMate.defaultProps = {
   name: '',
   interests: [],
-  dietRestrictions: [],
+  dietRestrictions: '',
   restaurantsList: [],
 };
 
