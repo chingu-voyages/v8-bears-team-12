@@ -23,6 +23,7 @@ const validate = (values) => {
   if (!values.password) {
     errors.password = 'Required';
   }
+
   return errors;
 };
 
@@ -88,6 +89,7 @@ const Register = ({
     <div className="simple-card">
       <h1>Sign Up</h1>
       <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
+Field name="interests" type="text" component={renderField} label="Interests" />
         <Field
           name="username"
           type="text"

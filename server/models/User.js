@@ -13,7 +13,6 @@ const userSchema = new Schema({
   active: Boolean,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  zipcode: String,
   image: Buffer,
   imageType: String,
   searchCity: String,

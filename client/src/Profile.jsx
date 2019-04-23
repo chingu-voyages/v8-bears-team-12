@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Avatar from 'react-avatar-edit';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import { saveProfile } from './actionCreators';
+import ProfileAvatar from './ProfileAvatar';
 
-import { saveProfile, uploadPhoto } from './actionCreators';
+const styles = {
+  textField: {
+    width: 500,
+  },
+};
 
 function Profile({
   defaultFirstName,
   defaultLastName,
   defaultInterests,
-  defaultZipcode,
   defaultDietRestrictions,
   dispatchSaveProfile,
-  dispatchUploadPhoto,
 }) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
-  const [zipcode, setZipcode] = useState(defaultZipcode);
   const [interests, setInterests] = useState(defaultInterests);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,10 +29,7 @@ function Profile({
     defaultDietRestrictions,
   );
   const [dietOptionOther, setDietOptionOther] = useState(false);
-  const [preview, setPreview] = useState(null);
-  const [src] = useState('');
   const dietOptions = [
-    'Choose one',
     'None - I eat anything & everything!',
     'Vegan',
     'Vegetarian',
@@ -34,26 +37,6 @@ function Profile({
     'Other',
   ];
   const specifyOtherDiet = React.createRef();
-
-  function onCrop(currView) {
-    setPreview(currView);
-    console.log('this is src', src);
-  }
-
-  function onClose() {
-    setPreview(null);
-  }
-
-  function onBeforeFileLoad(file) {
-    if (file.target.files[0].size > 300000) {
-      alert('File is too big!');
-      file.target.value = '';
-    }
-  }
-
-  function onFileLoad(file) {
-    dispatchUploadPhoto(file);
-  }
 
   function handleDietOption(e) {
     if (e.target.value === 'Other') {
@@ -76,8 +59,8 @@ function Profile({
     }
 
     if (
-      password === confirmPassword &&
-      (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
+      password === confirmPassword
+      && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
     ) {
       // alert('changes are successfully saved');
 
@@ -85,7 +68,6 @@ function Profile({
         firstName,
         lastName,
         password,
-        zipcode,
         interests,
         dietRestrictions,
       };
@@ -94,9 +76,8 @@ function Profile({
         firstName,
         lastName,
         password,
-        zipcode,
         interests,
-        dietRestrictions
+        dietRestrictions,
       );
       console.log('this is userChanges', userChanges);
 
@@ -109,82 +90,68 @@ function Profile({
 
   return (
     <div>
-      <div>
-
-        <Avatar
-          width={390}
-          height={295}
-          onCrop={onCrop}
-          onClose={onClose}
-          onBeforeFileLoad={onBeforeFileLoad}
-          src={src}
-          onFileLoad={onFileLoad}
-        />
-        <img src={preview} alt="Preview" />
-      </div>
+      <ProfileAvatar />
       <form onSubmit={e => onSubmit(e)}>
-        <label>
-          First Name:
-          <input
-            type="text"
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-            required
-          />
-        </label>
+        <TextField
+          style={styles.textField}
+          label="First Name"
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Last Name:
-          <input
-            type="text"
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-            required
-          />
-        </label>
+        <TextField
+          style={styles.textField}
+          label="Last Name"
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Password:
-          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-        </label>
+        <TextField
+          style={styles.textField}
+          label="Password"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Confirm password:
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
-          />
-        </label>
+        <TextField
+          style={styles.textField}
+          label="Confirm password"
+          type="password"
+          value={confirmPassword}
+          onChange={e => setConfirmPassword(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Zipcode:
-          <input type="text" value={zipcode} onChange={e => setZipcode(e.target.value)} required />
-        </label>
+        <TextField
+          style={styles.textField}
+          label="Interests"
+          value={interests}
+          placeholder="Up to 5 separated by commas"
+          onChange={e => setInterests(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Interests:
-          <input
-            type="text"
-            value={interests}
-            placeholder="Up to 5 separated by commas"
-            onChange={e => setInterests(e.target.value)}
-            required
-          />
-        </label>
+        <TextField
+          select
+          style={styles.textField}
+          value={dietRestrictions}
+          onChange={e => handleDietOption(e)}
+          helperText="Select your dietary option"
+          required
+        >
+          {dietOptions.map((option, i) => (
+            <MenuItem key={i} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
         <br />
-        <label>
-          Diet Restrictions:
-          <select value={dietRestrictions} onChange={e => handleDietOption(e)} required>
-            {dietOptions.map((option, i) => (
-              <option key={i} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </label>
-        <input
-          type="text"
+        <TextField
+          placeholder="Specify your dietary option"
           style={{
             display: dietOptionOther ? 'block' : 'none',
           }}
@@ -192,22 +159,43 @@ function Profile({
           onChange={e => handleDietOption(e)}
         />
         <br />
-        <input type="submit" value="Save" />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Save
+        </Button>
       </form>
     </div>
   );
 }
 
+Profile.propTypes = {
+  defaultFirstName: PropTypes.string,
+  defaultLastName: PropTypes.string,
+  defaultInterests: PropTypes.arrayOf(PropTypes.string),
+  defaultDietRestrictions: PropTypes.string,
+  dispatchSaveProfile: PropTypes.func,
+};
+
+Profile.defaultProps = {
+  defaultFirstName: '',
+  defaultLastName: '',
+  defaultInterests: [],
+  defaultDietRestrictions: '',
+  dispatchSaveProfile: () => {},
+};
+
 const mapStateToProps = ({ profile }) => ({
   defaultFirstName: profile.firstName,
   defaultLastName: profile.lastName,
-  defaultZipcode: profile.zipcode,
   defaultInterests: profile.interests,
   defaultDietRestrictions: profile.dietRestrictions,
 });
+
 const mapDispatchToProps = {
   dispatchSaveProfile: saveProfile,
-  dispatchUploadPhoto: uploadPhoto,
 };
 
 export default connect(

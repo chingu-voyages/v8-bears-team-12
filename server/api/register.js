@@ -19,6 +19,7 @@ module.exports = (app) => {
       email,
       password,
       interests,
+      dietRestrictions,
     } = req.body.user;
 
     try {

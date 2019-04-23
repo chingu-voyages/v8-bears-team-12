@@ -52,7 +52,6 @@ export const saveProfile = (
   firstName,
   lastName,
   password,
-  zipcode,
   interests,
   dietRestrictions,
 ) => async (dispatch) => {
@@ -61,7 +60,6 @@ export const saveProfile = (
       firstName,
       lastName,
       password,
-      zipcode,
       interests,
       dietRestrictions,
     });
