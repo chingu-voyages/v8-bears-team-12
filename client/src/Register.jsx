@@ -26,6 +26,11 @@ const validate = (values) => {
   if (!values.interests) {
     errors.interests = 'Required';
   }
+  if (values.confirmPassword !== ''
+      && values.passowrd !== ''
+      && values.confirmPassword !== values.password) {
+    errors.confirmPassword = 'Passwords do not match';
+  }
   return errors;
 };
 
@@ -81,6 +86,7 @@ const Register = ({
         <Field name="lastName" type="text" component={renderField} label="Last Name" />
         <Field name="email" type="email" component={renderField} label="Email" />
         <Field name="password" type="password" component={renderField} label="Password" />
+        <Field name="confirmPassword" type="password" component={renderField} label="Confirm Password" />
         <Field name="interests" type="text" component={renderField} label="Interests" />
         <FormControl style={{ marginTop: '35px', marginBottom: '20px' }}>
           <InputLabel style={{ marginTop: '-40px' }}>Diet Restrictions</InputLabel>
