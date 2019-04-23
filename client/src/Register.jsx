@@ -23,9 +23,6 @@ const validate = values => {
   if (!values.password) {
     errors.password = 'Required';
   }
-  if (!values.interests) {
-    errors.interests = 'Required';
-  }
   return errors;
 };
 
