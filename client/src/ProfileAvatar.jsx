@@ -7,10 +7,9 @@ const styles = {
   avatarContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 50,
-    marginBottom: 50,
-    justifyContent: 'spaceBetween',
-    alignItems: 'stretch',
+    marginTop: 40,
+    marginBottom: 40,
+    justifyContent: 'space-between',
   },
 };
 
