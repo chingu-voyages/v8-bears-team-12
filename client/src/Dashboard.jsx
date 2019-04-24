@@ -25,13 +25,15 @@ function Dashboard({ dispatchLogoutThunk, searchCity, searchState }) {
   return (
     <div className="dashboard-tab">
       <div className="search-area-info">
-        <h4>Search Area: </h4>
-        <div>
-          {searchCity},{searchState}
-        </div>
-        <Link to="/set-search-area">
-          <Button>Change</Button>
-        </Link>
+        <h4>
+          Search Area:
+          <span>
+            {searchCity}, {searchState}
+          </span>
+          <Link to="/set-search-area">
+            <Button>Change</Button>
+          </Link>
+        </h4>
       </div>
       <DiningMateList diningMates={diningMates} />
       <button type="button" onClick={dispatchLogoutThunk}>
