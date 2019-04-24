@@ -7,9 +7,8 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 import DiningMateList from './DiningMateList';
-import { logoutThunk } from './actionCreators';
 
-function Dashboard({ dispatchLogoutThunk, searchCity, searchState }) {
+function Dashboard({ searchCity, searchState }) {
   const [diningMates, setDiningMates] = useState([]);
 
   useEffect(() => {
@@ -36,9 +35,6 @@ function Dashboard({ dispatchLogoutThunk, searchCity, searchState }) {
         </h4>
       </div>
       <DiningMateList diningMates={diningMates} />
-      <button type="button" onClick={dispatchLogoutThunk}>
-        Logout
-      </button>
     </div>
   );
 }
@@ -50,14 +46,12 @@ Dashboard.propTypes = {
     type: PropTypes.string,
     coordinates: PropTypes.arrayOf(PropTypes.number),
   }),
-  dispatchLogoutThunk: PropTypes.func,
 };
 
 Dashboard.defaultProps = {
   searchCity: '',
   searchState: '',
   searchLocation: { type: '', coordinates: [] },
-  dispatchLogoutThunk: () => {},
 };
 
 const mapStateToProps = state => ({
@@ -67,11 +61,4 @@ const mapStateToProps = state => ({
   searchLocation: state.profile.searchLocation,
 });
 
-const mapDispatchToProps = {
-  dispatchLogoutThunk: logoutThunk,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);

@@ -5,6 +5,10 @@ body {
   justify-content: center;
 }
 
+.app-bar button {
+  margin-left: 8px;
+}
+
 #root {
   display: flex;
   flex-direction: column;
