@@ -22,13 +22,12 @@ function NavMenu({ loggedIn }) {
     { label: 'Pick Restaurants', to: '/restaurantPicker' },
   ];
 
-  const tabsValue = [...notLoggedInTabs, ...loggedInTabs]
-    .map(e => e.to)
-    .some(path => path === pathname)
+  const tabs = loggedIn ? loggedInTabs : notLoggedInTabs;
+
+  const tabsValue = tabs.map(e => e.to).some(path => path === pathname)
     ? pathname
     : false;
 
-  const tabs = loggedIn ? loggedInTabs : notLoggedInTabs;
   return (
     <div className="app-tabs">
       <Tabs
