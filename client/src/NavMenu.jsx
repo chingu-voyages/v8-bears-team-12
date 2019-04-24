@@ -30,7 +30,7 @@ function NavMenu({ loggedIn }) {
 
   const tabs = loggedIn ? loggedInTabs : notLoggedInTabs;
   return (
-    <div>
+    <div className="app-tabs">
       <Tabs
         value={tabsValue}
         indicatorColor="primary"
