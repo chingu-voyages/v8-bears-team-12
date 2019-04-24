@@ -27,30 +27,17 @@ const validate = (values) => {
   return errors;
 };
 
-const renderField = ({
-  input,
-  label,
-  type,
-  meta: { touched, error, warning },
-}) => (
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
   <div className="formText">
     <FormControl>
       <InputLabel>{label}</InputLabel>
       <Input {...input} type={type} className="form-input" />
-      {touched &&
-        ((error && <span>{error}</span>) ||
-          (warning && <span>{warning}</span>))}
+      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </FormControl>
   </div>
 );
 
-const Register = ({
-  handleSubmit,
-  pristine,
-  reset,
-  submitting,
-  dispatchNewUser,
-}) => {
+const Register = ({ handleSubmit, pristine, reset, submitting, dispatchNewUser }) => {
   const options = [
     'None a.k.a. I eat anything and everything',
     'Vegan',
@@ -59,15 +46,7 @@ const Register = ({
   ];
 
   function onSubmit(values) {
-    const {
-      username,
-      firstName,
-      lastName,
-      email,
-      password,
-      interests,
-      dietRestrictions,
-    } = values;
+    const { username, firstName, lastName, email, password, interests, dietRestrictions } = values;
 
     // create new user
     const newUser = {
@@ -89,47 +68,14 @@ const Register = ({
     <div className="simple-card">
       <h1>Sign Up</h1>
       <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
-Field name="interests" type="text" component={renderField} label="Interests" />
-        <Field
-          name="username"
-          type="text"
-          component={renderField}
-          label="Username"
-        />
-        <Field
-          name="firstName"
-          type="text"
-          component={renderField}
-          label="First Name"
-        />
-        <Field
-          name="lastName"
-          type="text"
-          component={renderField}
-          label="Last Name"
-        />
-        <Field
-          name="email"
-          type="email"
-          component={renderField}
-          label="Email"
-        />
-        <Field
-          name="password"
-          type="password"
-          component={renderField}
-          label="Password"
-        />
-        <Field
-          name="interests"
-          type="text"
-          component={renderField}
-          label="Interests"
-        />
+        <Field name="username" type="text" component={renderField} label="Username" />
+        <Field name="firstName" type="text" component={renderField} label="First Name" />
+        <Field name="lastName" type="text" component={renderField} label="Last Name" />
+        <Field name="email" type="email" component={renderField} label="Email" />
+        <Field name="password" type="password" component={renderField} label="Password" />
+        <Field name="interests" type="text" component={renderField} label="Interests" />
         <FormControl style={{ marginTop: '35px', marginBottom: '20px' }}>
-          <InputLabel style={{ marginTop: '-40px' }}>
-            Diet Restrictions
-          </InputLabel>
+          <InputLabel style={{ marginTop: '-40px' }}>Diet Restrictions</InputLabel>
           <Field
             style={{ minHeight: '30px', fontSize: '105%' }}
             name="dietRestrictions"
