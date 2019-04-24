@@ -10,6 +10,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Header from './Header';
 import Home from './Home';
 import Profile from './Profile';
+import PalChat from './PalChat';
+import PalList from './PalList';
 import Register from './Register';
 import RestaurantPicker from './RestaurantPicker';
 import SetSearchArea from './SetSearchArea';
@@ -44,6 +46,10 @@ function RouterContainer({
           ) : null}
           {loggedIn ? (
             <Route path="/set-search-area" component={SetSearchArea} />
+          ) : null}
+          {loggedIn ? <Route path="/pal-list" component={PalList} /> : null}
+          {loggedIn ? (
+            <Route path="/pal-chat/:palId" component={PalChat} />
           ) : null}
           <Route path="" component={NotFound} />
         </Switch>

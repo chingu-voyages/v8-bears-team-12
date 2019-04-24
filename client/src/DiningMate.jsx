@@ -1,15 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function DiningMate({ name, interests, dietRestrictions, restaurantsList }) {
-  function handleClick() {
+import { palAdd } from './actionCreators';
+
+function DiningMate({ data, dispatchPalAdd }) {
+  const { _id, name, interests, dietRestrictions, restaurantsList } = data;
+  function handleAddPal() {
     // console.log('TODO: initiate chat');
+    dispatchPalAdd(_id);
   }
 
   return (
     <div className="dining-mate">
-      <button type="button" onClick={handleClick}>
-        Chat
+      <button type="button" onClick={handleAddPal}>
+        Add Pal
       </button>
       <ul>
         <li>{name}</li>
@@ -22,17 +27,30 @@ function DiningMate({ name, interests, dietRestrictions, restaurantsList }) {
 }
 
 DiningMate.propTypes = {
-  name: PropTypes.string,
-  interests: PropTypes.arrayOf(PropTypes.string),
-  dietRestrictions: PropTypes.string,
-  restaurantsList: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.objectOf({
+    name: PropTypes.string,
+    interests: PropTypes.arrayOf(PropTypes.string),
+    dietRestrictions: PropTypes.string,
+    restaurantsList: PropTypes.arrayOf(PropTypes.object),
+  }),
+  dispatchPalAdd: PropTypes.func,
 };
 
 DiningMate.defaultProps = {
-  name: '',
-  interests: [],
-  dietRestrictions: '',
-  restaurantsList: [],
+  data: {
+    name: '',
+    interests: [],
+    dietRestrictions: '',
+    restaurantsList: [],
+  },
+  dispatchPalAdd: () => {},
 };
 
-export default DiningMate;
+const mapDispatchToProps = {
+  dispatchPalAdd: palAdd,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(DiningMate);

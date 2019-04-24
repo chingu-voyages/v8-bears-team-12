@@ -116,3 +116,8 @@ export const setSearchLocation = ({
   setProfileThunk()(dispatch);
   window.location = '/';
 };
+
+export const palAdd = palId => async dispatch => {
+  await axios.post(`/api/chat-add/${palId}`);
+  setProfileThunk()(dispatch);
+};

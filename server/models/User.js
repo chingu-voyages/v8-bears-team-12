@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose;
 const PointSchema = require('./PointSchema');
@@ -20,7 +20,8 @@ const userSchema = new Schema({
   searchLocation: { type: PointSchema },
   interests: [String],
   dietRestrictions: String,
-  restaurantsList: [{ type: Schema.Types.ObjectId, ref: "Restaurant" }]
+  restaurantsList: [{ type: Schema.Types.ObjectId, ref: 'Restaurant' }],
+  pals: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 });
 
 userSchema.pre('save', async function(next) {
@@ -32,9 +33,9 @@ userSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt(SALT_FACTOR);
     user.password = await bcrypt.hash(user.password, salt);
     next();
-  } catch(err) {
+  } catch (err) {
     next(err);
   }
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema);

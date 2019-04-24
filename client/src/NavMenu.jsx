@@ -18,6 +18,7 @@ function NavMenu({ loggedIn }) {
 
   const loggedInTabs = [
     { label: 'Home', to: '/' },
+    { label: 'Pals', to: '/pal-list' },
     { label: 'Profile', to: '/profile' },
     { label: 'Pick Restaurants', to: '/restaurantPicker' },
   ];

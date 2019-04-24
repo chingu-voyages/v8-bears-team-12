@@ -5,14 +5,9 @@ import DiningMate from './DiningMate';
 
 function DiningMateList(props) {
   const { diningMates } = props;
+
   const diningMateElems = diningMates.map(e => (
-    <DiningMate
-      key={e._id}
-      name={e.name}
-      interests={e.interests}
-      dietRestrictions={e.dietRestrictions}
-      restaurantsList={e.restaurantsList}
-    />
+    <DiningMate key={e._id} data={e} />
   ));
   return <div className="dining-mate-list">{diningMateElems}</div>;
 }

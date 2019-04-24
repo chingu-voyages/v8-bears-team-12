@@ -25,13 +25,15 @@ passport.use(
       const { sub } = jwt_payload;
       const user = await User.findOne(
         { _id: ObjectId(sub) },
-        { password: false }
-      ).populate({ path: 'restaurantsList', select: '-users' });
+        { password: false },
+      )
+        .populate({ path: 'restaurantsList', select: '-users' })
+        .populate({ path: 'pals', select: '-password -pals' });
       done(null, user || false);
     } catch (err) {
       done(err, false);
     }
-  })
+  }),
 );
 
 function authHandlers(app) {
@@ -48,6 +50,8 @@ function authHandlers(app) {
   require('./api/city-choices')(app);
   require('./api/set-search-location')(app);
   require('./api/dining-mates')(app);
+
+  require('./api/chat-add')(app);
 }
 
 module.exports = authHandlers;
