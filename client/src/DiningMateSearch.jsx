@@ -40,9 +40,11 @@ function DiningMateSearch({ dispatchSetSearchLocation }) {
       </div>
       <ul>
         {cities.map(city => {
+          const key = `${city.city}, ${city.state}, 
+          ${city.lat}:${city.lon}`;
           const current = `${city.city}, ${city.state}`;
           return (
-            <li key={current}>
+            <li key={key}>
               <button type="button" onClick={() => handleClick(city)}>
                 {current}
               </button>

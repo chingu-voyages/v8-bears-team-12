@@ -8,7 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { registerUser } from './actionCreators';
 
-const validate = (values) => {
+const validate = values => {
   const errors = {};
   if (!values.username) {
     errors.username = 'Required';
@@ -89,7 +89,6 @@ const Register = ({
     <div className="simple-card">
       <h1>Sign Up</h1>
       <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
-Field name="interests" type="text" component={renderField} label="Interests" />
         <Field
           name="username"
           type="text"

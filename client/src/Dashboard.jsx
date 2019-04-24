@@ -3,18 +3,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
-import DiningMateSearch from './DiningMateSearch';
 import DiningMateList from './DiningMateList';
 import { logoutThunk } from './actionCreators';
 
-function Dashboard({
-  dispatchLogoutThunk,
-  name,
-  searchCity,
-  searchState,
-  searchLocation,
-}) {
+function Dashboard({ dispatchLogoutThunk, searchCity, searchState }) {
   const [diningMates, setDiningMates] = useState([]);
 
   useEffect(() => {
@@ -28,14 +23,18 @@ function Dashboard({
   }, [searchCity]);
 
   return (
-    <div>
-      <h3>Welcome, {name}</h3>
-      <DiningMateSearch />
-      <ul>
-        <li>city: {searchCity}</li>
-        <li>state: {searchState}</li>
-        <li>location: {JSON.stringify(searchLocation.coordinates)}</li>
-      </ul>
+    <div className="dashboard-tab">
+      <div className="search-area-info">
+        <h4>
+          Search Area:
+          <span>
+            {searchCity}, {searchState}
+          </span>
+          <Link to="/set-search-area">
+            <Button>Change</Button>
+          </Link>
+        </h4>
+      </div>
       <DiningMateList diningMates={diningMates} />
       <button type="button" onClick={dispatchLogoutThunk}>
         Logout
@@ -45,7 +44,6 @@ function Dashboard({
 }
 
 Dashboard.propTypes = {
-  name: PropTypes.string,
   searchCity: PropTypes.string,
   searchState: PropTypes.string,
   searchLocation: PropTypes.shape({
@@ -56,7 +54,6 @@ Dashboard.propTypes = {
 };
 
 Dashboard.defaultProps = {
-  name: '',
   searchCity: '',
   searchState: '',
   searchLocation: { type: '', coordinates: [] },

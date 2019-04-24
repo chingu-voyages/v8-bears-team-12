@@ -103,3 +103,29 @@ a:visited {
 .form-input {
   width: 100%;
 }
+
+.app-tabs {
+  background-color: #f5f5f5;
+  border-bottom: 1px dotted gray;
+}
+
+.dashboard-tab {
+  width: 100%;
+}
+
+.search-area-info {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-area-info > * {
+  flex: 1;
+}
+
+.search-area-info h4 span {
+  font-weight: normal;
+  margin: 0px 16px;
+}

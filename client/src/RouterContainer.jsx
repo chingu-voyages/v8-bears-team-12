@@ -12,6 +12,7 @@ import Home from './Home';
 import Profile from './Profile';
 import Register from './Register';
 import RestaurantPicker from './RestaurantPicker';
+import SetSearchArea from './SetSearchArea';
 import NotFound from './NotFound';
 import Forgot from './Forgot';
 
@@ -38,7 +39,12 @@ function RouterContainer({
           {loggedIn ? <Route path="/profile" component={Profile} /> : null}
           {loggedIn ? null : <Route path="/register" component={Register} />}
           {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
-          {loggedIn ? <Route path="/restaurantPicker" component={RestaurantPicker} /> : null}
+          {loggedIn ? (
+            <Route path="/restaurantPicker" component={RestaurantPicker} />
+          ) : null}
+          {loggedIn ? (
+            <Route path="/set-search-area" component={SetSearchArea} />
+          ) : null}
           <Route path="" component={NotFound} />
         </Switch>
       </main>
