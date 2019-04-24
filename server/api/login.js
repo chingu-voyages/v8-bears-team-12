@@ -14,7 +14,7 @@ module.exports = (app) => {
       if (!user) throw new Error(`Unable to find username: ${username}`);
 
       if (!user.active)
-        throw new Error('Please check your email for the verification link');
+        throw new Error('Please verify email before logging in');
 
       let same = await bcrypt.compare(password, user.password);
       if (!same) throw new Error(`Invalid password for ${username}`);
