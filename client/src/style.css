@@ -15,7 +15,7 @@ body {
 }
 
 header {
-  padding: 2px 8px;
+  padding: 0px 16px;
   display: flex;
   flex-direction: column;
 }

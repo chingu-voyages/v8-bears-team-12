@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 
 import NavMenu from './NavMenu';
 
@@ -15,17 +13,10 @@ function Header({ loggedIn, name }) {
     <div>
       <AppBar position="static">
         <Toolbar disableGutters>
-          <IconButton color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
             Pal-a-table
           </Typography>
-          <Typography
-            variant="h6"
-            color="inherit"
-            style={{ paddingRight: '8px' }}
-          >
+          <Typography variant="h6" color="inherit">
             {loggedIn ? name : ''}
           </Typography>
         </Toolbar>
