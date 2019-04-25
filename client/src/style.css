@@ -198,3 +198,13 @@ a:visited {
 ul span {
   color: rgb(19, 73, 134);
 }
+
+.pal-chat {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.pal-chat .message-window {
+  flex: 1;
+}
