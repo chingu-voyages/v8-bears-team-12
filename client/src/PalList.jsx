@@ -20,7 +20,7 @@ function PalList({ pals }) {
               <img
                 src="https://via.placeholder.com/100"
                 style={{ minwidth: '100px', minheight: '100px', border: '1px solid gray' }}
-                alt="user image"
+                alt="user"
               />
               <button type="button" onClick={() => handleChat(pal._id)}>
                 Chat
@@ -34,11 +34,11 @@ function PalList({ pals }) {
                 </li>
                 <li>
                   <span>Interests: </span>
-                  {pal.interests}
+                  {pal.interests && pal.interests.join(', ')}
                 </li>
                 <li>
                   <span>Diet Restrictions: </span>
-                  {pal.dietRestrictions}
+                  {pal.dietRestrictions && pal.dietRestrictions}
                 </li>
               </ul>
             </div>

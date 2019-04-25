@@ -19,7 +19,7 @@ function Header({ loggedIn, name, dispatchLogoutThunk }) {
     history.push('/');
   }
   return (
-    <div className="app-bar">
+    <div className="app-bar header-font">
       <AppBar position="static">
         <Toolbar disableGutters>
           <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
