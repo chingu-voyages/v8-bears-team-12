@@ -121,3 +121,13 @@ export const palAdd = palId => async dispatch => {
   await axios.post(`/api/chat-add/${palId}`);
   setProfileThunk()(dispatch);
 };
+
+export const sendChat = ({ palId, text }) => async dispatch => {
+  const response = await axios.post(`/api/chat-message/${palId}`, { text });
+  const { error } = response.data;
+  if (error) {
+    dispatch(setSnackbar(error.message));
+  } else {
+    setProfileThunk()(dispatch);
+  }
+};

@@ -52,6 +52,7 @@ function authHandlers(app) {
   require('./api/dining-mates')(app);
 
   require('./api/chat-add')(app);
+  require('./api/chat-message')(app);
 }
 
 module.exports = authHandlers;
