@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 
-import { sendChat } from './actionCreators';
+import { sendChat, getChatMessages } from './actionCreators';
 
-function PalChat({ match, pals, dispatchSendChat }) {
+function PalChat({
+  match,
+  pals,
+  dispatchSendChat,
+  dispatchGetChatMessages,
+  messages = [{ _id: 1, text: 'a' }, { _id: 2, text: 'b' }],
+}) {
   const [text, setText] = useState('');
   const { palId } = match.params;
   const pal = pals.find(e => e._id === palId);
 
+  useEffect(() => {
+    dispatchGetChatMessages({ palId });
+  }, []);
   function onSubmit(e) {
     e.preventDefault();
 
@@ -19,7 +28,12 @@ function PalChat({ match, pals, dispatchSendChat }) {
   return (
     <div className="pal-chat">
       <h1>Pal Chat: {pal.name}</h1>
-      <div className="message-window" />
+      <div className="messages-window">
+        {messages.map(message => (
+          <div key={message._id}>{JSON.stringify(message)}</div>
+        ))}
+      </div>
+
       <form onSubmit={onSubmit}>
         <TextField
           required
@@ -45,12 +59,14 @@ PalChat.defaultProps = {
   match: { params: {} },
 };
 
-const mapStateToProps = ({ profile }) => ({
+const mapStateToProps = ({ profile, chat }) => ({
   pals: profile.pals,
+  messages: chat.messages,
 });
 
 const mapDispatchToProps = {
   dispatchSendChat: sendChat,
+  dispatchGetChatMessages: getChatMessages,
 };
 
 export default connect(

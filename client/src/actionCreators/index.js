@@ -5,6 +5,7 @@ import {
   REMOVE_PROFILE,
   SET_SNACKBAR,
   REMOVE_SNACKBAR,
+  SET_CHAT_MESSAGES,
 } from '../actionTypes';
 
 export const setSnackbar = message => ({
@@ -129,5 +130,16 @@ export const sendChat = ({ palId, text }) => async dispatch => {
     dispatch(setSnackbar(error.message));
   } else {
     setProfileThunk()(dispatch);
+  }
+};
+
+export const getChatMessages = ({ palId }) => async dispatch => {
+  const response = await axios.get(`/api/chat-messages/${palId}`);
+  const { error } = response.data;
+  if (error) {
+    dispatch(setSnackbar(error.message));
+  } else {
+    const { messages } = response.data;
+    dispatch({ type: SET_CHAT_MESSAGES, payload: { messages } });
   }
 };

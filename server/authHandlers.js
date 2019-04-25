@@ -53,6 +53,7 @@ function authHandlers(app) {
 
   require('./api/chat-add')(app);
   require('./api/chat-message')(app);
+  require('./api/chat-messages')(app);
 }
 
 module.exports = authHandlers;
