@@ -27,7 +27,7 @@ function DiningMate({ data, dispatchPalAdd }) {
 }
 
 DiningMate.propTypes = {
-  data: PropTypes.objectOf({
+  data: PropTypes.shape({
     name: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
     dietRestrictions: PropTypes.string,
