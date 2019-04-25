@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import useReactRouter from 'use-react-router';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -44,6 +45,7 @@ const Register = ({ handleSubmit, pristine, reset, submitting, dispatchNewUser }
     'Vegetarian',
     'GlutenFree',
   ];
+  const { history } = useReactRouter();
 
   function onSubmit(values) {
     const { username, firstName, lastName, email, password, interests, dietRestrictions } = values;
@@ -61,7 +63,7 @@ const Register = ({ handleSubmit, pristine, reset, submitting, dispatchNewUser }
 
     console.log({ newUser });
 
-    dispatchNewUser(newUser);
+    dispatchNewUser(newUser).then(history.push('/'));
   }
 
   return (
@@ -89,7 +91,6 @@ const Register = ({ handleSubmit, pristine, reset, submitting, dispatchNewUser }
               </option>
             ))}
           </Field>
-          {/* <FormHelperText>Diet Restrictions</FormHelperText> */}
         </FormControl>
         <br />
         <div>
