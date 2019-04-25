@@ -133,3 +133,13 @@ a:visited {
   font-weight: normal;
   margin: 0px 16px;
 }
+
+.pal-chat {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.pal-chat .message-window {
+  flex: 1;
+}
