@@ -24,13 +24,13 @@ function Dashboard({ searchCity, searchState }) {
   return (
     <div className="dashboard-tab">
       <div className="search-area-info">
-        <h4>
+        <h4 style={{ color: 'rgb(19, 73, 134)' }}>
           Search Area:
-          <span>
+          <span style={{ color: 'black', borderBottom: '2px solid rgb(19, 73, 134) ' }}>
             {searchCity}, {searchState}
           </span>
           <Link to="/set-search-area">
-            <Button>Change</Button>
+            <Button style={{ border: '1px solid grey' }}>Change</Button>
           </Link>
         </h4>
       </div>
@@ -54,7 +54,7 @@ Dashboard.defaultProps = {
   searchLocation: { type: '', coordinates: [] },
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   name: state.profile.name,
   searchCity: state.profile.searchCity,
   searchState: state.profile.searchState,

@@ -10,10 +10,19 @@ function SetSearchArea({ searchCity, searchState, searchLocation }) {
     <div className="simple-card">
       <h1>Set Search Area</h1>
       <DiningMateSearch />
-      <ul>
-        <li>city: {searchCity}</li>
-        <li>state: {searchState}</li>
-        <li>location: {JSON.stringify(searchLocation.coordinates)}</li>
+      <ul style={{ listStyleType: 'none' }}>
+        <li>
+          <span>city: </span>
+          {searchCity}
+        </li>
+        <li>
+          <span>state: </span>
+          {searchState}
+        </li>
+        <li>
+          <span>location: </span>
+          {JSON.stringify(searchLocation.coordinates)}
+        </li>
       </ul>
     </div>
   );
@@ -34,7 +43,7 @@ SetSearchArea.defaultProps = {
   searchLocation: { type: '', coordinates: [] },
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   searchCity: state.profile.searchCity,
   searchState: state.profile.searchState,
   searchLocation: state.profile.searchLocation,

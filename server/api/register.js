@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer');
 const mg = require('nodemailer-mailgun-transport');
 const crypto = require('crypto');
 const User = require('../models/User');
-
 const { MAILGUN_APIKEY, MAILGUN_DOMAIN } = process.env;
 
 module.exports = (app) => {
@@ -26,9 +25,11 @@ module.exports = (app) => {
       const buf = await crypto.randomBytes(20);
       const token = buf.toString('hex');
       const now = new Date();
+      let exists = false;
 
       await User.findOne({ email }).then((user) => {
         if (user) {
+          exists = true;
           return res.json({ error: { message: 'Email already exists' } });
         }
       });
@@ -40,6 +41,7 @@ module.exports = (app) => {
         email,
         password,
         interests,
+        dietRestrictions,
       });
       user.resetPasswordToken = token;
       user.resetPasswordExpires = Date.now() + 7200000;
@@ -61,15 +63,16 @@ module.exports = (app) => {
           req.headers.host
         }/api/reset/${user._id.toString()}/${token}\n\nIf you did not request this, please ignore this email and your password will remain unchanged`,
       };
-      await smtpTransport.sendMail(mailOptions);
-      await user
-        .save()
-        .then((user) =>
+      !exists && (await smtpTransport.sendMail(mailOptions));
+      !exists &&
+        (await user.save().then((user) =>
           res.json({
             user,
-            error: { message: 'Please check your email for verification link' },
+            error: {
+              message: 'Please check your email for verification link',
+            },
           }),
-        );
+        ));
     } catch (err) {
       console.error(err);
       res.status(500).send(err.message);

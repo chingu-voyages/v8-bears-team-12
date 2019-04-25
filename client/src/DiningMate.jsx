@@ -12,16 +12,33 @@ function DiningMate({ data, dispatchPalAdd }) {
   }
 
   return (
-    <div className="dining-mate">
-      <button type="button" onClick={handleAddPal}>
-        Add Pal
-      </button>
-      <ul>
-        <li>{name}</li>
-        <li>{interests.join(', ')}</li>
-        <li>{dietRestrictions}</li>
-        <li>{restaurantsList.map(e => e.name).join(', ')}</li>
-      </ul>
+    <div className="dining-mate pal-card">
+      <div className="pal-card-image">
+        <img
+          src="https://via.placeholder.com/100"
+          style={{ minwidth: '100px', minheight: '100px', border: '1px solid gray' }}
+          alt="user"
+        />
+        <button type="button" onClick={handleAddPal}>
+          Add Pal
+        </button>
+      </div>
+      <div className="pal-card-info">
+        <ul style={{ listStyleType: 'none' }}>
+          <li>
+            <span>UserName: </span>
+            {name}
+          </li>
+          <li>
+            <span>Interests: </span>
+            {interests && interests.join(', ')}
+          </li>
+          <li>
+            <span>Diet Restrictions: </span>
+            {dietRestrictions}
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
