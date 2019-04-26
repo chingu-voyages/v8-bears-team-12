@@ -20,6 +20,6 @@ module.exports = {
     'object-curly-newline': 'off',
     'no-underscore-dangle': 'off',
     'arrow-parens': 'off',
-    'react/jsx-one-expression-per-line': [false],
+    'react/jsx-one-expression-per-line': 'off',
   },
 };
