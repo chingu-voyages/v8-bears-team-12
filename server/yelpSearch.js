@@ -11,13 +11,11 @@ async function yelpSearch(term, location) {
         location,
       },
       headers: {
-        authorization: `Bearer ${YELP_APIKEY}`,   
+        authorization: `Bearer ${YELP_APIKEY}`,
       },
     });
     return response;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 }
 
 module.exports = yelpSearch;

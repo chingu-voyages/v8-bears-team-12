@@ -3,10 +3,9 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const { addJwtCookie } = require('../utils');
 
-module.exports = (app) => {
+module.exports = app => {
   app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
-    console.log(req.body);
 
     try {
       if (!username || !password) throw new Error('username or password empty');
@@ -22,7 +21,6 @@ module.exports = (app) => {
       addJwtCookie(res, user._id);
       res.send('Ok');
     } catch (err) {
-      console.log(err.message);
       res.send({ error: { message: err.message } });
     }
   });

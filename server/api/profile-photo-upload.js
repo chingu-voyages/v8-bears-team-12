@@ -9,11 +9,9 @@ module.exports = app => {
     passport.authenticate('jwt', { session: false }),
     upload.single('image'),
     async (req, res) => {
-      console.log('got here');
-      console.log({file: req.file});
       req.user.image = req.file.buffer;
       req.user.imageType = req.file.mimetype;
-      await req.user.save();        
-    }
-  )
-}
+      await req.user.save();
+    },
+  );
+};

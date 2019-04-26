@@ -17,10 +17,7 @@ function Login({ dispatchLoginThunk }) {
     // handle click
     try {
       dispatchLoginThunk({ username, password });
-    } catch (err) {
-      console.log(err.message); // eslint-disable-line no-console
-    }
-    // console.log(user);
+    } catch (err) {}
   }
 
   return (

@@ -7,7 +7,6 @@ import { palAdd } from './actionCreators';
 function DiningMate({ data, dispatchPalAdd }) {
   const { _id, name, interests, dietRestrictions, restaurantsList } = data;
   function handleAddPal() {
-    // console.log('TODO: initiate chat');
     dispatchPalAdd(_id);
   }
 
@@ -16,7 +15,11 @@ function DiningMate({ data, dispatchPalAdd }) {
       <div className="pal-card-image">
         <img
           src="https://via.placeholder.com/100"
-          style={{ minwidth: '100px', minheight: '100px', border: '1px solid gray' }}
+          style={{
+            minwidth: '100px',
+            minheight: '100px',
+            border: '1px solid gray',
+          }}
           alt="user"
         />
         <button type="button" onClick={handleAddPal}>

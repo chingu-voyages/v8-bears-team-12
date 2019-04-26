@@ -17,7 +17,6 @@ module.exports = http => {
       socket.user = user;
 
       ioSockets.addSocket(socket);
-      console.log(ioSockets.getAllSockets());
       next();
     } catch (err) {
       next(err);
@@ -27,7 +26,6 @@ module.exports = http => {
   io.on('connection', async socket => {
     socket.on('disconnect', () => {
       ioSockets.removeSocket(socket);
-      console.log('disconnect');
     });
   });
 };

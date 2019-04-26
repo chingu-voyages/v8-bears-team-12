@@ -11,7 +11,6 @@ function Forgot() {
 
     const res = await axios.post('/api/forgot', { email });
     const { data } = res;
-    console.log({ email, data });
     setError(data.message);
     setTimeout(() => {
       setError('');
