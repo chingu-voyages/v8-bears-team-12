@@ -70,6 +70,7 @@ export const saveProfile = (
       interests,
       dietRestrictions,
     });
+    dispatch(setSnackbar('profile saved successfully'));
     const { error } = response.data;
     if (error) dispatch(setSnackbar(error.message));
     setProfileThunk()(dispatch);
