@@ -54,16 +54,19 @@ function Profile({
       setConfirmPassword('');
     }
 
-    if (dietRestrictions === '' || dietRestrictions === 'Choose one') {
+    if (dietRestrictions === '') {
       alert('choose an option for diet restriction');
+    }
+
+    if (interests.split(',').length > 5) {
+      alert('cannot put more than 5 interests');
     }
 
     if (
       password === confirmPassword &&
-      (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
+      dietRestrictions !== '' &&
+      interests.split(',').length <= 5
     ) {
-      // alert('changes are successfully saved');
-
       const userChanges = {
         firstName,
         lastName,
