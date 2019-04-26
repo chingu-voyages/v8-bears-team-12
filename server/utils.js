@@ -1,10 +1,13 @@
 const cities = require('all-the-cities');
 const jwt = require('jsonwebtoken');
 const { SECRET } = process.env;
+const { ObjectId } = require('mongodb');
+
+const User = require('./models/User');
 
 const bigCities = cities
-  .filter((e) => e.country == 'US' && e.population > 4000)
-  .map((e) => {
+  .filter(e => e.country == 'US' && e.population > 4000)
+  .map(e => {
     e.state = e.adminCode;
     (e.city = e.name), delete e.adminCode;
     delete e.name;
@@ -32,13 +35,13 @@ function deg2rad(deg) {
 }
 
 function getClosestCity({ lat, lon }) {
-  const bigCitiesPlus = bigCities.map((e) => ({
+  const bigCitiesPlus = bigCities.map(e => ({
     ...e,
     dist: getDistanceFromLatLonInKm(lat, lon, e.lat, e.lon),
   }));
   return bigCitiesPlus.reduce(
     (acc, curr) => (curr.dist < acc.dist ? curr : acc),
-    bigCitiesPlus[0]
+    bigCitiesPlus[0],
   );
 }
 
@@ -46,7 +49,7 @@ function getCityChoices(searchTerm) {
   const term = searchTerm.replace(',', ' ').replace(/\s+/, ' ');
   const regex = new RegExp(term, 'i');
   return bigCities
-    .filter((e) => (e.city + ' ' + e.state).match(regex))
+    .filter(e => (e.city + ' ' + e.state).match(regex))
     .slice(0, 16);
 }
 
@@ -57,4 +60,17 @@ function addJwtCookie(res, objId) {
   res.cookie('jwt', token, { maxAge, httpOnly: true });
 }
 
-module.exports = { getClosestCity, getCityChoices, addJwtCookie };
+async function getUserById(id) {
+  return User.findOne({ _id: ObjectId(id) }, { password: false, image: false })
+    .populate({ path: 'restaurantsList', select: '-users' })
+    .populate({
+      path: 'pals',
+      select: 'interests restaurantsList name dietRestrictions ',
+      populate: {
+        path: 'restaurantsList',
+        select: 'name',
+      },
+    });
+}
+
+module.exports = { getClosestCity, getCityChoices, addJwtCookie, getUserById };

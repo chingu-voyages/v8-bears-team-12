@@ -29,7 +29,7 @@ function RouterContainer({
 }) {
   useEffect(() => {
     dispatchSetProfileThunk();
-  }, [loggedIn]);
+  }, []);
 
   return (
     <Router>

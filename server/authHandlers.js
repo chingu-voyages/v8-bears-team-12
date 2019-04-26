@@ -1,11 +1,8 @@
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 
-const { ObjectId } = require('mongodb');
-
+const { getUserById } = require('./utils');
 const { SECRET } = process.env;
-
-const User = require('./models/User');
 
 var cookieExtractor = function(req) {
   var token = null;
@@ -23,12 +20,8 @@ passport.use(
   new JwtStrategy(opts, async function(jwt_payload, done) {
     try {
       const { sub } = jwt_payload;
-      const user = await User.findOne(
-        { _id: ObjectId(sub) },
-        { password: false },
-      )
-        .populate({ path: 'restaurantsList', select: '-users' })
-        .populate({ path: 'pals', select: '-password -pals' });
+      const user = await getUserById(sub);
+
       done(null, user || false);
     } catch (err) {
       done(err, false);

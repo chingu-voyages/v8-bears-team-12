@@ -8,12 +8,12 @@ const devMiddleware = require('webpack-dev-middleware');
 const hotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('../webpack.config.js');
 const authHandlers = require('./authHandlers');
-const User = require('./models/User');
 
 const { NODE_ENV } = process.env;
 const DEBUG = NODE_ENV === 'development';
 
 const app = express();
+const http = require('http').Server(app);
 
 if (DEBUG) {
   const compiler = webpack(webpackConfig);
@@ -32,9 +32,10 @@ app.set('views', 'server/views');
 app.set('view engine', 'html');
 
 authHandlers(app);
+require('./api/io')(http);
 
 app.get('*', (req, res) => {
   res.render('index', { locals: { DEBUG } });
 });
 
-module.exports = app;
+module.exports = http;

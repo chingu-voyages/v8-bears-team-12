@@ -1,4 +1,5 @@
 import axios from 'axios';
+import socket from '../socket-io';
 
 import {
   SET_PROFILE,
@@ -18,6 +19,11 @@ export const removeSnackbar = () => ({
   message: '',
 });
 
+export const logoutAction = dispatch => {
+  dispatch({ type: REMOVE_PROFILE });
+  socket.disconnect();
+};
+
 export const setProfileThunk = () => async dispatch => {
   try {
     const response = await axios.get('/api/profile');
@@ -25,9 +31,9 @@ export const setProfileThunk = () => async dispatch => {
     const { user } = data;
 
     dispatch({ type: SET_PROFILE, payload: user });
+    socket.getInstance();
   } catch (err) {
-    dispatch({ type: REMOVE_PROFILE });
-    console.log(err.message); // eslint-disable-line no-console
+    logoutAction(dispatch);
   }
 };
 
@@ -96,7 +102,7 @@ export const removeRestaurant = id => async dispatch => {
 
 export const logoutThunk = () => async dispatch => {
   await axios.get('/api/logout');
-  dispatch({ type: REMOVE_PROFILE });
+  logoutAction(dispatch);
 };
 
 export const setSearchLocation = ({
