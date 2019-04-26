@@ -14,8 +14,11 @@ module.exports = app => {
           {
             users: { $all: [palObjId, req.user._id] },
           },
-          { users: false, createdAt: false },
-        );
+          { users: false, createdAt: false, __v: false },
+        ).populate({
+          path: 'sender',
+          select: 'name -_id',
+        });
         res.json({ messages });
       } catch ({ message }) {
         res.send({ error: { message } });

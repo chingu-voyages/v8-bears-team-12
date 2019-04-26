@@ -7,6 +7,7 @@ import {
   SET_SNACKBAR,
   REMOVE_SNACKBAR,
   SET_CHAT_MESSAGES,
+  ADD_CHAT_MESSAGE,
 } from '../actionTypes';
 
 export const setSnackbar = message => ({
@@ -149,3 +150,8 @@ export const getChatMessages = ({ palId }) => async dispatch => {
     dispatch({ type: SET_CHAT_MESSAGES, payload: { messages } });
   }
 };
+
+export const addChatMessage = message => ({
+  type: ADD_CHAT_MESSAGE,
+  payload: { message },
+});
