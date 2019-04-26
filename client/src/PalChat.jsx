@@ -30,7 +30,9 @@ function PalChat({
       <h1>Pal Chat: {pal.name}</h1>
       <div className="messages-window">
         {messages.map(message => (
-          <div key={message._id}>{JSON.stringify(message)}</div>
+          <div key={message._id}>
+            <b>{message.sender.name}</b>: {message.message.text}
+          </div>
         ))}
       </div>
 
