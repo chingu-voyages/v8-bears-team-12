@@ -59,8 +59,8 @@ function Profile({
     }
 
     if (
-      password === confirmPassword
-      && (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
+      password === confirmPassword &&
+      (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
     ) {
       // alert('changes are successfully saved');
 
@@ -79,7 +79,6 @@ function Profile({
         interests,
         dietRestrictions,
       );
-      console.log('this is userChanges', userChanges);
 
       setPassword('');
       setConfirmPassword('');
@@ -159,11 +158,7 @@ function Profile({
           onChange={e => handleDietOption(e)}
         />
         <br />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-        >
+        <Button type="submit" variant="contained" color="primary">
           Save
         </Button>
       </form>
