@@ -40,6 +40,10 @@ function DiningMate({ data, dispatchPalAdd }) {
             <span>Diet Restrictions: </span>
             {dietRestrictions}
           </li>
+          <li>
+            <span>Restaurants List: </span>
+            {restaurantsList.map(e => e.name).join(', ')}
+          </li>
         </ul>
       </div>
     </div>
