@@ -71,6 +71,7 @@ a:visited {
 .login-page-links > div {
   margin: 8px;
 }
+
 /* *********Form style************ */
 
 .formText span {
@@ -205,6 +206,7 @@ ul span {
   flex-direction: column;
 }
 
-.pal-chat .message-window {
+.pal-chat .messages-window {
   flex: 1;
+  overflow-y: scroll;
 }
