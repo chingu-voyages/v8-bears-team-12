@@ -8,7 +8,6 @@ export default {
     return socket;
   },
   disconnect: () => {
-    console.log('disconnect attempt', { socket });
     if (socket) socket.disconnect();
     socket = null;
   },
