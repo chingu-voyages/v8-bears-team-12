@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +13,7 @@ function PalChat({
   messages = [],
 }) {
   const [text, setText] = useState('');
+  const messageEnd = useRef(null);
   const { palId } = match.params;
   const pal = pals.find(e => e._id === palId);
 
@@ -25,6 +26,11 @@ function PalChat({
     dispatchSendChat({ palId: pal._id, text });
   }
 
+  useEffect(() => {
+    console.log('a new message has appeared');
+    messageEnd.current.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <div className="pal-chat">
       <h1>Pal Chat: {pal.name}</h1>
@@ -34,6 +40,7 @@ function PalChat({
             <b>{message.sender.name}</b>: {message.message.text}
           </div>
         ))}
+        <div ref={messageEnd} />
       </div>
 
       <form onSubmit={onSubmit}>
