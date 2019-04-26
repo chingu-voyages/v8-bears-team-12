@@ -2,6 +2,7 @@ const cookie = require('cookie');
 const jwt = require('jsonwebtoken');
 
 const { getUserById } = require('../utils');
+const ioSockets = require('./io-sockets');
 const { SECRET } = process.env;
 
 module.exports = http => {
@@ -15,6 +16,8 @@ module.exports = http => {
       const user = await getUserById(payload.sub);
       socket.user = user;
 
+      ioSockets.addSocket(socket);
+      console.log(ioSockets.getAllSockets());
       next();
     } catch (err) {
       next(err);
@@ -22,9 +25,8 @@ module.exports = http => {
   });
 
   io.on('connection', async socket => {
-    const { user } = socket;
-
-    socket.on('disconnect', socket => {
+    socket.on('disconnect', () => {
+      ioSockets.removeSocket(socket);
       console.log('disconnect');
     });
   });
