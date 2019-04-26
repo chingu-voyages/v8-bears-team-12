@@ -43,6 +43,10 @@ function PalList({ pals }) {
                   <span>Diet Restrictions: </span>
                   {pal.dietRestrictions && pal.dietRestrictions}
                 </li>
+                <li>
+                  <span>Restaurants List: </span>
+                  {pal.restaurantsList.map(e => e.name).join(', ')}
+                </li>
               </ul>
             </div>
           </div>
