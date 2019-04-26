@@ -31,7 +31,6 @@ function PalChat({
   }
 
   useEffect(() => {
-    console.log('a new message has appeared');
     messageEnd.current.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
@@ -60,7 +59,7 @@ function PalChat({
           onChange={e => setText(e.target.value)}
           variant="outlined"
         />
-        <button type="Submit">Send</button>
+        <button type="submit">Send</button>
       </form>
     </div>
   );
@@ -71,11 +70,19 @@ PalChat.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object,
   }),
+  dispatchClearChatMessages: PropTypes.func,
+  dispatchGetChatMessages: PropTypes.func,
+  dispatchSendChat: PropTypes.func,
+  messages: PropTypes.arrayOf(PropTypes.object),
 };
 
 PalChat.defaultProps = {
   pals: [],
   match: { params: {} },
+  dispatchClearChatMessages: () => {},
+  dispatchGetChatMessages: () => {},
+  dispatchSendChat: () => {},
+  messages: [],
 };
 
 const mapStateToProps = ({ profile, chat }) => ({
