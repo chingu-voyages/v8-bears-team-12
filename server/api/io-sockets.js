@@ -2,15 +2,16 @@ let sockets = [];
 
 module.exports = {
   getSockets: userIds => {
-    return sockets.filter(socket =>
-      userIds.some(e => e.equals(socket.user._id)),
-    );
+    return sockets.filter(socket => {
+      return userIds.some(e => socket.user && e.equals(socket.user._id));
+    });
   },
   addSocket: socket => {
     sockets.push(socket);
   },
   removeSocket: socket => {
-    sockets = sockets.filter(e => !socket.user._id.equals(e.user._id));
+    console.log(`removing ${socket}`);
+    sockets = sockets.filter(e => socket.id !== e.id);
   },
   getAllSockets: () => {
     return sockets;

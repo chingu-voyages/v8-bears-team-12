@@ -1,4 +1,8 @@
-import { SET_CHAT_MESSAGES, ADD_CHAT_MESSAGE } from '../actionTypes';
+import {
+  SET_CHAT_MESSAGES,
+  ADD_CHAT_MESSAGE,
+  CLEAR_CHAT_MESSAGES,
+} from '../actionTypes';
 
 const chat = (state = { messages: [] }, action) => {
   switch (action.type) {
@@ -6,8 +10,11 @@ const chat = (state = { messages: [] }, action) => {
       return { messages: action.payload.messages };
     case ADD_CHAT_MESSAGE:
       return { messages: [...state.messages, action.payload.message] };
+    case CLEAR_CHAT_MESSAGES:
+      return { messages: [] };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default chat;

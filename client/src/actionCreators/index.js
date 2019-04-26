@@ -8,6 +8,7 @@ import {
   REMOVE_SNACKBAR,
   SET_CHAT_MESSAGES,
   ADD_CHAT_MESSAGE,
+  CLEAR_CHAT_MESSAGES,
 } from '../actionTypes';
 
 export const setSnackbar = message => ({
@@ -156,3 +157,19 @@ export const addChatMessage = message => ({
   type: ADD_CHAT_MESSAGE,
   payload: { message },
 });
+
+export const clearChatMessages = () => dispatch => {
+  console.log('dispatching clear chat messages');
+  dispatch({ type: CLEAR_CHAT_MESSAGES });
+};
+
+export const removePal = palId => async dispatch => {
+  console.log(`removing pal ${palId}`);
+
+  try {
+    await axios.delete(`/api/chat-remove/${palId}`);
+    setProfileThunk()(dispatch);
+  } catch (err) {
+    dispatch(setSnackbar(err.message));
+  }
+};

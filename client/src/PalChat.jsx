@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 
-import { sendChat, getChatMessages } from './actionCreators';
+import { sendChat, getChatMessages, clearChatMessages } from './actionCreators';
 
 function PalChat({
   match,
   pals,
   dispatchSendChat,
   dispatchGetChatMessages,
+  dispatchClearChatMessages,
   messages = [],
 }) {
   const [text, setText] = useState('');
@@ -19,6 +20,9 @@ function PalChat({
 
   useEffect(() => {
     dispatchGetChatMessages({ palId });
+    return () => {
+      dispatchClearChatMessages();
+    };
   }, []);
   function onSubmit(e) {
     e.preventDefault();
@@ -76,6 +80,7 @@ const mapStateToProps = ({ profile, chat }) => ({
 const mapDispatchToProps = {
   dispatchSendChat: sendChat,
   dispatchGetChatMessages: getChatMessages,
+  dispatchClearChatMessages: clearChatMessages,
 };
 
 export default connect(

@@ -27,6 +27,7 @@ module.exports = app => {
           path: 'sender',
           select: 'name -_id',
         });
+
         const currentMessage = {
           _id: customMessage._id,
           message: customMessage.message,
@@ -39,6 +40,7 @@ module.exports = app => {
           socket.emit('NEW_CHAT_MESSAGE', currentMessage);
         });
 
+        console.log('got here');
         res.end();
       } catch ({ message }) {
         res.send({ error: { message } });
