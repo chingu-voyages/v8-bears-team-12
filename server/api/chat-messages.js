@@ -14,11 +14,15 @@ module.exports = app => {
           {
             users: { $all: [palObjId, req.user._id] },
           },
-          { users: false, createdAt: false, __v: false },
+          { users: false, updatedAt: false, __v: false },
         ).populate({
           path: 'sender',
           select: 'name -_id',
         });
+        await Message.updateMany(
+          { users: { $all: [palObjId, req.user._id] }, sender: palObjId },
+          { $set: { 'message.read': true } },
+        );
         res.json({ messages });
       } catch ({ message }) {
         res.send({ error: { message } });

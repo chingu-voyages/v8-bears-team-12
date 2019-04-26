@@ -39,11 +39,17 @@ function PalChat({
     <div className="pal-chat">
       <h1>Pal Chat: {pal.name}</h1>
       <div className="messages-window">
-        {messages.map(message => (
-          <div key={message._id}>
-            <b>{message.sender.name}</b>: {message.message.text}
-          </div>
-        ))}
+        {messages.map(message => {
+          const name = message.sender.name === pal.name ? pal.name : 'me';
+          const unreadClass =
+            !message.message.read && name !== 'me' ? 'message-unread' : '';
+
+          return (
+            <div className={unreadClass} key={message._id}>
+              <b>{name}</b>: {message.message.text}
+            </div>
+          );
+        })}
         <div ref={messageEnd} />
       </div>
 

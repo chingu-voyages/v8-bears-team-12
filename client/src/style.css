@@ -210,3 +210,7 @@ ul span {
   flex: 1;
   overflow-y: scroll;
 }
+
+.message-unread {
+  font-weight: 700;
+}
