@@ -10,7 +10,7 @@ function PalChat({
   pals,
   dispatchSendChat,
   dispatchGetChatMessages,
-  messages = [{ _id: 1, text: 'a' }, { _id: 2, text: 'b' }],
+  messages = [],
 }) {
   const [text, setText] = useState('');
   const { palId } = match.params;
