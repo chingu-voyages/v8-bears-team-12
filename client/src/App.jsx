@@ -1,14 +1,18 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
-
 import './style.css';
+
+import { Provider } from 'react-redux';
+
+import RouterContainer from './RouterContainer';
+import store from './store';
+
 
 function App() {
   return (
-    <>
-      <h1>Meet and Eat App</h1>
-      <p>Hello v8-bears-team-12!</p>
-    </>
+    <Provider store={store}>
+      <RouterContainer />
+    </Provider>
   );
 }
 

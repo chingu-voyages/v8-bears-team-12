@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+require("dotenv").config();
+
+let program = require("commander");
+
+program
+  .name("meet-cli")
+  .version("0.1.0")
+  .command("users", "users commands")
+  .parse(process.argv);
+
+!program.commands.map(cmd => cmd._name).includes(program.args[0]) &&
+  program.help();

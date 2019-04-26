@@ -46,6 +46,9 @@ npm run dev
 
 - `ATLAS_DBURI`: The URI connection string for a MongoDB cluster
 - `PORT`:  port for Express server
+- `SECRET`: secret for JWT signing
+- `YELP_APIKEY`: Yelp APIKEY
+- `TESTDATA`: Set this and `/api/restaurant-search` will return test data instead of reaching out to YELP
 
 ## Run Scripts
 
@@ -53,6 +56,23 @@ npm run dev
 - `npm run devmon`: Same as `npm run dev` but using nodemon to automatically watch for file changes and restart server
 - `npm run build`: Builds the Webpack bundles into `client/build` folder
 - `npm start`: Does a `npm run build` and run `node server/main.js` with NODE_ENV set to `production`
+
+## CLI tool
+
+There is a CLI tool built for rudimentary initial testing.  It could be expanded upon. It can be run while
+in the project folder with:
+
+```bash
+npm run cli -- users list
+npm run cli -- users add
+```
+
+You may want to create a bash alias if planning to use it often:
+
+```bash
+# file: $HOME/.bashrc
+alias meet-cli="cd /Users/username/projects/v8-bears-team-12 && npm run --silent cli"
+```
 
 ## Woefully Incomplete Setup Notes
 
