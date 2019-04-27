@@ -215,3 +215,11 @@ ul span {
 .message-unread {
   font-weight: 700;
 }
+
+/* *********Home Welcome Guide************ */
+.guide {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 200;
+  margin: auto;
+  padding-left: 200px;
+}
