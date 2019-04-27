@@ -8,16 +8,33 @@ import Typography from '@material-ui/core/Typography';
 import useReactRouter from 'use-react-router';
 
 import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import NotificationImportant from '@material-ui/icons/NotificationImportant';
+
 import NavMenu from './NavMenu';
 
 import { logoutThunk } from './actionCreators';
 
-function Header({ loggedIn, name, dispatchLogoutThunk }) {
+const styles = theme => ({
+  loggedInBox: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    display: 'block',
+    margin: theme.spacing.unit,
+    fontSize: 32,
+  },
+});
+
+function Header({ loggedIn, name, dispatchLogoutThunk, classes }) {
   const { history } = useReactRouter();
   function onLogout() {
     dispatchLogoutThunk();
     history.push('/');
   }
+
   return (
     <div className="app-bar header-font">
       <AppBar position="static">
@@ -25,13 +42,17 @@ function Header({ loggedIn, name, dispatchLogoutThunk }) {
           <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
             Pal-a-table
           </Typography>
-          <Typography variant="h6" color="inherit">
-            {loggedIn ? name : ''}
-          </Typography>
+
           {loggedIn && (
-            <Button variant="contained" onClick={onLogout}>
-              Logout
-            </Button>
+            <div className={classes.loggedInBox}>
+              <Typography variant="h6" color="inherit">
+                {name}
+              </Typography>
+              <NotificationImportant className={classes.icon} />
+              <Button variant="contained" onClick={onLogout}>
+                Logout
+              </Button>
+            </div>
           )}
         </Toolbar>
       </AppBar>
@@ -49,12 +70,14 @@ Header.propTypes = {
   loggedIn: PropTypes.bool,
   name: PropTypes.string,
   dispatchLogoutThunk: PropTypes.func,
+  classes: PropTypes.shape({}),
 };
 
 Header.defaultProps = {
   loggedIn: false,
   name: '',
   dispatchLogoutThunk: () => {},
+  classes: {},
 };
 
 const mapDispatchToProps = {
@@ -64,4 +87,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Header);
+)(withStyles(styles)(Header));
