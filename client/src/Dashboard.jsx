@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
@@ -50,12 +49,16 @@ Dashboard.propTypes = {
     type: PropTypes.string,
     coordinates: PropTypes.arrayOf(PropTypes.number),
   }),
+  dispatchSetDiningMates: PropTypes.func,
+  diningMates: PropTypes.arrayOf(PropTypes.object),
 };
 
 Dashboard.defaultProps = {
   searchCity: '',
   searchState: '',
   searchLocation: { type: '', coordinates: [] },
+  dispatchSetDiningMates: () => {},
+  diningMates: [],
 };
 
 const mapStateToProps = state => ({
