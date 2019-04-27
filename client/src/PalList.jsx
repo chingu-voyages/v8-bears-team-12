@@ -72,6 +72,7 @@ PalList.propTypes = {
 
 PalList.defaultProps = {
   pals: [],
+  dispatchRemovePal: () => {},
 };
 
 const mapStateToProps = ({ profile }) => ({
