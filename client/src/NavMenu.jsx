@@ -12,12 +12,12 @@ function NavMenu({ loggedIn }) {
   const { pathname } = location;
 
   const notLoggedInTabs = [
-    { label: 'Login', to: '/' },
+    { label: 'Login', to: '/login' },
     { label: 'Register', to: '/register' },
   ];
 
   const loggedInTabs = [
-    { label: 'Home', to: '/' },
+    { label: 'Home', to: '/home' },
     { label: 'Pals', to: '/pal-list' },
     { label: 'Profile', to: '/profile' },
     { label: 'Pick Restaurants', to: '/restaurantPicker' },

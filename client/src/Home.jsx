@@ -7,7 +7,7 @@ import Dashboard from './Dashboard';
 
 function Home({ loggedIn, loading }) {
   if (loading) return <div>loading</div>;
-  return <>{loggedIn ? <Dashboard /> : <Login />}</>
+  return <> Hello {loggedIn ? <Dashboard /> : <Login />}</>
 }
 
 const mapStateToProps = ({ profile }) => ({

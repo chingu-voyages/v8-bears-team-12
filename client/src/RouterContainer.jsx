@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 import Header from './Header';
-import Home from './Home';
+import Dashboard from './Dashboard';
 import Profile from './Profile';
 import PalChat from './PalChat';
 import PalList from './PalList';
@@ -17,6 +17,8 @@ import RestaurantPicker from './RestaurantPicker';
 import SetSearchArea from './SetSearchArea';
 import NotFound from './NotFound';
 import Forgot from './Forgot';
+import Landing from './Landing';
+import Login from './Login';
 
 import { setProfileThunk, removeSnackbar } from './actionCreators';
 
@@ -37,10 +39,12 @@ function RouterContainer({
 
       <main>
         <Switch>
-          <Route path="/" exact component={Home} />
-          {loggedIn ? <Route path="/profile" component={Profile} /> : null}
+          <Route path="/" exact component={Landing} />
+          {loggedIn ? null : <Route path="/login" component={Login} />}
           {loggedIn ? null : <Route path="/register" component={Register} />}
           {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
+          {loggedIn ? <Route path="/home" component={Dashboard} /> : null}
+          {loggedIn ? <Route path="/profile" component={Profile} /> : null}
           {loggedIn ? (
             <Route path="/restaurantPicker" component={RestaurantPicker} />
           ) : null}

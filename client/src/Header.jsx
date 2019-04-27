@@ -23,7 +23,7 @@ function Header({ loggedIn, name, dispatchLogoutThunk }) {
       <AppBar position="static">
         <Toolbar disableGutters>
           <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
-            Pal-a-table
+            <Button>Pal-a-table</Button>
           </Typography>
           <Typography variant="h6" color="inherit">
             {loggedIn ? name : ''}
