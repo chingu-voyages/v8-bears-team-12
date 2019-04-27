@@ -174,6 +174,7 @@ export const clearChatMessages = () => dispatch => {
 export const removePal = palId => async dispatch => {
   try {
     await axios.delete(`/api/chat-remove/${palId}`);
+    dispatch(setSnackbar('Pal removed'));
     setProfileThunk()(dispatch);
   } catch (err) {
     dispatch(setSnackbar(err.message));

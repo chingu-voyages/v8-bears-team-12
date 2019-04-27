@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import useReactRouter from 'use-react-router';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { removePal } from './actionCreators';
 
@@ -61,6 +62,12 @@ function PalList({ pals, dispatchRemovePal }) {
           </div>
         </div>
       ))}
+      {!pals.length && (
+        <div>
+          You currently have no pals. Add some from the <Link to="/">Home</Link>{' '}
+          Tab.
+        </div>
+      )}
     </div>
   );
 }
