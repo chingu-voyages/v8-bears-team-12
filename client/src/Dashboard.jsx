@@ -8,25 +8,29 @@ import Button from '@material-ui/core/Button';
 
 import DiningMateList from './DiningMateList';
 
-function Dashboard({ searchCity, searchState }) {
-  const [diningMates, setDiningMates] = useState([]);
+import { setDiningMates } from './actionCreators';
 
+function Dashboard({
+  searchCity,
+  searchState,
+  dispatchSetDiningMates,
+  diningMates,
+}) {
   useEffect(() => {
-    const fetchDiningMates = async () => {
-      const res = await axios.get('/api/dining-mates');
-      setDiningMates(res.data.diningMatches);
-    };
-    if (searchCity) {
-      fetchDiningMates();
-    }
-  }, [searchCity]);
+    if (searchCity) dispatchSetDiningMates();
+  }, []);
 
   return (
     <div className="dashboard-tab">
       <div className="search-area-info">
         <h4 style={{ color: 'rgb(19, 73, 134)' }}>
           Search Area:
-          <span style={{ color: 'black', borderBottom: '2px solid rgb(19, 73, 134) ' }}>
+          <span
+            style={{
+              color: 'black',
+              borderBottom: '2px solid rgb(19, 73, 134) ',
+            }}
+          >
             {searchCity}, {searchState}
           </span>
           <Link to="/set-search-area">
@@ -54,11 +58,19 @@ Dashboard.defaultProps = {
   searchLocation: { type: '', coordinates: [] },
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   name: state.profile.name,
   searchCity: state.profile.searchCity,
   searchState: state.profile.searchState,
   searchLocation: state.profile.searchLocation,
+  diningMates: state.dashboard.diningMates,
 });
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = {
+  dispatchSetDiningMates: setDiningMates,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Dashboard);

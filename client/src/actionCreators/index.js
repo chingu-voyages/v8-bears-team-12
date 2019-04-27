@@ -7,13 +7,15 @@ import {
   SET_SNACKBAR,
   REMOVE_SNACKBAR,
   SET_CHAT_MESSAGES,
-  ADD_CHAT_MESSAGE,
   CLEAR_CHAT_MESSAGES,
+  SET_DININGMATES,
+  CLEAR_DININGMATES,
 } from '../actionTypes';
 
 export const setSnackbar = message => ({
   type: SET_SNACKBAR,
   message,
+  f,
 });
 
 export const removeSnackbar = () => ({
@@ -21,9 +23,9 @@ export const removeSnackbar = () => ({
   message: '',
 });
 
-export const logoutAction = dispatch => {
+export const logoutAction = async dispatch => {
   dispatch({ type: REMOVE_PROFILE });
-  socket.disconnect();
+  await socket.disconnect();
 };
 
 export const setProfileThunk = () => async dispatch => {
@@ -105,7 +107,7 @@ export const removeRestaurant = id => async dispatch => {
 
 export const logoutThunk = () => async dispatch => {
   await axios.get('/api/logout');
-  logoutAction(dispatch);
+  await logoutAction(dispatch);
 };
 
 export const setSearchLocation = ({
@@ -114,6 +116,7 @@ export const setSearchLocation = ({
   city,
   state,
   country,
+  history,
 }) => async dispatch => {
   const data = {
     lat,
@@ -124,7 +127,7 @@ export const setSearchLocation = ({
   };
   await axios.post('/api/set-search-location', data);
   setProfileThunk()(dispatch);
-  window.location = '/';
+  history.push('/');
 };
 
 export const palAdd = palId => async dispatch => {
@@ -142,6 +145,16 @@ export const sendChat = ({ palId, text }) => async dispatch => {
   }
 };
 
+export const setDiningMates = () => async dispatch => {
+  const res = await axios.get('/api/dining-mates');
+  const { diningMates } = res.data;
+  dispatch({ type: SET_DININGMATES, payload: { diningMates } });
+};
+
+export const clearDiningmates = () => dispatch => {
+  dispatch({ type: CLEAR_DININGMATES });
+};
+
 export const getChatMessages = ({ palId }) => async dispatch => {
   const response = await axios.get(`/api/chat-messages/${palId}`);
   const { error } = response.data;
@@ -153,19 +166,11 @@ export const getChatMessages = ({ palId }) => async dispatch => {
   }
 };
 
-export const addChatMessage = message => ({
-  type: ADD_CHAT_MESSAGE,
-  payload: { message },
-});
-
 export const clearChatMessages = () => dispatch => {
-  console.log('dispatching clear chat messages');
   dispatch({ type: CLEAR_CHAT_MESSAGES });
 };
 
 export const removePal = palId => async dispatch => {
-  console.log(`removing pal ${palId}`);
-
   try {
     await axios.delete(`/api/chat-remove/${palId}`);
     setProfileThunk()(dispatch);

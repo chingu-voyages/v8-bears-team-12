@@ -1,8 +1,14 @@
 import io from 'socket.io-client';
 import store from './store';
-import { addChatMessage } from './actionCreators';
+
+import { ADD_CHAT_MESSAGE } from './actionTypes';
 
 let socket;
+
+const addChatMessage = message => ({
+  type: ADD_CHAT_MESSAGE,
+  payload: { message },
+});
 
 export default {
   getInstance: () => {

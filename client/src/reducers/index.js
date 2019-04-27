@@ -3,12 +3,14 @@ import { reducer as formReducer } from 'redux-form';
 import profile from './profile';
 import snackbar from './snackbar';
 import chat from './chat';
+import dashboard from './dashboard';
 
 const reducer = combineReducers({
   snackbar,
   profile,
   form: formReducer,
   chat,
+  dashboard,
 });
 
 export default reducer;

@@ -10,8 +10,11 @@ module.exports = {
     sockets.push(socket);
   },
   removeSocket: socket => {
-    console.log(`removing ${socket}`);
-    sockets = sockets.filter(e => socket.id !== e.id);
+    if (socket) {
+      console.log(`removing ${socket.id}`);
+      sockets = sockets.filter(e => socket.id !== e.id);
+    }
+    sockets = sockets.filter(e => e);
   },
   getAllSockets: () => {
     return sockets;
