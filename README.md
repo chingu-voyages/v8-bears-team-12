@@ -8,6 +8,13 @@ Web app for connecting people to meet and eat together at restaurants.
 - Select restaurants so other people can discover you
 - Add pals to chat with real-time
 
+## Requirements
+
+- Node 10.x
+- MongoDB
+- Mailgun API Key
+- Yelp API Key
+
 ## Installing
 
 ### Downloading
