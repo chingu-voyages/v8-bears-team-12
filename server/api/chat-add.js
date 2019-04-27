@@ -16,10 +16,11 @@ module.exports = app => {
         const pal = await User.findOne({ _id: palObjId });
         if (!pal) throw new Error('No such pal');
         if (!req.user.pals) req.user.pals = [];
-        if (!req.user.pals.some(e => e.equals(palObjId)))
-          req.user.pals.push(palObjId);
+        if (req.user.pals.some(e => e.equals(palObjId)))
+          throw new Error('pal already added');
+        req.user.pals.push(palObjId);
         await req.user.save();
-        res.end();
+        res.send({});
       } catch ({ message }) {
         res.send({ error: { message } });
       }

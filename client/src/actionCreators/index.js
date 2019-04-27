@@ -15,7 +15,6 @@ import {
 export const setSnackbar = message => ({
   type: SET_SNACKBAR,
   message,
-  f,
 });
 
 export const removeSnackbar = () => ({
@@ -131,7 +130,9 @@ export const setSearchLocation = ({
 };
 
 export const palAdd = palId => async dispatch => {
-  await axios.post(`/api/chat-add/${palId}`);
+  const res = await axios.post(`/api/chat-add/${palId}`);
+  const { error } = res.data;
+  dispatch(setSnackbar(error ? error.message : 'Pal added'));
   setProfileThunk()(dispatch);
 };
 
