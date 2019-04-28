@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -6,6 +6,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import useReactRouter from 'use-react-router';
 
 import { Button } from '@material-ui/core';
@@ -28,6 +31,7 @@ const styles = theme => ({
 });
 
 function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const { history } = useReactRouter();
   function onLogout() {
     dispatchLogoutThunk();
@@ -35,6 +39,29 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
   }
 
   const unread = newMessages.length;
+  const unreadMap = newMessages.reduce((acc, curr) => {
+    if (!(curr.sender.name in acc))
+      acc[curr.sender.name] = {
+        id: curr.sender._id,
+        name: curr.sender.name,
+        count: 0,
+      };
+    acc[curr.sender.name].count += 1;
+    return acc;
+  }, {});
+
+  const unreadList = Object.values(unreadMap);
+
+  function handleClick(e) {
+    setAnchorEl(e.currentTarget);
+  }
+  function handleClose(e) {
+    setAnchorEl(null);
+  }
+  function handleGotoChat(id) {
+    setAnchorEl(null);
+    history.push(`/pal-chat/${id}`);
+  }
 
   return (
     <div className="app-bar header-font">
@@ -52,8 +79,29 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
               {unread ? (
                 <div className={classes.margin}>
                   <Badge badgeContent={unread} color="secondary">
-                    <NotificationImportant className={classes.icon} />
+                    <IconButton
+                      aria-owns={anchorEl ? 'simple-menu' : undefined}
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                    >
+                      <NotificationImportant className={classes.icon} />
+                    </IconButton>
                   </Badge>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    {unreadList.map(item => (
+                      <MenuItem
+                        onClick={() => handleGotoChat(item.id)}
+                        key={item.id}
+                      >
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
                 </div>
               ) : null}
               <Button variant="contained" onClick={onLogout}>
