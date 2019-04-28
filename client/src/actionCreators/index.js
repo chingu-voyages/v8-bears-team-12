@@ -1,5 +1,6 @@
 import axios from 'axios';
 import socket from '../socket-io';
+import Cookies from 'js-cookie';
 
 import {
   SET_PROFILE,
@@ -28,6 +29,7 @@ export const logoutAction = async dispatch => {
 };
 
 export const setProfileThunk = () => async dispatch => {
+  if (!Cookies.get('has_jwt')) return logoutAction(dispatch);
   try {
     const response = await axios.get('/api/profile');
     const { data } = response;
