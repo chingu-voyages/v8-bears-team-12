@@ -3,6 +3,7 @@ const passport = require('passport');
 
 const ioSockets = require('../api/io-sockets');
 const Message = require('../models/Message');
+const { emitNewMessages } = require('./socket-emitters');
 
 module.exports = app => {
   app.post(
@@ -38,9 +39,9 @@ module.exports = app => {
         const sockets = ioSockets.getSockets(users);
         sockets.forEach(socket => {
           socket.emit('NEW_CHAT_MESSAGE', currentMessage);
+          emitNewMessages(socket);
         });
 
-        console.log('got here');
         res.end();
       } catch ({ message }) {
         res.send({ error: { message } });

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import AppBar from '@material-ui/core/AppBar';
+import Badge from '@material-ui/core/Badge';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import useReactRouter from 'use-react-router';
@@ -21,19 +22,19 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  icon: {
-    display: 'block',
-    margin: theme.spacing.unit,
-    fontSize: 32,
+  margin: {
+    margin: `0px 8px`,
   },
 });
 
-function Header({ loggedIn, name, dispatchLogoutThunk, classes }) {
+function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
   const { history } = useReactRouter();
   function onLogout() {
     dispatchLogoutThunk();
     history.push('/');
   }
+
+  const unread = newMessages.length;
 
   return (
     <div className="app-bar header-font">
@@ -48,7 +49,13 @@ function Header({ loggedIn, name, dispatchLogoutThunk, classes }) {
               <Typography variant="h6" color="inherit">
                 {name}
               </Typography>
-              <NotificationImportant className={classes.icon} />
+              {unread ? (
+                <div className={classes.margin}>
+                  <Badge badgeContent={unread} color="secondary">
+                    <NotificationImportant className={classes.icon} />
+                  </Badge>
+                </div>
+              ) : null}
               <Button variant="contained" onClick={onLogout}>
                 Logout
               </Button>
@@ -61,9 +68,10 @@ function Header({ loggedIn, name, dispatchLogoutThunk, classes }) {
   );
 }
 
-const mapStateToProps = ({ profile }) => ({
+const mapStateToProps = ({ profile, chat }) => ({
   loggedIn: profile.loggedIn,
   name: profile.name,
+  newMessages: chat.newMessages,
 });
 
 Header.propTypes = {
