@@ -9,6 +9,8 @@ import useReactRouter from 'use-react-router';
 
 import { Button } from '@material-ui/core';
 import NavMenu from './NavMenu';
+// import { Route } from 'react-router-dom';
+// import Landing from './Landing';
 
 import { logoutThunk } from './actionCreators';
 
@@ -18,12 +20,16 @@ function Header({ loggedIn, name, dispatchLogoutThunk }) {
     dispatchLogoutThunk();
     history.push('/');
   }
+
+  function onLanding() {
+    history.push('/');
+  }
   return (
     <div className="app-bar header-font">
       <AppBar position="static">
         <Toolbar disableGutters>
           <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
-            <Button>Pal-a-table</Button>
+            <Button onClick={onLanding}>Pal-a-table</Button>
           </Typography>
           <Typography variant="h6" color="inherit">
             {loggedIn ? name : ''}
