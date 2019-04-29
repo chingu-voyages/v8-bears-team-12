@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 
+import Message from './Message';
 import {
   sendChat,
   getChatMessages,
@@ -55,17 +56,9 @@ function PalChat({
     <div className="pal-chat">
       <h1>Pal Chat: {pal.name}</h1>
       <div className="messages-window">
-        {messages.map(message => {
-          const name = message.sender.name === pal.name ? pal.name : 'me';
-          const unreadClass =
-            !message.message.read && name !== 'me' ? 'message-unread' : '';
-
-          return (
-            <div className={unreadClass} key={message._id}>
-              <b>{name}</b>: {message.message.text}
-            </div>
-          );
-        })}
+        {messages.map(message => (
+          <Message key={message._id} message={message} pal={pal} />
+        ))}
         <div ref={messageEnd} />
       </div>
 
