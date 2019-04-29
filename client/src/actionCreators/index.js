@@ -31,7 +31,10 @@ export const logoutAction = async dispatch => {
 };
 
 export const setProfileThunk = () => async dispatch => {
-  if (!Cookies.get('has_jwt')) return logoutAction(dispatch);
+  if (!Cookies.get('has_jwt')) {
+    logoutAction(dispatch);
+    return;
+  }
   try {
     const response = await axios.get('/api/profile');
     const { data } = response;
