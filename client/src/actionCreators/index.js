@@ -38,7 +38,7 @@ export const setProfileThunk = () => async dispatch => {
     const { user } = data;
 
     dispatch({ type: SET_PROFILE, payload: user });
-    socket.getInstance();
+    socket.getInstance().emit('REQUEST_NEW_MESSAGES');
   } catch (err) {
     logoutAction(dispatch);
   }
