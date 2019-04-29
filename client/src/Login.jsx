@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import useReactRouter from 'use-react-router';
 import { connect } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
@@ -23,12 +24,15 @@ const styles = {
 function Login({ dispatchLoginThunk }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const { history } = useReactRouter();
+
   async function onSubmit(e) {
     e.preventDefault();
 
     // handle click
     try {
-      dispatchLoginThunk({ username, password });
+      dispatchLoginThunk({ username, password }).then(history.push('/home'));
     } catch (err) {}
   }
 
