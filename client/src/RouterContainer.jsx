@@ -7,6 +7,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+
 import Header from './Header';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
@@ -22,6 +25,15 @@ import Login from './Login';
 
 import { setProfileThunk, removeSnackbar } from './actionCreators';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+  },
+  status: {
+    danger: 'orange',
+  },
+});
+
 function RouterContainer({
   loggedIn,
   open,
@@ -35,52 +47,54 @@ function RouterContainer({
 
   return (
     <Router>
-      <Header />
+      <MuiThemeProvider theme={theme}>
+        <Header />
 
-      <main>
-        <Switch>
-          <Route path="/" exact component={Landing} />
-          {loggedIn ? null : <Route path="/login" component={Login} />}
-          {loggedIn ? null : <Route path="/register" component={Register} />}
-          {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
-          {loggedIn ? <Route path="/home" component={Dashboard} /> : null}
-          {loggedIn ? <Route path="/profile" component={Profile} /> : null}
-          {loggedIn ? (
-            <Route path="/restaurantPicker" component={RestaurantPicker} />
-          ) : null}
-          {loggedIn ? (
-            <Route path="/set-search-area" component={SetSearchArea} />
-          ) : null}
-          {loggedIn ? <Route path="/pal-list" component={PalList} /> : null}
-          {loggedIn ? (
-            <Route path="/pal-chat/:palId" component={PalChat} />
-          ) : null}
-          <Route path="" component={NotFound} />
-        </Switch>
-      </main>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={open}
-        autoHideDuration={3000}
-        onClose={dispatchRemoveSnackbar}
-        ContentProps={{
-          'aria-describedby': 'message-id',
-        }}
-        message={<span id="message-id">{errorMessage}</span>}
-        action={[
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            onClick={dispatchRemoveSnackbar}
-          >
-            <CloseIcon />
-          </IconButton>,
-        ]}
-      />
+        <main>
+          <Switch>
+            <Route path="/" exact component={Landing} />
+            {loggedIn ? null : <Route path="/login" component={Login} />}
+            {loggedIn ? null : <Route path="/register" component={Register} />}
+            {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
+            {loggedIn ? <Route path="/home" component={Dashboard} /> : null}
+            {loggedIn ? <Route path="/profile" component={Profile} /> : null}
+            {loggedIn ? (
+              <Route path="/restaurantPicker" component={RestaurantPicker} />
+            ) : null}
+            {loggedIn ? (
+              <Route path="/set-search-area" component={SetSearchArea} />
+            ) : null}
+            {loggedIn ? <Route path="/pal-list" component={PalList} /> : null}
+            {loggedIn ? (
+              <Route path="/pal-chat/:palId" component={PalChat} />
+            ) : null}
+            <Route path="" component={NotFound} />
+          </Switch>
+        </main>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={open}
+          autoHideDuration={3000}
+          onClose={dispatchRemoveSnackbar}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{errorMessage}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={dispatchRemoveSnackbar}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
+      </MuiThemeProvider>
     </Router>
   );
 }
