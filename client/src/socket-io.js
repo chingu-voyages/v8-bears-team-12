@@ -37,7 +37,7 @@ export default {
         if (markRead) {
           updatedMessage.message.read = true;
           store.dispatch(markMessageRead(updatedMessage._id));
-          socket.emit('MARK_AS_READ', { id: message.sender._id });
+          socket.emit('MARK_AS_READ', { id: message._id });
         } else if (message.sender._id !== profile._id) {
           socket.emit('REQUEST_NEW_MESSAGES');
         }
