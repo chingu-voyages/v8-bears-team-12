@@ -214,3 +214,20 @@ ul span {
 .message-unread {
   font-weight: 700;
 }
+
+/* *********Restaurant picker*********** */
+.restaurantsearch-container .simple-card {
+  margin-top: 5%;
+}
+.restaurant-search {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+@media only screen and (max-width: 429px) {
+  .textField {
+    font-size: 0.8em;
+  }
+}

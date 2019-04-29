@@ -25,3 +25,11 @@
 .phone {
   grid-area: phone;
 }
+
+.restaurant-search {
+  max-width: 100%;
+}
+
+.textField {
+  margin-right: 5px;
+}
