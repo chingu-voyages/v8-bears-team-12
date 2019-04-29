@@ -126,7 +126,7 @@ export const setSearchLocation = ({
   };
   await axios.post('/api/set-search-location', data);
   setProfileThunk()(dispatch);
-  history.push('/');
+  history.push('/home');
 };
 
 export const palAdd = palId => async dispatch => {
