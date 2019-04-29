@@ -98,7 +98,7 @@ a:visited {
   justify-content: center;
   align-items: center;
   border: 2px solid lightgrey;
-  box-shadow: 5px 5px lightgrey;
+  box-shadow: 5px 5px -6px grey;
 }
 
 .register-form div {
