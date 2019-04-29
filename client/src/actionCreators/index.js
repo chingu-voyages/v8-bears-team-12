@@ -31,14 +31,17 @@ export const logoutAction = async dispatch => {
 };
 
 export const setProfileThunk = () => async dispatch => {
-  if (!Cookies.get('has_jwt')) return logoutAction(dispatch);
+  if (!Cookies.get('has_jwt')) {
+    logoutAction(dispatch);
+    return;
+  }
   try {
     const response = await axios.get('/api/profile');
     const { data } = response;
     const { user } = data;
 
     dispatch({ type: SET_PROFILE, payload: user });
-    socket.getInstance();
+    socket.getInstance().emit('REQUEST_NEW_MESSAGES');
   } catch (err) {
     logoutAction(dispatch);
   }
@@ -130,7 +133,7 @@ export const setSearchLocation = ({
   };
   await axios.post('/api/set-search-location', data);
   setProfileThunk()(dispatch);
-  history.push('/');
+  history.push('/home');
 };
 
 export const palAdd = palId => async dispatch => {

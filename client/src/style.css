@@ -55,12 +55,6 @@ main {
   overflow-y: scroll;
 }
 
-a:link,
-a:visited {
-  text-decoration: none;
-  color: #4285f4;
-}
-
 .login-page-links {
   margin: 16px;
   display: flex;
@@ -89,6 +83,7 @@ a:visited {
 }
 
 .simple-card {
+  font-family: 'Courier New';
   padding: 10px;
   margin: auto;
   margin-top: 10%;
@@ -273,4 +268,12 @@ ul span {
   .pickedRestaurants .restaurant-image {
     display: none;
   }
+}
+
+/* *********Home Welcome Guide************ */
+.guide {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 200;
+  margin-left: 150px;
+  margin-top: 10px;
 }

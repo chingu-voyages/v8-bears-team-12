@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
@@ -19,7 +20,11 @@ import NavMenu from './NavMenu';
 
 import { logoutThunk } from './actionCreators';
 
-const styles = theme => ({
+const styles = () => ({
+  linkColor: {
+    color: 'white',
+    textDecoration: 'none',
+  },
   loggedInBox: {
     display: 'flex',
     justifyContent: 'center',
@@ -27,6 +32,10 @@ const styles = theme => ({
   },
   margin: {
     margin: `0px 8px`,
+  },
+  icon: {
+    color: 'white',
+    padding: '0',
   },
 });
 
@@ -55,7 +64,7 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
   function handleClick(e) {
     setAnchorEl(e.currentTarget);
   }
-  function handleClose(e) {
+  function handleClose() {
     setAnchorEl(null);
   }
   function handleGotoChat(id) {
@@ -64,11 +73,13 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
   }
 
   return (
-    <div className="app-bar header-font">
+    <div className={`${classes.root} app-bar header-font`}>
       <AppBar position="static">
         <Toolbar disableGutters>
           <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
-            Pal-a-table
+            <Link className={classes.linkColor} to="/">
+              Pal-a-table
+            </Link>
           </Typography>
 
           {loggedIn && (
@@ -83,8 +94,9 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
                       aria-owns={anchorEl ? 'simple-menu' : undefined}
                       aria-haspopup="true"
                       onClick={handleClick}
+                      className={classes.icon}
                     >
-                      <NotificationImportant className={classes.icon} />
+                      <NotificationImportant />
                     </IconButton>
                   </Badge>
                   <Menu
@@ -127,6 +139,7 @@ Header.propTypes = {
   name: PropTypes.string,
   dispatchLogoutThunk: PropTypes.func,
   classes: PropTypes.shape({}),
+  newMessages: PropTypes.arrayOf(PropTypes.object),
 };
 
 Header.defaultProps = {
@@ -134,6 +147,7 @@ Header.defaultProps = {
   name: '',
   dispatchLogoutThunk: () => {},
   classes: {},
+  newMessages: [],
 };
 
 const mapDispatchToProps = {

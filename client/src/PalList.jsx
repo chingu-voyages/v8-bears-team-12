@@ -64,7 +64,7 @@ function PalList({ pals, dispatchRemovePal }) {
       ))}
       {!pals.length && (
         <div>
-          You currently have no pals. Add some from the <Link to="/">Home</Link>{' '}
+          You currently have no pals. Add some from the <Link to="/home">Home</Link>{' '}
           Tab.
         </div>
       )}
