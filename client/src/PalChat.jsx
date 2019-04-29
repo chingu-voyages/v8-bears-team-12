@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useReactRouter from 'use-react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 
-import { sendChat, getChatMessages, clearChatMessages } from './actionCreators';
+import {
+  sendChat,
+  getChatMessages,
+  clearChatMessages,
+  setRouterPath,
+  unsetRouterPath,
+} from './actionCreators';
 
 function PalChat({
   match,
@@ -11,13 +18,23 @@ function PalChat({
   dispatchSendChat,
   dispatchGetChatMessages,
   dispatchClearChatMessages,
+  dispatchSetRouterPath,
+  dispatchUnsetRouterPath,
   messages = [],
 }) {
   const [text, setText] = useState('');
   const messageEnd = useRef(null);
+  const { location } = useReactRouter();
   const { palId } = match.params;
   const pal = pals.find(e => e._id === palId);
 
+  useEffect(() => {
+    const { pathname } = location;
+    dispatchSetRouterPath(pathname);
+    return () => {
+      dispatchUnsetRouterPath();
+    };
+  }, []);
   useEffect(() => {
     dispatchGetChatMessages({ palId });
     return () => {
@@ -73,6 +90,8 @@ PalChat.propTypes = {
   dispatchClearChatMessages: PropTypes.func,
   dispatchGetChatMessages: PropTypes.func,
   dispatchSendChat: PropTypes.func,
+  dispatchSetRouterPath: PropTypes.func,
+  dispatchUnsetRouterPath: PropTypes.func,
   messages: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -82,6 +101,8 @@ PalChat.defaultProps = {
   dispatchClearChatMessages: () => {},
   dispatchGetChatMessages: () => {},
   dispatchSendChat: () => {},
+  dispatchSetRouterPath: () => {},
+  dispatchUnsetRouterPath: () => {},
   messages: [],
 };
 
@@ -94,6 +115,8 @@ const mapDispatchToProps = {
   dispatchSendChat: sendChat,
   dispatchGetChatMessages: getChatMessages,
   dispatchClearChatMessages: clearChatMessages,
+  dispatchSetRouterPath: setRouterPath,
+  dispatchUnsetRouterPath: unsetRouterPath,
 };
 
 export default connect(

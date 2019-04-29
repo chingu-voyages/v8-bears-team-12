@@ -26,7 +26,7 @@ module.exports = app => {
         const savedMessage = await message.save();
         const customMessage = await Message.populate(savedMessage, {
           path: 'sender',
-          select: 'name -_id',
+          select: 'name _id',
         });
 
         const currentMessage = {
@@ -37,9 +37,8 @@ module.exports = app => {
         };
 
         const sockets = ioSockets.getSockets(users);
-        sockets.forEach(socket => {
-          socket.emit('NEW_CHAT_MESSAGE', currentMessage);
-          emitNewMessages(socket);
+        sockets.forEach(async socket => {
+          await socket.emit('NEW_CHAT_MESSAGE', currentMessage);
         });
 
         res.end();

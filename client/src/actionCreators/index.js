@@ -11,6 +11,8 @@ import {
   CLEAR_CHAT_MESSAGES,
   SET_DININGMATES,
   CLEAR_DININGMATES,
+  SET_ROUTER_LOCATION,
+  UNSET_ROUTER_LOCATION,
 } from '../actionTypes';
 
 export const setSnackbar = message => ({
@@ -181,4 +183,12 @@ export const removePal = palId => async dispatch => {
   } catch (err) {
     dispatch(setSnackbar(err.message));
   }
+};
+
+export const setRouterPath = location => dispatch => {
+  dispatch({ type: SET_ROUTER_LOCATION, payload: { location } });
+};
+
+export const unsetRouterPath = () => dispatch => {
+  dispatch({ type: UNSET_ROUTER_LOCATION });
 };
