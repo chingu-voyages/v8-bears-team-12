@@ -5,7 +5,7 @@ import Restaurant from './Restaurant';
 function RestaurantList({ restaurantList }) {
   return (
     <div>
-      <ul>
+      <ul style={{ padding: '0' }}>
         {restaurantList.map((restaurant, i) => (
           <Restaurant restaurant={restaurant} key={i} />
         ))}
@@ -15,11 +15,11 @@ function RestaurantList({ restaurantList }) {
 }
 
 RestaurantList.propTypes = {
-  restaurantList: PropTypes.arrayOf(PropTypes.object),
+  restaurantList: PropTypes.arrayOf(PropTypes.object)
 };
 
 RestaurantList.defaultProps = {
-  restaurantList: [],
+  restaurantList: []
 };
 
 export default RestaurantList;

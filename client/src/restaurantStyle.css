@@ -1,8 +1,11 @@
 .container {
   display: grid;
   grid-template-columns: 0.5fr 1fr 0.5fr 0.2fr;
+  grid-gap: 5px;
   grid-template-areas: 'image name rating .' 'image location . .' 'image phone . .';
   padding: 7px;
+  border: 0.5px solid grey;
+  margin-bottom: 3px;
 }
 
 .container > div {
@@ -26,10 +29,23 @@
   grid-area: phone;
 }
 
+.restaurant-image {
+  grid-area: image;
+  width: 150px;
+  height: 150px;
+}
+
 .restaurant-search {
   max-width: 100%;
 }
 
 .textField {
   margin-right: 5px;
+}
+
+@media only screen and (max-width: 809px) {
+  .restaurant-image {
+    width: 100px;
+    height: 100px;
+  }
 }

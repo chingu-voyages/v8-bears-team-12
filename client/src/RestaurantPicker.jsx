@@ -25,45 +25,61 @@ function RestaurantPicker() {
 
   return (
     <div className="restaurantsearch-container">
-      <div className="simple-card">
-        <h3>Search for Restaurants:</h3>
-        <form
-          className="restaurant-search"
-          style={{ width: '100%' }}
-          onSubmit={e => {
-            onSubmit(e);
-            setTerm('');
-            setLocation('');
-          }}
-        >
-          <TextField
-            style={{ marginRight: '5%', maxWidth: '35%' }}
-            className="textField"
-            label="Cuisine Type "
-            value={term}
-            onChange={e => setTerm(e.target.value)}
-            required
-          />
-          <TextField
-            style={{ marginRight: '5%', maxWidth: '35%' }}
-            className="textField"
-            label="Zipcode or city "
-            value={location}
-            onChange={e => setLocation(e.target.value)}
-            required
-          />
-          <Button
-            style={{ marginTop: '9px' }}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            Find
-          </Button>
-        </form>
+      <div className="pickedRestaurants">
+        <RestaurantsPicked />
       </div>
-      <RestaurantList restaurantList={restaurantList} />
-      <RestaurantsPicked />
+      <div className="searchRestaurants">
+        <h3>Search for Restaurants:</h3>
+        <div className="restaurant-search">
+          <form
+            style={{ minWidth: '100%' }}
+            onSubmit={e => {
+              onSubmit(e);
+              setTerm('');
+              setLocation('');
+            }}
+          >
+            <TextField
+              style={{
+                maxWidth: '35%',
+                borderBottom: '2px solid rgb(19, 73, 134)'
+              }}
+              className="textField"
+              label="Cuisine Type "
+              value={term}
+              onChange={e => setTerm(e.target.value)}
+              required
+            />
+            <TextField
+              style={{
+                maxWidth: '35%',
+                borderBottom: '2px solid rgb(19, 73, 134)'
+              }}
+              className="textField"
+              label="Zipcode or city "
+              value={location}
+              onChange={e => setLocation(e.target.value)}
+              required
+            />
+            <Button
+              style={{ marginTop: '9px' }}
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Find
+            </Button>
+          </form>
+        </div>
+        <div
+          className="restaurantsearch-restaurants"
+          style={{ minWidth: '100%' }}
+        >
+          <div>
+            <RestaurantList restaurantList={restaurantList} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

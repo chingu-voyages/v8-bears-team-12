@@ -216,18 +216,61 @@ ul span {
 }
 
 /* *********Restaurant picker*********** */
-.restaurantsearch-container .simple-card {
-  margin-top: 5%;
+.restaurantsearch-container {
+  width: 98%;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
 }
+
 .restaurant-search {
+  min-width: 80%;
+  max-width: 80%;
+  margin: auto;
+}
+
+.pickedRestaurants {
+  max-width: 40%;
+  border-right: 1px solid grey;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.searchRestaurants {
+  max-width: 60%;
+  padding: 10px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.restaurant-search form {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-@media only screen and (max-width: 429px) {
-  .textField {
-    font-size: 0.8em;
+.restaurantsearch-restaurants {
+  display: flex;
+}
+
+@media only screen and (max-width: 475px) {
+  .restaurantsearch-container {
+    flex-wrap: wrap;
+  }
+  .searchRestaurants {
+    max-width: 100%;
+    order: 1;
+  }
+  .pickedRestaurants {
+    max-width: 100%;
+    order: 2;
+  }
+}
+
+@media only screen and (max-width: 685px) {
+  .pickedRestaurants .restaurant-image {
+    display: none;
   }
 }
