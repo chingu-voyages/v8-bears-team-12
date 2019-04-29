@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import socket from '../socket-io';
 
 import {
@@ -10,6 +11,8 @@ import {
   CLEAR_CHAT_MESSAGES,
   SET_DININGMATES,
   CLEAR_DININGMATES,
+  SET_ROUTER_LOCATION,
+  UNSET_ROUTER_LOCATION,
 } from '../actionTypes';
 
 export const setSnackbar = message => ({
@@ -28,6 +31,7 @@ export const logoutAction = async dispatch => {
 };
 
 export const setProfileThunk = () => async dispatch => {
+  if (!Cookies.get('has_jwt')) return logoutAction(dispatch);
   try {
     const response = await axios.get('/api/profile');
     const { data } = response;
@@ -158,6 +162,7 @@ export const clearDiningmates = () => dispatch => {
 
 export const getChatMessages = ({ palId }) => async dispatch => {
   const response = await axios.get(`/api/chat-messages/${palId}`);
+  socket.getInstance().emit('REQUEST_NEW_MESSAGES');
   const { error } = response.data;
   if (error) {
     dispatch(setSnackbar(error.message));
@@ -179,4 +184,12 @@ export const removePal = palId => async dispatch => {
   } catch (err) {
     dispatch(setSnackbar(err.message));
   }
+};
+
+export const setRouterPath = location => dispatch => {
+  dispatch({ type: SET_ROUTER_LOCATION, payload: { location } });
+};
+
+export const unsetRouterPath = () => dispatch => {
+  dispatch({ type: UNSET_ROUTER_LOCATION });
 };

@@ -58,6 +58,7 @@ function addJwtCookie(res, objId) {
   const expiresIn = '1d';
   const token = jwt.sign({ sub: objId.toString() }, SECRET, { expiresIn });
   res.cookie('jwt', token, { maxAge, httpOnly: true });
+  res.cookie('has_jwt', 'yes', { maxAge });
 }
 
 async function getUserById(id) {

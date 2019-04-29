@@ -3,6 +3,7 @@ const passport = require('passport');
 
 const ioSockets = require('../api/io-sockets');
 const Message = require('../models/Message');
+const { emitNewMessages } = require('./socket-emitters');
 
 module.exports = app => {
   app.post(
@@ -25,7 +26,7 @@ module.exports = app => {
         const savedMessage = await message.save();
         const customMessage = await Message.populate(savedMessage, {
           path: 'sender',
-          select: 'name -_id',
+          select: 'name _id',
         });
 
         const currentMessage = {
@@ -36,11 +37,10 @@ module.exports = app => {
         };
 
         const sockets = ioSockets.getSockets(users);
-        sockets.forEach(socket => {
-          socket.emit('NEW_CHAT_MESSAGE', currentMessage);
+        sockets.forEach(async socket => {
+          await socket.emit('NEW_CHAT_MESSAGE', currentMessage);
         });
 
-        console.log('got here');
         res.end();
       } catch ({ message }) {
         res.send({ error: { message } });
