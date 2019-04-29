@@ -1,6 +1,6 @@
 import axios from 'axios';
-import socket from '../socket-io';
 import Cookies from 'js-cookie';
+import socket from '../socket-io';
 
 import {
   SET_PROFILE,
@@ -162,6 +162,7 @@ export const clearDiningmates = () => dispatch => {
 
 export const getChatMessages = ({ palId }) => async dispatch => {
   const response = await axios.get(`/api/chat-messages/${palId}`);
+  socket.getInstance().emit('REQUEST_NEW_MESSAGES');
   const { error } = response.data;
   if (error) {
     dispatch(setSnackbar(error.message));
