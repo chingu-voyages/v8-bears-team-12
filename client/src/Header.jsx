@@ -20,7 +20,7 @@ import NavMenu from './NavMenu';
 
 import { logoutThunk } from './actionCreators';
 
-const styles = theme => ({
+const styles = () => ({
   linkColor: {
     color: 'white',
     textDecoration: 'none',
@@ -64,7 +64,7 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
   function handleClick(e) {
     setAnchorEl(e.currentTarget);
   }
-  function handleClose(e) {
+  function handleClose() {
     setAnchorEl(null);
   }
   function handleGotoChat(id) {
@@ -139,6 +139,7 @@ Header.propTypes = {
   name: PropTypes.string,
   dispatchLogoutThunk: PropTypes.func,
   classes: PropTypes.shape({}),
+  newMessages: PropTypes.arrayOf(PropTypes.object),
 };
 
 Header.defaultProps = {
@@ -146,6 +147,7 @@ Header.defaultProps = {
   name: '',
   dispatchLogoutThunk: () => {},
   classes: {},
+  newMessages: [],
 };
 
 const mapDispatchToProps = {
