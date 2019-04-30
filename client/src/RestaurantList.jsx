@@ -5,8 +5,8 @@ import Restaurant from './Restaurant';
 function RestaurantList({ restaurantList }) {
   return (
     <div className="restaurantsearch-restaurants">
-      {restaurantList.map((restaurant, i) => (
-        <Restaurant restaurant={restaurant} key={i} />
+      {restaurantList.map(restaurant => (
+        <Restaurant restaurant={restaurant} key={restaurant.id} />
       ))}
     </div>
   );
