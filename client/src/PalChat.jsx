@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 import Message from './Message';
 import {
@@ -20,11 +21,19 @@ const styles = {
     height: '100vh',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '98%',
+    width: '100%',
   },
   messagesWindow: {
     flex: 1,
     overflowY: 'scroll',
+    width: '100%',
+  },
+  form: {
+    display: 'flex',
+    width: '100%',
+  },
+  formTextField: {
+    flex: 1,
   },
 };
 
@@ -62,6 +71,7 @@ function PalChat({
     e.preventDefault();
 
     dispatchSendChat({ palId: pal._id, text });
+    setText('');
   }
 
   useEffect(() => {
@@ -70,7 +80,7 @@ function PalChat({
 
   return (
     <div className={classes.root}>
-      <h1>Pal Chat: {pal.name}</h1>
+      <Typography variant="h5">Pal Chat: {pal.name}</Typography>
       <div className={classes.messagesWindow}>
         {messages.map(message => (
           <Message key={message._id} message={message} pal={pal} />
@@ -78,10 +88,13 @@ function PalChat({
         <div ref={messageEnd} />
       </div>
 
-      <form onSubmit={onSubmit}>
+      <form className={classes.form} onSubmit={onSubmit}>
         <TextField
+          spellCheck={false}
+          className={classes.formTextField}
           required
           label="Your Message"
+          value={text}
           onChange={e => setText(e.target.value)}
           variant="outlined"
         />
