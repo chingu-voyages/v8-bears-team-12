@@ -9,8 +9,8 @@ import ProfileAvatar from './ProfileAvatar';
 
 const styles = {
   textField: {
-    width: 500,
-  },
+    width: '100%'
+  }
 };
 
 function Profile({
@@ -18,7 +18,7 @@ function Profile({
   defaultLastName,
   defaultInterests,
   defaultDietRestrictions,
-  dispatchSaveProfile,
+  dispatchSaveProfile
 }) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
@@ -26,7 +26,7 @@ function Profile({
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [dietRestrictions, setDietRestrictions] = useState(
-    defaultDietRestrictions,
+    defaultDietRestrictions
   );
   const [dietOptionOther, setDietOptionOther] = useState(false);
   const dietOptions = [
@@ -34,7 +34,7 @@ function Profile({
     'Vegan',
     'Vegetarian',
     'Gluten Free',
-    'Other',
+    'Other'
   ];
   const specifyOtherDiet = React.createRef();
 
@@ -72,7 +72,7 @@ function Profile({
         lastName,
         password,
         interests,
-        dietRestrictions,
+        dietRestrictions
       };
 
       dispatchSaveProfile(
@@ -80,7 +80,7 @@ function Profile({
         lastName,
         password,
         interests,
-        dietRestrictions,
+        dietRestrictions
       );
 
       setPassword('');
@@ -91,9 +91,9 @@ function Profile({
   }
 
   return (
-    <div>
+    <div className="simple-card">
       <ProfileAvatar />
-      <form onSubmit={e => onSubmit(e)}>
+      <form className="profile-form" onSubmit={e => onSubmit(e)}>
         <TextField
           style={styles.textField}
           label="First Name"
@@ -116,7 +116,6 @@ function Profile({
           type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          required
         />
         <br />
         <TextField
@@ -125,7 +124,6 @@ function Profile({
           type="password"
           value={confirmPassword}
           onChange={e => setConfirmPassword(e.target.value)}
-          required
         />
         <br />
         <TextField
@@ -155,7 +153,7 @@ function Profile({
         <TextField
           placeholder="Specify your dietary option"
           style={{
-            display: dietOptionOther ? 'block' : 'none',
+            display: dietOptionOther ? 'block' : 'none'
           }}
           ref={specifyOtherDiet}
           onChange={e => handleDietOption(e)}
@@ -174,7 +172,7 @@ Profile.propTypes = {
   defaultLastName: PropTypes.string,
   defaultInterests: PropTypes.arrayOf(PropTypes.string),
   defaultDietRestrictions: PropTypes.string,
-  dispatchSaveProfile: PropTypes.func,
+  dispatchSaveProfile: PropTypes.func
 };
 
 Profile.defaultProps = {
@@ -182,21 +180,21 @@ Profile.defaultProps = {
   defaultLastName: '',
   defaultInterests: [],
   defaultDietRestrictions: '',
-  dispatchSaveProfile: () => {},
+  dispatchSaveProfile: () => {}
 };
 
 const mapStateToProps = ({ profile }) => ({
   defaultFirstName: profile.firstName,
   defaultLastName: profile.lastName,
   defaultInterests: profile.interests,
-  defaultDietRestrictions: profile.dietRestrictions,
+  defaultDietRestrictions: profile.dietRestrictions
 });
 
 const mapDispatchToProps = {
-  dispatchSaveProfile: saveProfile,
+  dispatchSaveProfile: saveProfile
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Profile);

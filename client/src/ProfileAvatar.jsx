@@ -9,8 +9,9 @@ const styles = {
     flexDirection: 'row',
     marginTop: 40,
     marginBottom: 40,
-    justifyContent: 'space-between',
-  },
+    justifyContent: 'space-around',
+    width: '100%'
+  }
 };
 
 const ProfileAvatar = ({ dispatchUploadPhoto }) => {
@@ -43,8 +44,8 @@ const ProfileAvatar = ({ dispatchUploadPhoto }) => {
       </div>
       <div>
         <Avatar
-          width={295}
-          height={200}
+          width={130}
+          height={130}
           onCrop={onCrop}
           onClose={onClose}
           onBeforeFileLoad={onBeforeFileLoad}
@@ -57,10 +58,10 @@ const ProfileAvatar = ({ dispatchUploadPhoto }) => {
 };
 
 const mapDispatchToProps = {
-  dispatchUploadPhoto: uploadPhoto,
+  dispatchUploadPhoto: uploadPhoto
 };
 
 export default connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(ProfileAvatar);

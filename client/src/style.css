@@ -96,6 +96,19 @@ main {
   box-shadow: 5px 5px -6px grey;
 }
 
+.register-form,
+.profile-form {
+  width: 80%;
+}
+
+.MuiFormControl-root-795 {
+  width: 100%;
+}
+
+.MuiFormControl-root-795 select {
+  width: 100%;
+}
+
 .register-form div {
   margin: 0;
 }
@@ -239,6 +252,14 @@ ul span {
   display: flex;
 }
 
+/* *********Home Welcome Guide************ */
+.guide {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 200;
+  margin-left: 150px;
+  margin-top: 10px;
+}
+
 @media only screen and (max-width: 475px) {
   .restaurantsearch-container {
     flex-wrap: wrap;
@@ -253,16 +274,8 @@ ul span {
   }
 }
 
-@media only screen and (max-width: 685px) {
+@media only screen and (min-width: 476px) and (max-width: 685px) {
   .pickedRestaurants .restaurant-image {
     display: none;
   }
-}
-
-/* *********Home Welcome Guide************ */
-.guide {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: 200;
-  margin-left: 150px;
-  margin-top: 10px;
 }
