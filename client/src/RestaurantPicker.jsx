@@ -15,7 +15,7 @@ function RestaurantPicker() {
 
     try {
       const response = await axios.get(
-        `/api/restaurant-search/${location}/${term}`
+        `/api/restaurant-search/${location}/${term}`,
       );
       setRestaurantList(response.data);
     } catch (err) {
@@ -29,7 +29,7 @@ function RestaurantPicker() {
         <RestaurantsPicked />
       </div>
       <div className="searchRestaurants">
-        <h3>Search for Restaurants:</h3>
+        <h3>Search for Restaurants</h3>
         <div className="restaurant-search">
           <form
             style={{ minWidth: '100%' }}
@@ -42,7 +42,7 @@ function RestaurantPicker() {
             <TextField
               style={{
                 maxWidth: '35%',
-                borderBottom: '2px solid rgb(19, 73, 134)'
+                borderBottom: '2px solid rgb(19, 73, 134)',
               }}
               className="textField"
               label="Cuisine Type "
@@ -53,7 +53,7 @@ function RestaurantPicker() {
             <TextField
               style={{
                 maxWidth: '35%',
-                borderBottom: '2px solid rgb(19, 73, 134)'
+                borderBottom: '2px solid rgb(19, 73, 134)',
               }}
               className="textField"
               label="Zipcode or city "
@@ -71,14 +71,8 @@ function RestaurantPicker() {
             </Button>
           </form>
         </div>
-        <div
-          className="restaurantsearch-restaurants"
-          style={{ minWidth: '100%' }}
-        >
-          <div>
-            <RestaurantList restaurantList={restaurantList} />
-          </div>
-        </div>
+
+        <RestaurantList restaurantList={restaurantList} />
       </div>
     </div>
   );
