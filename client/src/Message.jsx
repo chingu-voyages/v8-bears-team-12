@@ -1,14 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
-function Message({ message, pal }) {
+const styles = {
+  root: {
+    width: '100%',
+  },
+};
+
+function Message({ message, pal, classes }) {
   const name = message.sender.name === pal.name ? pal.name : 'me';
   const unreadClass =
     !message.message.read && name !== 'me' ? 'message-unread' : '';
 
   return (
-    <div className={unreadClass} key={message._id}>
-      <b>{name}</b>: {message.message.text}
+    <div className={classes.root}>
+      <div className={unreadClass} key={message._id}>
+        <b>{name}</b>: {message.message.text}
+      </div>
     </div>
   );
 }
@@ -23,4 +32,4 @@ Message.defaultProps = {
   pal: {},
 };
 
-export default Message;
+export default withStyles(styles)(Message);

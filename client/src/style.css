@@ -195,17 +195,6 @@ ul span {
   color: rgb(19, 73, 134);
 }
 
-.pal-chat {
-  display: flex;
-  height: 100vh;
-  flex-direction: column;
-}
-
-.pal-chat .messages-window {
-  flex: 1;
-  overflow-y: scroll;
-}
-
 .message-unread {
   font-weight: 700;
 }

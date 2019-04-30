@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import useReactRouter from 'use-react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 import Message from './Message';
@@ -13,6 +14,20 @@ import {
   unsetRouterPath,
 } from './actionCreators';
 
+const styles = {
+  root: {
+    display: 'flex',
+    height: '100vh',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '98%',
+  },
+  messagesWindow: {
+    flex: 1,
+    overflowY: 'scroll',
+  },
+};
+
 function PalChat({
   match,
   pals,
@@ -22,6 +37,7 @@ function PalChat({
   dispatchSetRouterPath,
   dispatchUnsetRouterPath,
   messages = [],
+  classes,
 }) {
   const [text, setText] = useState('');
   const messageEnd = useRef(null);
@@ -53,9 +69,9 @@ function PalChat({
   }, [messages]);
 
   return (
-    <div className="pal-chat">
+    <div className={classes.root}>
       <h1>Pal Chat: {pal.name}</h1>
-      <div className="messages-window">
+      <div className={classes.messagesWindow}>
         {messages.map(message => (
           <Message key={message._id} message={message} pal={pal} />
         ))}
@@ -115,4 +131,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(PalChat);
+)(withStyles(styles)(PalChat));
