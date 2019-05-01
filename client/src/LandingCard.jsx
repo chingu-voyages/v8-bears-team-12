@@ -46,10 +46,18 @@ function LandingCard({ classes, loggedIn, title, description, to }) {
 
 LandingCard.propTypes = {
   classes: PropTypes.shape({}),
+  loggedIn: PropTypes.bool,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  to: PropTypes.string,
 };
 
 LandingCard.defaultProps = {
   classes: {},
+  loggedIn: false,
+  title: '',
+  description: '',
+  to: '',
 };
 
 const mapStateToProps = ({ profile }) => ({
