@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TimeAgo from 'react-timeago';
 
 function Message({ message, pal }) {
   const name = message.sender.name === pal.name ? pal.name : 'me';
@@ -13,7 +14,7 @@ function Message({ message, pal }) {
       <div className="chat-message-text">
         <div>{message.message.text}</div>
         <div className="chat-message-created-time">
-          {new Date(message.createdAt).toString()}
+          <TimeAgo date={message.createdAt} />
         </div>
       </div>
     </div>
