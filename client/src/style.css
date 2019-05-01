@@ -76,10 +76,11 @@ main {
 .formText {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .formText div {
-  min-width: 80%;
+  width: 100%;
 }
 
 .simple-card {
@@ -87,7 +88,8 @@ main {
   padding: 10px;
   margin: auto;
   margin-top: 10%;
-  width: 70%;
+  max-width: 640px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -98,7 +100,10 @@ main {
 
 .register-form,
 .profile-form {
-  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .MuiFormControl-root-795 {

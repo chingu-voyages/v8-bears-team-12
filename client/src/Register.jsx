@@ -6,6 +6,7 @@ import useReactRouter from 'use-react-router';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { registerUser } from './actionCreators';
 
@@ -87,7 +88,7 @@ const Register = ({
 
   return (
     <div className="simple-card">
-      <h1>Sign Up</h1>
+      <Typography variant="h4">Sign Up</Typography>
       <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
         <Field
           name="username"
