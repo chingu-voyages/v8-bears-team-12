@@ -3,10 +3,18 @@ import PropTypes from 'prop-types';
 import useReactRouter from 'use-react-router';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 import { removePal } from './actionCreators';
 
-function PalList({ pals, dispatchRemovePal }) {
+const styles = {
+  title: {
+    padding: '8px',
+  },
+};
+
+function PalList({ pals, dispatchRemovePal, classes }) {
   const { history } = useReactRouter();
   function handleChat(palId) {
     history.push(`/pal-chat/${palId}`);
@@ -18,7 +26,9 @@ function PalList({ pals, dispatchRemovePal }) {
 
   return (
     <div className="pal-container">
-      <h1>Pal List</h1>
+      <Typography variant="h4" className={classes.title}>
+        Pal List
+      </Typography>
       {pals.map(pal => (
         <div key={pal._id} className="pal-card">
           <div className="pal-card-image">
@@ -64,8 +74,8 @@ function PalList({ pals, dispatchRemovePal }) {
       ))}
       {!pals.length && (
         <div>
-          You currently have no pals. Add some from the <Link to="/home">Home</Link>{' '}
-          Tab.
+          You currently have no pals. Add some from the{' '}
+          <Link to="/home">Home</Link> Tab.
         </div>
       )}
     </div>
@@ -93,4 +103,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(PalList);
+)(withStyles(styles)(PalList));
