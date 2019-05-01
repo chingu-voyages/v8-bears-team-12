@@ -2,9 +2,9 @@ const nodemailer = require('nodemailer');
 const mg = require('nodemailer-mailgun-transport');
 const crypto = require('crypto');
 const User = require('../models/User');
-const { MAILGUN_APIKEY, MAILGUN_DOMAIN } = process.env;
+const { MAILGUN_APIKEY, MAILGUN_DOMAIN, MAIL_FROM } = process.env;
 
-module.exports = (app) => {
+module.exports = app => {
   if (!(MAILGUN_APIKEY && MAILGUN_DOMAIN)) {
     console.warn('MAILGUN not setup');
     return;
@@ -27,7 +27,7 @@ module.exports = (app) => {
       const now = new Date();
       let exists = false;
 
-      await User.findOne({ email }).then((user) => {
+      await User.findOne({ email }).then(user => {
         if (user) {
           exists = true;
           return res.json({ error: { message: 'Email already exists' } });
@@ -57,7 +57,7 @@ module.exports = (app) => {
 
       const mailOptions = {
         to: email,
-        from: 'no-reply@demo.com',
+        from: MAIL_FROM || 'no-reply@nowhere.test',
         subject: 'Meet and Eat email verification',
         text: `Click here to verify your email: ${req.protocol}://${
           req.headers.host
@@ -65,7 +65,7 @@ module.exports = (app) => {
       };
       !exists && (await smtpTransport.sendMail(mailOptions));
       !exists &&
-        (await user.save().then((user) =>
+        (await user.save().then(user =>
           res.json({
             user,
             error: {
