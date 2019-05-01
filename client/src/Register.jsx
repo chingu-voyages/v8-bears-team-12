@@ -29,7 +29,7 @@ const validate = values => {
   return errors;
 };
 
-const renderField = ({
+const RenderField = ({
   input,
   label,
   type,
@@ -46,14 +46,14 @@ const renderField = ({
   </div>
 );
 
-renderField.propTypes = {
+RenderField.propTypes = {
   input: PropTypes.shape({}),
   label: PropTypes.string,
   type: PropTypes.string,
   meta: PropTypes.shape({}),
 };
 
-renderField.defaultProps = {
+RenderField.defaultProps = {
   input: {},
   label: '',
   type: '',
@@ -107,37 +107,37 @@ const Register = ({
         <Field
           name="username"
           type="text"
-          component={renderField}
+          component={RenderField}
           label="Username"
         />
         <Field
           name="firstName"
           type="text"
-          component={renderField}
+          component={RenderField}
           label="First Name"
         />
         <Field
           name="lastName"
           type="text"
-          component={renderField}
+          component={RenderField}
           label="Last Name"
         />
         <Field
           name="email"
           type="email"
-          component={renderField}
+          component={RenderField}
           label="Email"
         />
         <Field
           name="password"
           type="password"
-          component={renderField}
+          component={RenderField}
           label="Password"
         />
         <Field
           name="interests"
           type="text"
-          component={renderField}
+          component={RenderField}
           label="Interests"
         />
 
