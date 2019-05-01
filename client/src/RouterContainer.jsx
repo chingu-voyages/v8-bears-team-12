@@ -69,7 +69,7 @@ function RouterContainer({
             ) : null}
             {loggedIn ? <Route path="/pal-list" component={PalList} /> : null}
             {loggedIn ? (
-              <Route path="/pal-chat/:palId" component={PalChat} />
+              <Route path="/pal-chat/:palId/:palName" component={PalChat} />
             ) : null}
             <Route path="" component={NotFound} />
           </Switch>

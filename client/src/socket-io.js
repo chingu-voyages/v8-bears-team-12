@@ -31,7 +31,8 @@ export default {
       socket.on('NEW_CHAT_MESSAGE', message => {
         const { router, profile } = store.getState();
         const { location } = router;
-        const markRead = location === `/pal-chat/${message.sender._id}`;
+        const markRead =
+          location === `/pal-chat/${message.sender._id}/${message.sender.name}`;
 
         const updatedMessage = message;
         if (markRead) {

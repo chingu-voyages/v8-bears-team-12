@@ -34,6 +34,7 @@ module.exports = app => {
           message: customMessage.message,
           sender: customMessage.sender,
           updatedAt: customMessage.updatedAt,
+          createdAt: customMessage.createdAt,
         };
 
         const sockets = ioSockets.getSockets(users);

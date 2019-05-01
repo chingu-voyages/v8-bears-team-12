@@ -24,11 +24,15 @@ const styles = {
     width: '100%',
   },
   title: {
-    padding: '8px 16px',
+    padding: '8px 0px',
     color: 'white',
     fontWeight: 'bold',
-    background: 'black',
-    borderRadius: '5px',
+    background: `repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+    linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
+    linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1))`,
+    backgroundColor: `#6d695c`,
+    backgroundSize: `70px 120px`,
     width: '100%',
     textAlign: 'center',
   },
@@ -67,8 +71,9 @@ function PalChat({
   const [text, setText] = useState('');
   const messageEnd = useRef(null);
   const { location } = useReactRouter();
-  const { palId } = match.params;
-  const pal = pals.find(e => e._id === palId);
+  const { palId, palName } = match.params;
+  //const pal = pals.find(e => e._id === palId);
+  const pal = { _id: palId, name: palName };
 
   useEffect(() => {
     const { pathname } = location;
