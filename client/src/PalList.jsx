@@ -85,11 +85,13 @@ function PalList({ pals, dispatchRemovePal, classes }) {
 PalList.propTypes = {
   pals: PropTypes.arrayOf(PropTypes.object),
   dispatchRemovePal: PropTypes.func,
+  classes: PropTypes.shape({}),
 };
 
 PalList.defaultProps = {
   pals: [],
   dispatchRemovePal: () => {},
+  classes: {},
 };
 
 const mapStateToProps = ({ profile }) => ({
