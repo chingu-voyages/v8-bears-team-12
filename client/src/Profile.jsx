@@ -43,11 +43,7 @@ function Profile({
     //   setPassword('');
     //   setConfirmPassword('');
     // }
-
-    // if (interests.length > 5) {
-    //   alert('cannot put more than 5 interests');
-    // }
-
+    
     if (
       // password === confirmPassword &&
       // dietRestrictions !== '' &&
