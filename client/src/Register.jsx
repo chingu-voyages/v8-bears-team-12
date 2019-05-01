@@ -46,6 +46,20 @@ const renderField = ({
   </div>
 );
 
+renderField.propTypes = {
+  input: PropTypes.shape({}),
+  label: PropTypes.string,
+  type: PropTypes.string,
+  meta: PropTypes.shape({}),
+};
+
+renderField.defaultProps = {
+  input: {},
+  label: '',
+  type: '',
+  meta: {},
+};
+
 const Register = ({
   handleSubmit,
   pristine,
