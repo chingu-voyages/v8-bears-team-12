@@ -14,7 +14,7 @@ function Message({ message, pal }) {
       <div className="chat-message-text">
         <div>{message.message.text}</div>
         <div className="chat-message-created-time">
-          <TimeAgo date={message.createdAt} />
+          <TimeAgo minPeriod={30} date={message.createdAt} />
         </div>
       </div>
     </div>
