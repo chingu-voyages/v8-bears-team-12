@@ -44,11 +44,18 @@ const styles = {
   formTextField: {
     flex: 1,
   },
+  noMessages: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
 };
 
 function PalChat({
   match,
   pals,
+  loaded,
   dispatchSendChat,
   dispatchGetChatMessages,
   dispatchClearChatMessages,
@@ -96,6 +103,11 @@ function PalChat({
         {messages.map(message => (
           <Message key={message._id} message={message} pal={pal} />
         ))}
+        {!messages.length && loaded ? (
+          <Typography variant="h6" className={classes.noMessages}>
+            There are no messages! Why not say hi!
+          </Typography>
+        ) : null}
         <div ref={messageEnd} />
       </div>
 
@@ -144,6 +156,7 @@ PalChat.defaultProps = {
 const mapStateToProps = ({ profile, chat }) => ({
   pals: profile.pals,
   messages: chat.messages,
+  loaded: chat.loaded,
 });
 
 const mapDispatchToProps = {
