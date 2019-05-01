@@ -32,7 +32,7 @@ const renderField = ({
   input,
   label,
   type,
-  meta: { touched, error, warning }
+  meta: { touched, error, warning },
 }) => (
   <div className="formText">
     <FormControl>
@@ -50,13 +50,13 @@ const Register = ({
   pristine,
   reset,
   submitting,
-  dispatchNewUser
+  dispatchNewUser,
 }) => {
   const options = [
     'None a.k.a. I eat anything and everything',
     'Vegan',
     'Vegetarian',
-    'GlutenFree'
+    'GlutenFree',
   ];
   const { history } = useReactRouter();
 
@@ -68,7 +68,7 @@ const Register = ({
       email,
       password,
       interests,
-      dietRestrictions
+      dietRestrictions,
     } = values;
 
     // create new user
@@ -79,7 +79,7 @@ const Register = ({
       email,
       password,
       interests: interests && interests.split(',').splice(0, 5),
-      dietRestrictions
+      dietRestrictions,
     };
 
     dispatchNewUser(newUser).then(history.push('/'));
@@ -126,7 +126,9 @@ const Register = ({
           label="Interests"
         />
 
-        <FormControl style={{ marginTop: '35px', marginBottom: '20px' }}>
+        <FormControl
+          style={{ marginTop: '35px', marginBottom: '20px', width: '100%' }}
+        >
           <InputLabel style={{ marginTop: '-40px' }}>
             Diet Restrictions
           </InputLabel>
@@ -171,22 +173,22 @@ const Register = ({
 };
 
 Register.propTypes = {
-  dispatchNewUser: PropTypes.func
+  dispatchNewUser: PropTypes.func,
 };
 
 Register.defaultProps = {
-  dispatchNewUser: () => {}
+  dispatchNewUser: () => {},
 };
 const mapDispatchToProps = {
-  dispatchNewUser: registerUser
+  dispatchNewUser: registerUser,
 };
 
 export default reduxForm({
   form: 'RegisterForm', // a unique identifier for this form
-  validate // <--- validation function given to redux-form
+  validate, // <--- validation function given to redux-form
 })(
   connect(
     null,
-    mapDispatchToProps
-  )(Register)
+    mapDispatchToProps,
+  )(Register),
 );
