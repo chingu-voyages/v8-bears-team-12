@@ -1,56 +1,132 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useReactRouter from 'use-react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
-import { sendChat, getChatMessages } from './actionCreators';
+import Message from './Message';
+import {
+  sendChat,
+  getChatMessages,
+  clearChatMessages,
+  setRouterPath,
+  unsetRouterPath,
+} from './actionCreators';
+
+const styles = {
+  root: {
+    display: 'flex',
+    height: '100vh',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+  },
+  title: {
+    padding: '8px 0px',
+    color: 'white',
+    fontWeight: 'bold',
+    background: `repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+    linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
+    linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1))`,
+    backgroundColor: `#6d695c`,
+    backgroundSize: `70px 120px`,
+    width: '100%',
+    textAlign: 'center',
+  },
+  messagesWindow: {
+    flex: 1,
+    overflowY: 'scroll',
+    width: '100%',
+  },
+  form: {
+    display: 'flex',
+    width: '100%',
+  },
+  formTextField: {
+    flex: 1,
+  },
+  noMessages: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+};
 
 function PalChat({
   match,
   pals,
+  loaded,
   dispatchSendChat,
   dispatchGetChatMessages,
+  dispatchClearChatMessages,
+  dispatchSetRouterPath,
+  dispatchUnsetRouterPath,
   messages = [],
+  classes,
 }) {
   const [text, setText] = useState('');
   const messageEnd = useRef(null);
-  const { palId } = match.params;
-  const pal = pals.find(e => e._id === palId);
+  const { location } = useReactRouter();
+  const { palId, palName } = match.params;
+  //const pal = pals.find(e => e._id === palId);
+  const pal = { _id: palId, name: palName };
 
   useEffect(() => {
+    const { pathname } = location;
+    dispatchSetRouterPath(pathname);
+    return () => {
+      dispatchUnsetRouterPath();
+    };
+  }, []);
+  useEffect(() => {
     dispatchGetChatMessages({ palId });
+    return () => {
+      dispatchClearChatMessages();
+    };
   }, []);
   function onSubmit(e) {
     e.preventDefault();
 
     dispatchSendChat({ palId: pal._id, text });
+    setText('');
   }
 
   useEffect(() => {
-    console.log('a new message has appeared');
     messageEnd.current.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   return (
-    <div className="pal-chat">
-      <h1>Pal Chat: {pal.name}</h1>
-      <div className="messages-window">
+    <div className={classes.root}>
+      <Typography className={classes.title} variant="h5">
+        Pal Chat: {pal.name}
+      </Typography>
+      <div className={classes.messagesWindow}>
         {messages.map(message => (
-          <div key={message._id}>
-            <b>{message.sender.name}</b>: {message.message.text}
-          </div>
+          <Message key={message._id} message={message} pal={pal} />
         ))}
+        {!messages.length && loaded ? (
+          <Typography variant="h6" className={classes.noMessages}>
+            There are no messages! Why not say hi!
+          </Typography>
+        ) : null}
         <div ref={messageEnd} />
       </div>
 
-      <form onSubmit={onSubmit}>
+      <form className={classes.form} onSubmit={onSubmit}>
         <TextField
+          spellCheck={false}
+          className={classes.formTextField}
           required
           label="Your Message"
+          value={text}
           onChange={e => setText(e.target.value)}
           variant="outlined"
         />
-        <button type="Submit">Send</button>
+        <button type="submit">Send</button>
       </form>
     </div>
   );
@@ -61,24 +137,44 @@ PalChat.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object,
   }),
+  dispatchClearChatMessages: PropTypes.func,
+  dispatchGetChatMessages: PropTypes.func,
+  dispatchSendChat: PropTypes.func,
+  dispatchSetRouterPath: PropTypes.func,
+  dispatchUnsetRouterPath: PropTypes.func,
+  messages: PropTypes.arrayOf(PropTypes.object),
+  classes: PropTypes.shape({}),
+  loaded: PropTypes.bool,
 };
 
 PalChat.defaultProps = {
   pals: [],
   match: { params: {} },
+  dispatchClearChatMessages: () => {},
+  dispatchGetChatMessages: () => {},
+  dispatchSendChat: () => {},
+  dispatchSetRouterPath: () => {},
+  dispatchUnsetRouterPath: () => {},
+  messages: [],
+  classes: {},
+  loaded: false,
 };
 
 const mapStateToProps = ({ profile, chat }) => ({
   pals: profile.pals,
   messages: chat.messages,
+  loaded: chat.loaded,
 });
 
 const mapDispatchToProps = {
   dispatchSendChat: sendChat,
   dispatchGetChatMessages: getChatMessages,
+  dispatchClearChatMessages: clearChatMessages,
+  dispatchSetRouterPath: setRouterPath,
+  dispatchUnsetRouterPath: unsetRouterPath,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(PalChat);
+)(withStyles(styles)(PalChat));

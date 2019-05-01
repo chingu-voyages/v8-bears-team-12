@@ -6,7 +6,17 @@ import Restaurant from './Restaurant';
 function RestaurantsPicked({ restaurantsList }) {
   return (
     <div>
-      <h3>My Restaurants</h3>
+      <h3
+        style={{
+          maxWidth: '60%',
+          margin: 'auto',
+          borderBottom: '2px solid grey',
+          textAlign: 'center',
+          marginBottom: '10px'
+        }}
+      >
+        My Restaurants
+      </h3>
       <div>
         {restaurantsList.map(e => (
           <Restaurant key={e.id} picked restaurant={e} />
@@ -17,15 +27,15 @@ function RestaurantsPicked({ restaurantsList }) {
 }
 
 const mapStateToProps = ({ profile }) => ({
-  restaurantsList: profile.restaurantsList,
+  restaurantsList: profile.restaurantsList
 });
 
 RestaurantsPicked.propTypes = {
-  restaurantsList: PropTypes.arrayOf(PropTypes.object),
+  restaurantsList: PropTypes.arrayOf(PropTypes.object)
 };
 
 RestaurantsPicked.defaultProps = {
-  restaurantsList: [],
+  restaurantsList: []
 };
 
 export default connect(mapStateToProps)(RestaurantsPicked);

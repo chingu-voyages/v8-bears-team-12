@@ -5,6 +5,8 @@ const { getUserById } = require('../utils');
 const ioSockets = require('./io-sockets');
 const { SECRET } = process.env;
 
+const { emitNewMessages, markAsRead } = require('./socket-emitters');
+
 module.exports = http => {
   const io = require('socket.io')(http);
 
@@ -24,6 +26,8 @@ module.exports = http => {
   });
 
   io.on('connection', async socket => {
+    emitNewMessages(socket);
+    markAsRead(socket);
     socket.on('disconnect', () => {
       ioSockets.removeSocket(socket);
     });

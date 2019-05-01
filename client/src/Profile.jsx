@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { saveProfile } from './actionCreators';
+import { saveProfile, setSnackbar } from './actionCreators';
 import ProfileAvatar from './ProfileAvatar';
 
 const styles = {
   textField: {
-    width: 500,
+    width: '100%',
   },
 };
 
@@ -19,6 +19,7 @@ function Profile({
   defaultInterests,
   defaultDietRestrictions,
   dispatchSaveProfile,
+  dispatchSetSnackBar,
 }) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
@@ -49,29 +50,24 @@ function Profile({
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert('passwords do not match');
+      dispatchSetSnackBar('passwords do not match');
       setPassword('');
       setConfirmPassword('');
     }
 
-    if (dietRestrictions === '' || dietRestrictions === 'Choose one') {
-      alert('choose an option for diet restriction');
+    if (dietRestrictions === '') {
+      dispatchSetSnackBar('choose an option for diet restriction');
+    }
+
+    if (interests.length > 5) {
+      dispatchSetSnackBar('cannot put more than 5 interests');
     }
 
     if (
       password === confirmPassword &&
-      (dietRestrictions !== '' && dietRestrictions !== 'Choose one')
+      dietRestrictions !== '' &&
+      interests.length <= 5
     ) {
-      // alert('changes are successfully saved');
-
-      const userChanges = {
-        firstName,
-        lastName,
-        password,
-        interests,
-        dietRestrictions,
-      };
-
       dispatchSaveProfile(
         firstName,
         lastName,
@@ -88,9 +84,9 @@ function Profile({
   }
 
   return (
-    <div>
+    <div className="simple-card">
       <ProfileAvatar />
-      <form onSubmit={e => onSubmit(e)}>
+      <form className="profile-form" onSubmit={e => onSubmit(e)}>
         <TextField
           style={styles.textField}
           label="First Name"
@@ -113,7 +109,6 @@ function Profile({
           type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          required
         />
         <br />
         <TextField
@@ -122,7 +117,6 @@ function Profile({
           type="password"
           value={confirmPassword}
           onChange={e => setConfirmPassword(e.target.value)}
-          required
         />
         <br />
         <TextField
@@ -130,7 +124,7 @@ function Profile({
           label="Interests"
           value={interests}
           placeholder="Up to 5 separated by commas"
-          onChange={e => setInterests(e.target.value)}
+          onChange={e => setInterests(e.target.value.split(',') || [])}
           required
         />
         <br />
@@ -142,8 +136,8 @@ function Profile({
           helperText="Select your dietary option"
           required
         >
-          {dietOptions.map((option, i) => (
-            <MenuItem key={i} value={option}>
+          {dietOptions.map(option => (
+            <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
           ))}
@@ -172,6 +166,7 @@ Profile.propTypes = {
   defaultInterests: PropTypes.arrayOf(PropTypes.string),
   defaultDietRestrictions: PropTypes.string,
   dispatchSaveProfile: PropTypes.func,
+  dispatchSetSnackBar: PropTypes.func,
 };
 
 Profile.defaultProps = {
@@ -180,6 +175,7 @@ Profile.defaultProps = {
   defaultInterests: [],
   defaultDietRestrictions: '',
   dispatchSaveProfile: () => {},
+  dispatchSetSnackBar: () => {},
 };
 
 const mapStateToProps = ({ profile }) => ({
@@ -191,6 +187,7 @@ const mapStateToProps = ({ profile }) => ({
 
 const mapDispatchToProps = {
   dispatchSaveProfile: saveProfile,
+  dispatchSetSnackBar: setSnackbar,
 };
 
 export default connect(

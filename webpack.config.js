@@ -46,6 +46,11 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.jpg$/,
+        loader: 'url-loader',
+        query: { mimetype: 'image/jpg' },
+      },
     ],
   },
   resolve: {

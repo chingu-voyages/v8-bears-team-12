@@ -1,79 +1,45 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import './restaurantStyle.css';
 
 import { addRestaurant, removeRestaurant } from './actionCreators';
 
-const styles = {
-  container: {
-    display: 'grid',
-    gridTemplateColumns: '0.5fr 1fr 0.5fr 0.2fr',
-    gridTemplateAreas: "'image name rating .' 'image location . .' 'image phone . .'",
-    padding: '10px',
-  },
-  name: {
-    gridArea: 'name',
-  },
-  rating: {
-    gridArea: 'rating',
-  },
-  location: {
-    gridArea: 'location',
-  },
-  phone: {
-    gridArea: 'phone',
-  },
-};
-
 function Restaurant({
-  restaurant, picked, dispatchAddRestaurant, dispatchRemoveRestaurant,
+  restaurant,
+  picked,
+  dispatchAddRestaurant,
+  dispatchRemoveRestaurant
 }) {
-  const {
-    name,
-    image_url,
-    url,
-    rating,
-    location,
-    phone,
-  } = restaurant;
+  const { name, image_url, url, rating, location, phone } = restaurant;
 
   async function handleClick() {
     dispatchAddRestaurant(restaurant);
   }
 
   return (
-    <div style={styles.container}>
-      <img
-        src={image_url}
-        alt="restaurant"
-        style={{ gridArea: 'image', width: '150px', height: '150px' }}
-      />
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={styles.name}
-      >
+    <div className="container">
+      <img src={image_url} alt="restaurant" className="restaurant-image" />
+      <a href={url} target="_blank" rel="noopener noreferrer" className="name">
         {name}
       </a>
-      <div
-        style={styles.rating}
-      >
-        {rating}
-      </div>
-      <div
-        style={styles.location}
-      >
-        {location}
-      </div>
-      <div
-        style={styles.phone}
-      >
-        {phone}
-      </div>
+      <div className="rating">{rating}</div>
+      <div className="location">{location}</div>
+      <div className="phone">{phone}</div>
       <div>
-        { !picked ? <button type="button" onClick={handleClick}>Add</button> : null }
-        { picked ? <button type="button" onClick={() => dispatchRemoveRestaurant(restaurant._id)}>Remove</button> : null }
+        {!picked ? (
+          <button type="button" onClick={handleClick}>
+            Add
+          </button>
+        ) : null}
+        {picked ? (
+          <button
+            type="button"
+            onClick={() => dispatchRemoveRestaurant(restaurant._id)}
+          >
+            X
+          </button>
+        ) : null}
       </div>
     </div>
   );
@@ -83,19 +49,22 @@ Restaurant.propTypes = {
   restaurant: PropTypes.object,
   picked: PropTypes.bool,
   dispatchAddRestaurant: PropTypes.func,
-  dispatchRemoveRestaurant: PropTypes.func,
+  dispatchRemoveRestaurant: PropTypes.func
 };
 
 Restaurant.defaultProps = {
   restaurant: {},
   picked: false,
   dispatchAddRestaurant: () => {},
-  dispatchRemoveRestaurant: () => {},
+  dispatchRemoveRestaurant: () => {}
 };
 
 const mapDispatchToProps = {
   dispatchAddRestaurant: addRestaurant,
-  dispatchRemoveRestaurant: removeRestaurant,
+  dispatchRemoveRestaurant: removeRestaurant
 };
 
-export default connect(null, mapDispatchToProps)(Restaurant);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Restaurant);

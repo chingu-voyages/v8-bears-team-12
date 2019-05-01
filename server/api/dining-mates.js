@@ -36,7 +36,7 @@ module.exports = app => {
           .map(restaurant => restaurant._id)
           .toString();
 
-        const diningMatches = await User.find(
+        const diningMates = await User.find(
           { _id: { $in: userIds } },
           {
             name: true,
@@ -45,12 +45,12 @@ module.exports = app => {
             restaurantsList: true,
           },
         ).populate({ path: 'restaurantsList', select: '-users -__v' });
-        diningMatches.forEach(match => {
+        diningMates.forEach(match => {
           match.restaurantsList = match.restaurantsList.filter(
             e => restaurantIds.indexOf(e._id.toString()) !== -1,
           );
         });
-        res.json({ restaurantIds, userIds, diningMatches });
+        res.json({ restaurantIds, userIds, diningMates });
       } catch (err) {
         res.status(500).send(err.message);
       }

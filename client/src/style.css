@@ -55,12 +55,6 @@ main {
   overflow-y: scroll;
 }
 
-a:link,
-a:visited {
-  text-decoration: none;
-  color: #4285f4;
-}
-
 .login-page-links {
   margin: 16px;
   display: flex;
@@ -82,23 +76,42 @@ a:visited {
 .formText {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .formText div {
-  min-width: 80%;
+  width: 100%;
 }
 
 .simple-card {
+  font-family: 'Courier New';
   padding: 10px;
   margin: auto;
   margin-top: 10%;
-  width: 70%;
+  max-width: 640px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 2px solid lightgrey;
-  box-shadow: 5px 5px lightgrey;
+  box-shadow: 5px 5px -6px grey;
+}
+
+.register-form,
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.MuiFormControl-root-795 {
+  width: 100%;
+}
+
+.MuiFormControl-root-795 select {
+  width: 100%;
 }
 
 .register-form div {
@@ -155,8 +168,8 @@ a:visited {
   padding: 5px;
   margin: auto;
   margin-bottom: 10px;
-  min-width: 45%;
-  max-width: 45%;
+  min-width: 75%;
+  max-width: 75%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -165,7 +178,7 @@ a:visited {
 }
 
 .pal-card-image {
-  min-width: 35%;
+  min-width: 25%;
   max-width: 35%;
   display: flex;
   flex-direction: column;
@@ -200,13 +213,132 @@ ul span {
   color: rgb(19, 73, 134);
 }
 
-.pal-chat {
-  display: flex;
-  height: 100vh;
-  flex-direction: column;
+.message-unread {
+  font-weight: 700;
 }
 
-.pal-chat .messages-window {
+/* *********Restaurant picker*********** */
+.restaurantsearch-container {
+  width: 98%;
+  display: flex;
+  flex-direction: row;
+}
+
+.restaurant-search {
+  min-width: 80%;
+  max-width: 80%;
+  margin: auto;
+}
+
+.pickedRestaurants {
+  max-width: 40%;
+  border-right: 1px solid grey;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.searchRestaurants {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.restaurant-search form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.restaurantsearch-restaurants {
+  display: flex;
   flex: 1;
+  flex-direction: column;
   overflow-y: scroll;
+}
+
+/* *********Home Welcome Guide************ */
+.guide {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 200;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.guide-cards {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+h4[class*='MuiTypography-h4'] {
+  text-align: center;
+  margin-top: 16px;
+}
+
+@media only screen and (max-width: 475px) {
+  .restaurantsearch-container {
+    flex-wrap: wrap;
+  }
+  .searchRestaurants {
+    max-width: 100%;
+    order: 1;
+  }
+  .pickedRestaurants {
+    max-width: 100%;
+    order: 2;
+  }
+}
+
+@media only screen and (min-width: 476px) and (max-width: 685px) {
+  .pickedRestaurants .restaurant-image {
+    display: none;
+  }
+}
+
+.container {
+  margin: 4px;
+}
+
+.chat-message {
+  display: flex;
+  padding: 8px 12px;
+  background: #efefef;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.chat-message.is-me {
+  background: #f2f2f2;
+}
+
+.chat-message-text {
+  margin-right: 20%;
+}
+
+.is-me .chat-message-text {
+  margin-left: 20%;
+  margin-right: 0;
+}
+
+.chat-message.is-me {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.chat-message-name {
+  font-weight: bold;
+  padding-right: 8px;
+}
+
+.chat-message-created-time {
+  font-size: 0.6rem;
+  color: #888;
+  margin-top: 2px;
 }

@@ -1,6 +1,8 @@
 const passport = require('passport');
 const { ObjectId } = require('mongodb');
 const Message = require('../models/Message');
+const ioSockets = require('./io-sockets');
+const { emitNewMessages } = require('./socket-emitters');
 
 module.exports = app => {
   app.get(
@@ -14,10 +16,17 @@ module.exports = app => {
           {
             users: { $all: [palObjId, req.user._id] },
           },
-          { users: false, createdAt: false, __v: false },
+          { users: false, updatedAt: false, __v: false },
         ).populate({
           path: 'sender',
           select: 'name -_id',
+        });
+        await Message.updateMany(
+          { users: { $all: [palObjId, req.user._id] }, sender: palObjId },
+          { $set: { 'message.read': true } },
+        );
+        ioSockets.getSockets([req.user._id]).forEach(socket => {
+          emitNewMessages(socket);
         });
         res.json({ messages });
       } catch ({ message }) {

@@ -6,6 +6,7 @@ import useReactRouter from 'use-react-router';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { registerUser } from './actionCreators';
 
@@ -28,7 +29,7 @@ const validate = values => {
   return errors;
 };
 
-const renderField = ({
+const RenderField = ({
   input,
   label,
   type,
@@ -44,6 +45,20 @@ const renderField = ({
     </FormControl>
   </div>
 );
+
+RenderField.propTypes = {
+  input: PropTypes.shape({}),
+  label: PropTypes.string,
+  type: PropTypes.string,
+  meta: PropTypes.shape({}),
+};
+
+RenderField.defaultProps = {
+  input: {},
+  label: '',
+  type: '',
+  meta: {},
+};
 
 const Register = ({
   handleSubmit,
@@ -87,46 +102,48 @@ const Register = ({
 
   return (
     <div className="simple-card">
-      <h1>Sign Up</h1>
+      <Typography variant="h4">Sign Up</Typography>
       <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
         <Field
           name="username"
           type="text"
-          component={renderField}
+          component={RenderField}
           label="Username"
         />
         <Field
           name="firstName"
           type="text"
-          component={renderField}
+          component={RenderField}
           label="First Name"
         />
         <Field
           name="lastName"
           type="text"
-          component={renderField}
+          component={RenderField}
           label="Last Name"
         />
         <Field
           name="email"
           type="email"
-          component={renderField}
+          component={RenderField}
           label="Email"
         />
         <Field
           name="password"
           type="password"
-          component={renderField}
+          component={RenderField}
           label="Password"
         />
         <Field
           name="interests"
           type="text"
-          component={renderField}
+          component={RenderField}
           label="Interests"
         />
 
-        <FormControl style={{ marginTop: '35px', marginBottom: '20px' }}>
+        <FormControl
+          style={{ marginTop: '35px', marginBottom: '20px', width: '100%' }}
+        >
           <InputLabel style={{ marginTop: '-40px' }}>
             Diet Restrictions
           </InputLabel>
@@ -136,7 +153,7 @@ const Register = ({
             component="select"
           >
             <option> Select </option>
-            {options.map((i, j) => (
+            {options.map(i => (
               <option key={i} value={i}>
                 {i}
               </option>
@@ -172,10 +189,18 @@ const Register = ({
 
 Register.propTypes = {
   dispatchNewUser: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  pristine: PropTypes.bool,
+  submitting: PropTypes.bool,
+  reset: PropTypes.func,
 };
 
 Register.defaultProps = {
   dispatchNewUser: () => {},
+  handleSubmit: () => {},
+  pristine: true,
+  submitting: false,
+  reset: () => {},
 };
 const mapDispatchToProps = {
   dispatchNewUser: registerUser,
