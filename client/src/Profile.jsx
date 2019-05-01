@@ -9,8 +9,8 @@ import ProfileAvatar from './ProfileAvatar';
 
 const styles = {
   textField: {
-    width: '100%'
-  }
+    width: '100%',
+  },
 };
 
 function Profile({
@@ -18,7 +18,7 @@ function Profile({
   defaultLastName,
   defaultInterests,
   defaultDietRestrictions,
-  dispatchSaveProfile
+  dispatchSaveProfile,
 }) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
@@ -26,7 +26,7 @@ function Profile({
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [dietRestrictions, setDietRestrictions] = useState(
-    defaultDietRestrictions
+    defaultDietRestrictions,
   );
   const [dietOptionOther, setDietOptionOther] = useState(false);
   const dietOptions = [
@@ -34,7 +34,7 @@ function Profile({
     'Vegan',
     'Vegetarian',
     'Gluten Free',
-    'Other'
+    'Other',
   ];
   const specifyOtherDiet = React.createRef();
 
@@ -58,21 +58,21 @@ function Profile({
       alert('choose an option for diet restriction');
     }
 
-    if (interests.split(',').length > 5) {
+    if (interests.length > 5) {
       alert('cannot put more than 5 interests');
     }
 
     if (
       password === confirmPassword &&
       dietRestrictions !== '' &&
-      interests.split(',').length <= 5
+      interests.length <= 5
     ) {
       const userChanges = {
         firstName,
         lastName,
         password,
         interests,
-        dietRestrictions
+        dietRestrictions,
       };
 
       dispatchSaveProfile(
@@ -80,7 +80,7 @@ function Profile({
         lastName,
         password,
         interests,
-        dietRestrictions
+        dietRestrictions,
       );
 
       setPassword('');
@@ -131,7 +131,7 @@ function Profile({
           label="Interests"
           value={interests}
           placeholder="Up to 5 separated by commas"
-          onChange={e => setInterests(e.target.value)}
+          onChange={e => setInterests(e.target.value.split(',') || [])}
           required
         />
         <br />
@@ -153,7 +153,7 @@ function Profile({
         <TextField
           placeholder="Specify your dietary option"
           style={{
-            display: dietOptionOther ? 'block' : 'none'
+            display: dietOptionOther ? 'block' : 'none',
           }}
           ref={specifyOtherDiet}
           onChange={e => handleDietOption(e)}
@@ -172,7 +172,7 @@ Profile.propTypes = {
   defaultLastName: PropTypes.string,
   defaultInterests: PropTypes.arrayOf(PropTypes.string),
   defaultDietRestrictions: PropTypes.string,
-  dispatchSaveProfile: PropTypes.func
+  dispatchSaveProfile: PropTypes.func,
 };
 
 Profile.defaultProps = {
@@ -180,21 +180,21 @@ Profile.defaultProps = {
   defaultLastName: '',
   defaultInterests: [],
   defaultDietRestrictions: '',
-  dispatchSaveProfile: () => {}
+  dispatchSaveProfile: () => {},
 };
 
 const mapStateToProps = ({ profile }) => ({
   defaultFirstName: profile.firstName,
   defaultLastName: profile.lastName,
   defaultInterests: profile.interests,
-  defaultDietRestrictions: profile.dietRestrictions
+  defaultDietRestrictions: profile.dietRestrictions,
 });
 
 const mapDispatchToProps = {
-  dispatchSaveProfile: saveProfile
+  dispatchSaveProfile: saveProfile,
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Profile);
