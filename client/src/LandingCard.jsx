@@ -15,7 +15,12 @@ const styles = {
     maxWidth: 480,
     margin: '12px 8px',
   },
-
+  content: {
+    textAlign: 'center',
+  },
+  actions: {
+    justifyContent: 'center',
+  },
   pos: {
     marginBottom: 12,
   },
@@ -24,13 +29,13 @@ const styles = {
 function LandingCard({ classes, loggedIn, title, description, to }) {
   return (
     <Card className={classes.card}>
-      <CardContent>
+      <CardContent className={classes.content}>
         <Typography variant="h5" component="h2">
           {title}
         </Typography>
         <Typography component="p">{description}</Typography>
       </CardContent>
-      <CardActions>
+      <CardActions className={classes.actions}>
         <Button component={Link} to={loggedIn ? to : '/login'}>
           Go
         </Button>
