@@ -28,35 +28,25 @@ function Profile({
   const [dietRestrictions, setDietRestrictions] = useState(
     defaultDietRestrictions,
   );
-  const [dietOptionOther, setDietOptionOther] = useState(false);
   const dietOptions = [
     'None - I eat anything & everything!',
     'Vegan',
     'Vegetarian',
     'Gluten Free',
-    'Other',
   ];
-  const specifyOtherDiet = React.createRef();
-
-  function handleDietOption(e) {
-    if (e.target.value === 'Other') {
-      setDietOptionOther(true);
-    }
-    setDietRestrictions(e.target.value);
-  }
 
   function onSubmit(e) {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      alert('passwords do not match');
-      setPassword('');
-      setConfirmPassword('');
-    }
+    // if (password !== confirmPassword) {
+    //   alert('passwords do not match');
+    //   setPassword('');
+    //   setConfirmPassword('');
+    // }
 
-    if (dietRestrictions === '') {
-      alert('choose an option for diet restriction');
-    }
+    // if (dietRestrictions === '') {
+    //   alert('choose an option for diet restriction');
+    // }
 
     if (interests.length > 5) {
       alert('cannot put more than 5 interests');
@@ -64,7 +54,7 @@ function Profile({
 
     if (
       password === confirmPassword &&
-      dietRestrictions !== '' &&
+      // dietRestrictions !== '' &&
       interests.length <= 5
     ) {
       dispatchSaveProfile(
@@ -77,9 +67,7 @@ function Profile({
 
       setPassword('');
       setConfirmPassword('');
-      specifyOtherDiet.current.value = '';
     }
-    setDietOptionOther(false);
   }
 
   return (
@@ -131,7 +119,7 @@ function Profile({
           select
           style={styles.textField}
           value={dietRestrictions}
-          onChange={e => handleDietOption(e)}
+          onChange={e => setDietRestrictions(e.target.value)}
           helperText="Select your dietary option"
           required
         >
@@ -141,15 +129,6 @@ function Profile({
             </MenuItem>
           ))}
         </TextField>
-        <br />
-        <TextField
-          placeholder="Specify your dietary option"
-          style={{
-            display: dietOptionOther ? 'block' : 'none',
-          }}
-          ref={specifyOtherDiet}
-          onChange={e => handleDietOption(e)}
-        />
         <br />
         <Button type="submit" variant="contained" color="primary">
           Save

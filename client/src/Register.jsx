@@ -68,7 +68,7 @@ const Register = ({
   dispatchNewUser,
 }) => {
   const options = [
-    'None a.k.a. I eat anything and everything',
+    'None - I eat anything & everything!',
     'Vegan',
     'Vegetarian',
     'GlutenFree',
