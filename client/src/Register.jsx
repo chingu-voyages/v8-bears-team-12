@@ -97,9 +97,7 @@ const Register = ({
       dietRestrictions,
     };
 
-    dispatchNewUser(newUser)
-    .then(history.push('/'))
-    .catch(history.push('/login'));
+    dispatchNewUser(newUser).then(history.push('/login'));
   }
 
   return (
