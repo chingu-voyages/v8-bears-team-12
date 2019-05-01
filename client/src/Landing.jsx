@@ -8,7 +8,7 @@ const Landing = () => {
     <div className="guide">
       <div className="guide-cards">
         <Typography className="guide-title" variant="h4">
-          Let's meet and eat!
+          Let&rsquo;s meet and eat!
         </Typography>
         <LandingCard
           title="Make your profile"
