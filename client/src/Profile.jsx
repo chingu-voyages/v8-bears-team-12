@@ -143,8 +143,8 @@ function Profile({
           helperText="Select your dietary option"
           required
         >
-          {dietOptions.map((option, i) => (
-            <MenuItem key={i} value={option}>
+          {dietOptions.map(option => (
+            <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
           ))}
