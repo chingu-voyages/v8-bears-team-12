@@ -44,16 +44,12 @@ function Profile({
     //   setConfirmPassword('');
     // }
 
-    // if (dietRestrictions === '') {
-    //   alert('choose an option for diet restriction');
+    // if (interests.length > 5) {
+    //   alert('cannot put more than 5 interests');
     // }
 
-    if (interests.length > 5) {
-      alert('cannot put more than 5 interests');
-    }
-
     if (
-      password === confirmPassword &&
+      // password === confirmPassword &&
       // dietRestrictions !== '' &&
       interests.length <= 5
     ) {
@@ -65,8 +61,10 @@ function Profile({
         dietRestrictions,
       );
 
-      setPassword('');
-      setConfirmPassword('');
+      // setPassword('');
+      // setConfirmPassword('');
+    } else {
+      alert('cannot put more than 5 interests');
     }
   }
 
