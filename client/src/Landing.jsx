@@ -18,7 +18,7 @@ const Landing = () => {
         <LandingCard
           title="Pick Restaurants"
           description="Browse restaurants you want to try out"
-          to="/profile"
+          to="/restaurantPicker"
         />
         <LandingCard
           title="Find Pals"
