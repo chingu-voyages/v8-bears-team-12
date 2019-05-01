@@ -153,7 +153,7 @@ const Register = ({
             component="select"
           >
             <option> Select </option>
-            {options.map((i, j) => (
+            {options.map(i => (
               <option key={i} value={i}>
                 {i}
               </option>
@@ -189,10 +189,18 @@ const Register = ({
 
 Register.propTypes = {
   dispatchNewUser: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  pristine: PropTypes.bool,
+  submitting: PropTypes.bool,
+  reset: PropTypes.func,
 };
 
 Register.defaultProps = {
   dispatchNewUser: () => {},
+  handleSubmit: () => {},
+  pristine: true,
+  submitting: false,
+  reset: () => {},
 };
 const mapDispatchToProps = {
   dispatchNewUser: registerUser,
