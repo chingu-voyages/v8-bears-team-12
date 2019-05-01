@@ -290,7 +290,7 @@ ul span {
 
 .chat-message {
   display: flex;
-  padding: 8px 16px 8px 16px;
+  padding: 8px 12px;
   background: #efefef;
   border-bottom: 1px solid #e1e1e1;
 }
@@ -310,10 +310,10 @@ ul span {
 
 .chat-message.is-me {
   flex-direction: row-reverse;
+  text-align: right;
 }
 
 .chat-message-name {
   font-weight: bold;
-  padding-left: 8px;
   padding-right: 8px;
 }

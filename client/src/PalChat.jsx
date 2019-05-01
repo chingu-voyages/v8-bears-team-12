@@ -23,6 +23,15 @@ const styles = {
     alignItems: 'center',
     width: '100%',
   },
+  title: {
+    padding: '8px 16px',
+    color: 'white',
+    fontWeight: 'bold',
+    background: 'black',
+    borderRadius: '5px',
+    width: '100%',
+    textAlign: 'center',
+  },
   messagesWindow: {
     flex: 1,
     overflowY: 'scroll',
@@ -80,7 +89,9 @@ function PalChat({
 
   return (
     <div className={classes.root}>
-      <Typography variant="h5">Pal Chat: {pal.name}</Typography>
+      <Typography className={classes.title} variant="h5">
+        Pal Chat: {pal.name}
+      </Typography>
       <div className={classes.messagesWindow}>
         {messages.map(message => (
           <Message key={message._id} message={message} pal={pal} />

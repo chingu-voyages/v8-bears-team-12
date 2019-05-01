@@ -9,7 +9,7 @@ function Message({ message, pal }) {
 
   return (
     <div className={`chat-message ${unreadClass} ${meClass}`}>
-      <div className="chat-message-name">{name !== 'me' ? name : ''}</div>
+      {name !== 'me' ? <div className="chat-message-name">{name}</div> : null}
       <div className="chat-message-text">{message.message.text}</div>
     </div>
   );
