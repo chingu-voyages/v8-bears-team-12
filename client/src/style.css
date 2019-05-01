@@ -260,8 +260,22 @@ ul span {
 .guide {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 200;
-  margin-left: 150px;
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.guide-cards {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+h4[class*='MuiTypography-h4'] {
+  text-align: center;
+  margin-top: 16px;
 }
 
 @media only screen and (max-width: 475px) {
