@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { saveProfile } from './actionCreators';
+import { saveProfile, setSnackbar } from './actionCreators';
 import ProfileAvatar from './ProfileAvatar';
 
 const styles = {
@@ -19,6 +19,7 @@ function Profile({
   defaultInterests,
   defaultDietRestrictions,
   dispatchSaveProfile,
+  dispatchSetSnackBar,
 }) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
@@ -49,17 +50,17 @@ function Profile({
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert('passwords do not match');
+      dispatchSetSnackBar('passwords do not match');
       setPassword('');
       setConfirmPassword('');
     }
 
     if (dietRestrictions === '') {
-      alert('choose an option for diet restriction');
+      dispatchSetSnackBar('choose an option for diet restriction');
     }
 
     if (interests.length > 5) {
-      alert('cannot put more than 5 interests');
+      dispatchSetSnackBar('cannot put more than 5 interests');
     }
 
     if (
@@ -165,6 +166,7 @@ Profile.propTypes = {
   defaultInterests: PropTypes.arrayOf(PropTypes.string),
   defaultDietRestrictions: PropTypes.string,
   dispatchSaveProfile: PropTypes.func,
+  dispatchSetSnackBar: PropTypes.func,
 };
 
 Profile.defaultProps = {
@@ -173,6 +175,7 @@ Profile.defaultProps = {
   defaultInterests: [],
   defaultDietRestrictions: '',
   dispatchSaveProfile: () => {},
+  dispatchSetSnackBar: () => {},
 };
 
 const mapStateToProps = ({ profile }) => ({
@@ -184,6 +187,7 @@ const mapStateToProps = ({ profile }) => ({
 
 const mapDispatchToProps = {
   dispatchSaveProfile: saveProfile,
+  dispatchSetSnackBar: setSnackbar,
 };
 
 export default connect(
