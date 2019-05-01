@@ -67,8 +67,10 @@ function PalChat({
   const [text, setText] = useState('');
   const messageEnd = useRef(null);
   const { location } = useReactRouter();
-  const { palId } = match.params;
-  const pal = pals.find(e => e._id === palId);
+  const { palId, palName } = match.params;
+  //const pal = pals.find(e => e._id === palId);
+  console.log({ palName }, 'xyz');
+  const pal = { _id: palId, name: palName };
 
   useEffect(() => {
     const { pathname } = location;

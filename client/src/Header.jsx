@@ -67,9 +67,9 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
   function handleClose() {
     setAnchorEl(null);
   }
-  function handleGotoChat(id) {
+  function handleGotoChat(id, palName) {
     setAnchorEl(null);
-    history.push(`/pal-chat/${id}`);
+    history.push(`/pal-chat/${id}/${palName}`);
   }
 
   return (
@@ -107,7 +107,7 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
                   >
                     {unreadList.map(item => (
                       <MenuItem
-                        onClick={() => handleGotoChat(item.id)}
+                        onClick={() => handleGotoChat(item.id, item.name)}
                         key={item.id}
                       >
                         {item.name}

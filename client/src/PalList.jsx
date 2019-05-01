@@ -16,8 +16,8 @@ const styles = {
 
 function PalList({ pals, dispatchRemovePal, classes }) {
   const { history } = useReactRouter();
-  function handleChat(palId) {
-    history.push(`/pal-chat/${palId}`);
+  function handleChat(palId, palName) {
+    history.push(`/pal-chat/${palId}/${palName}`);
   }
 
   function onRemove(palId) {
@@ -41,7 +41,7 @@ function PalList({ pals, dispatchRemovePal, classes }) {
               }}
               alt="user"
             />
-            <button type="button" onClick={() => handleChat(pal._id)}>
+            <button type="button" onClick={() => handleChat(pal._id, pal.name)}>
               Chat
             </button>
           </div>
