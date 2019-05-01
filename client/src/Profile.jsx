@@ -28,6 +28,7 @@ function Profile({
   const [dietRestrictions, setDietRestrictions] = useState(
     defaultDietRestrictions,
   );
+  const [errorMsg, setErrorMsg] = useState('');
   const dietOptions = [
     'None - I eat anything & everything!',
     'Vegan',
@@ -35,20 +36,18 @@ function Profile({
     'Gluten Free',
   ];
 
+  function onChange(e) {
+    setInterests(e.target.value.split(',') || []);
+
+    if (interests.length > 5) {
+      setErrorMsg('cannot exceed 5');
+    }
+  }
+
   function onSubmit(e) {
     e.preventDefault();
 
-    // if (password !== confirmPassword) {
-    //   alert('passwords do not match');
-    //   setPassword('');
-    //   setConfirmPassword('');
-    // }
-    
-    if (
-      // password === confirmPassword &&
-      // dietRestrictions !== '' &&
-      interests.length <= 5
-    ) {
+    if (interests.length <= 5 && dietRestrictions !== '') {
       dispatchSaveProfile(
         firstName,
         lastName,
@@ -56,11 +55,8 @@ function Profile({
         interests,
         dietRestrictions,
       );
-
-      // setPassword('');
-      // setConfirmPassword('');
-    } else {
-      alert('cannot put more than 5 interests');
+    } else if (dietRestrictions === '') {
+      alert('please specify diet option');
     }
   }
 
@@ -105,7 +101,9 @@ function Profile({
           label="Interests"
           value={interests}
           placeholder="Up to 5 separated by commas"
-          onChange={e => setInterests(e.target.value.split(',') || [])}
+          onChange={e => onChange(e)}
+          error={interests.length > 5}
+          helperText={errorMsg}
           required
         />
         <br />
