@@ -10,7 +10,12 @@ function Message({ message, pal }) {
   return (
     <div className={`chat-message ${unreadClass} ${meClass}`}>
       {name !== 'me' ? <div className="chat-message-name">{name}</div> : null}
-      <div className="chat-message-text">{message.message.text}</div>
+      <div className="chat-message-text">
+        <div>{message.message.text}</div>
+        <div className="chat-message-created-time">
+          {new Date(message.createdAt).toString()}
+        </div>
+      </div>
     </div>
   );
 }

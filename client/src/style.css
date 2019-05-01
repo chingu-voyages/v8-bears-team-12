@@ -336,3 +336,9 @@ h4[class*='MuiTypography-h4'] {
   font-weight: bold;
   padding-right: 8px;
 }
+
+.chat-message-created-time {
+  font-size: 0.6rem;
+  color: #888;
+  margin-top: 2px;
+}
