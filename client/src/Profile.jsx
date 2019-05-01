@@ -67,14 +67,6 @@ function Profile({
       dietRestrictions !== '' &&
       interests.length <= 5
     ) {
-      const userChanges = {
-        firstName,
-        lastName,
-        password,
-        interests,
-        dietRestrictions,
-      };
-
       dispatchSaveProfile(
         firstName,
         lastName,
