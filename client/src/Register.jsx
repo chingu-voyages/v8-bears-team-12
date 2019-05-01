@@ -25,7 +25,9 @@ const validate = values => {
   if (!values.password) {
     errors.password = 'Required';
   }
-
+  if (values.password !== values.confirmPassword) {
+    errors.confirmPassword = 'Passwords don\'t match';
+  }
   return errors;
 };
 
@@ -133,6 +135,12 @@ const Register = ({
           type="password"
           component={RenderField}
           label="Password"
+        />
+        <Field
+          name="confirmPassword"
+          type="password"
+          component={RenderField}
+          label="Confirm Password"
         />
         <Field
           name="interests"
