@@ -115,6 +115,7 @@ PalChat.propTypes = {
   dispatchSetRouterPath: PropTypes.func,
   dispatchUnsetRouterPath: PropTypes.func,
   messages: PropTypes.arrayOf(PropTypes.object),
+  classes: PropTypes.shape({}),
 };
 
 PalChat.defaultProps = {
@@ -126,6 +127,7 @@ PalChat.defaultProps = {
   dispatchSetRouterPath: () => {},
   dispatchUnsetRouterPath: () => {},
   messages: [],
+  classes: {},
 };
 
 const mapStateToProps = ({ profile, chat }) => ({
