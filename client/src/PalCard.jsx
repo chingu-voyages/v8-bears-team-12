@@ -64,7 +64,7 @@ function PalCard({ pal, dispatchRemovePal, classes }) {
         title={pal.name}
       />
       <CardContent>
-        {pal.interests ? (
+        {pal.dietRestrictions ? (
           <p>
             Has specified the following diet restriction:{' '}
             <b>{pal.dietRestrictions}</b>
