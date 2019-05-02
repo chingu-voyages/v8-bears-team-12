@@ -27,12 +27,7 @@ const styles = {
     padding: '8px 0px',
     color: 'white',
     fontWeight: 'bold',
-    background: `repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
-    repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
-    linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
-    linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1))`,
-    backgroundColor: `#6d695c`,
-    backgroundSize: `70px 120px`,
+    backgroundColor: `#414141`,
     width: '100%',
     textAlign: 'center'
   },
