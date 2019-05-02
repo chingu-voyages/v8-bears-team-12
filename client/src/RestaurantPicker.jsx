@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+
 import RestaurantList from './RestaurantList';
 import PageHeader from './PageHeader';
+
+const styles = theme => ({});
 
 function RestaurantPicker() {
   const [term, setTerm] = useState('');
@@ -73,4 +77,4 @@ function RestaurantPicker() {
   );
 }
 
-export default RestaurantPicker;
+export default withStyles(styles)(RestaurantPicker);
