@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -90,6 +91,16 @@ function RestaurantPicker({ classes, picked }) {
     </div>
   );
 }
+
+RestaurantPicker.propTypes = {
+  classes: PropTypes.shape({}),
+  picked: PropTypes.arrayOf(PropTypes.object)
+};
+
+RestaurantPicker.defaultProps = {
+  classes: {},
+  picked: []
+};
 
 const mapStateToProps = ({ profile }) => ({
   picked: profile.restaurantsList
