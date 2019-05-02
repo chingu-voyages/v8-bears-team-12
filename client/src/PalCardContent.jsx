@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardContent } from '@material-ui/core';
+import { CardContent, Chip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = () => ({
+const styles = theme => ({
   root: {
     height: '150px',
     overflowY: 'scroll',
-    '&>div': { margin: '0px 0px 12px' }
-  }
+    '&>div': { margin: '0px 0px 8px' }
+  },
+  chip: { margin: theme.spacing.unit * 0.5 }
 });
 
 function PalCardContent({ pal, classes }) {
@@ -21,12 +22,20 @@ function PalCardContent({ pal, classes }) {
         </div>
       ) : null}
       {pal.interests ? (
-        <div>Interests include: {pal.interests.join(', ')}</div>
+        <div>
+          Interests include:{' '}
+          {pal.interests.map(e => (
+            <Chip className={classes.chip} key={e} label={e} />
+          ))}
+        </div>
       ) : null}
 
       {pal.restaurantsList ? (
         <div>
-          Chosen Restaurants: {pal.restaurantsList.map(e => e.name).join(', ')}.
+          Picked Restaurants:
+          {pal.restaurantsList.map(e => (
+            <Chip className={classes.chip} key={e.id} label={e.name} />
+          ))}
         </div>
       ) : null}
     </CardContent>
