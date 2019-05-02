@@ -20,9 +20,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { removePal } from './actionCreators';
 
 const styles = theme => ({
-  card: { maxWidth: '560px', width: '100%', margin: '8px' },
+  root: { maxWidth: '560px', width: '100%', margin: '8px' },
   title: { fontSize: '1.4rem', fontWeight: 500 },
-  avatar: { backgroundColor: '#365577' }
+  avatar: { backgroundColor: '#365577' },
+  content: { height: '150px', overflowY: 'scroll' }
 });
 
 const ITEM_HEIGHT = 48;
@@ -48,7 +49,7 @@ function PalCard({ pal, dispatchRemovePal, classes }) {
   }
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.root}>
       <CardHeader
         classes={{ title: classes.title }}
         avatar={(
@@ -63,7 +64,7 @@ function PalCard({ pal, dispatchRemovePal, classes }) {
 )}
         title={pal.name}
       />
-      <CardContent>
+      <CardContent className={classes.content}>
         {pal.dietRestrictions ? (
           <p>
             Has specified the following diet restriction:{' '}
