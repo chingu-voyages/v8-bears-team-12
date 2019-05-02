@@ -3,6 +3,7 @@ import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import RestaurantList from './RestaurantList';
+import PageHeader from './PageHeader';
 
 function RestaurantPicker() {
   const [term, setTerm] = useState('');
@@ -24,7 +25,7 @@ function RestaurantPicker() {
 
   return (
     <div>
-      <h3>Search for Restaurants</h3>
+      <PageHeader>Search for Restaurants</PageHeader>
       <div>
         <form
           style={{ minWidth: '100%' }}
