@@ -14,6 +14,13 @@ const styles = theme => ({
     alignItems: 'center',
     width: '100%'
   },
+  form: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: theme.spacing.unit
+  },
+
   restaurants: {
     width: '100%',
     display: 'grid',
@@ -46,47 +53,32 @@ function RestaurantPicker({ classes }) {
   return (
     <div className={classes.root}>
       <PageHeader>Search for Restaurants</PageHeader>
-      <div>
-        <form
-          style={{ minWidth: '100%' }}
-          onSubmit={e => {
-            onSubmit(e);
-            setTerm('');
-            setLocation('');
-          }}
-        >
-          <TextField
-            style={{
-              maxWidth: '35%',
-              borderBottom: '2px solid rgb(19, 73, 134)'
-            }}
-            className="textField"
-            label="Cuisine Type "
-            value={term}
-            onChange={e => setTerm(e.target.value)}
-            required
-          />
-          <TextField
-            style={{
-              maxWidth: '35%',
-              borderBottom: '2px solid rgb(19, 73, 134)'
-            }}
-            className="textField"
-            label="Zipcode or city "
-            value={location}
-            onChange={e => setLocation(e.target.value)}
-            required
-          />
-          <Button
-            style={{ marginTop: '9px' }}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            Find
-          </Button>
-        </form>
-      </div>
+      <form
+        className={classes.form}
+        onSubmit={e => {
+          onSubmit(e);
+          setTerm('');
+          setLocation('');
+        }}
+      >
+        <TextField
+          label="Cuisine Type "
+          value={term}
+          onChange={e => setTerm(e.target.value)}
+          variant="outlined"
+          required
+        />
+        <TextField
+          label="Zipcode or city "
+          value={location}
+          onChange={e => setLocation(e.target.value)}
+          variant="outlined"
+          required
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Find
+        </Button>
+      </form>
 
       <div className={classes.restaurants}>
         {restaurantList.map(restaurant => (
