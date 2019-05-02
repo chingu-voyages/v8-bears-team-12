@@ -4,12 +4,28 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
-import RestaurantList from './RestaurantList';
+import Restaurant from './Restaurant';
 import PageHeader from './PageHeader';
 
-const styles = theme => ({});
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%'
+  },
+  restaurants: {
+    width: '100%',
+    display: 'grid',
+    justifyItems: 'center',
+    gridTemplateColumns: '100%',
+    [theme.breakpoints.up('lg')]: {
+      gridTemplateColumns: '50% 50%'
+    }
+  }
+});
 
-function RestaurantPicker() {
+function RestaurantPicker({ classes }) {
   const [term, setTerm] = useState('');
   const [location, setLocation] = useState('');
   const [restaurantList, setRestaurantList] = useState([]);
@@ -28,7 +44,7 @@ function RestaurantPicker() {
   }
 
   return (
-    <div>
+    <div className={classes.root}>
       <PageHeader>Search for Restaurants</PageHeader>
       <div>
         <form
@@ -72,7 +88,11 @@ function RestaurantPicker() {
         </form>
       </div>
 
-      <RestaurantList restaurantList={restaurantList} />
+      <div className={classes.restaurants}>
+        {restaurantList.map(restaurant => (
+          <Restaurant restaurant={restaurant} key={restaurant.id} />
+        ))}
+      </div>
     </div>
   );
 }
