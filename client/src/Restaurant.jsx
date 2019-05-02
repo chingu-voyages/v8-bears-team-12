@@ -11,7 +11,9 @@ import {
   CardActions,
   Button
 } from '@material-ui/core';
+
 import { withStyles } from '@material-ui/core/styles';
+import YelpRating from './YelpRating';
 import { addRestaurant, removeRestaurant } from './actionCreators';
 
 const styles = theme => ({
@@ -43,7 +45,7 @@ function Restaurant({
       <CardHeader title={name} />
       <CardMedia className={classes.media} image={image_url} title={name} />
       <CardContent>
-        <div className="">{rating}</div>
+        <YelpRating rating={rating} />
         <div className="">{location}</div>
         <div className="">{phone}</div>
       </CardContent>
