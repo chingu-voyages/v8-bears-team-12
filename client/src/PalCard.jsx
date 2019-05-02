@@ -23,7 +23,11 @@ const styles = theme => ({
   root: { maxWidth: '560px', width: '100%', margin: '8px' },
   title: { fontSize: '1.4rem', fontWeight: 500 },
   avatar: { backgroundColor: '#365577' },
-  content: { height: '150px', overflowY: 'scroll' }
+  content: {
+    height: '150px',
+    overflowY: 'scroll',
+    '&>div': { margin: '0px 0px 12px' }
+  }
 });
 
 const ITEM_HEIGHT = 48;
@@ -66,20 +70,20 @@ function PalCard({ pal, dispatchRemovePal, classes }) {
       />
       <CardContent className={classes.content}>
         {pal.dietRestrictions ? (
-          <p>
+          <div>
             Has specified the following diet restriction:{' '}
             <b>{pal.dietRestrictions}</b>
-          </p>
+          </div>
         ) : null}
         {pal.interests ? (
-          <p>Interests include: {pal.interests.join(', ')}</p>
+          <div>Interests include: {pal.interests.join(', ')}</div>
         ) : null}
 
         {pal.restaurantsList ? (
-          <p>
+          <div>
             Chosen Restaurants:{' '}
             {pal.restaurantsList.map(e => e.name).join(', ')}.
-          </p>
+          </div>
         ) : null}
       </CardContent>
       <Menu
