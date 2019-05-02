@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
 import Restaurant from './Restaurant';
+import PageHeader from './PageHeader';
 
 const styles = theme => ({
   root: {
@@ -33,7 +33,7 @@ const styles = theme => ({
 function MyRestaurants({ restaurantsList, classes }) {
   return (
     <div className={classes.root}>
-      <Typography variant="h4">My Restaurants</Typography>
+      <PageHeader>My Restaurants</PageHeader>
       <div className={classes.restaurants}>
         {restaurantsList.map(e => (
           <Restaurant key={e.id} picked restaurant={e} />
