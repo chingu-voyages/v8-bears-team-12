@@ -21,6 +21,8 @@ const styles = theme => ({
   list: {
     display: 'grid',
     width: '100%',
+    justifyItems: 'center',
+
     gridTemplateColumns: '100%',
     [theme.breakpoints.up('lg')]: {
       gridTemplateColumns: '50% 50%'
