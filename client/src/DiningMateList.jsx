@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
+import { Typography } from '@material-ui/core';
 import DiningMate from './DiningMate';
 
 const styles = theme => ({
@@ -10,11 +11,10 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: '100%'
   },
-  title: {
-    padding: '8px'
-  },
+
   list: {
     display: 'grid',
     gridTemplateColumns: '100%',
@@ -27,10 +27,16 @@ const styles = theme => ({
 });
 
 function DiningMateList({ diningMates, classes, pals }) {
-  const diningMateElems = diningMates
+  const matches = diningMates
     .filter(d => !pals.some(p => p._id === d._id))
     .map(e => <DiningMate key={e._id} pal={e} />);
-  return <div className={classes.list}>{diningMateElems}</div>;
+  return matches.length ? (
+    <div className={classes.list}>{matches}</div>
+  ) : (
+    <Typography className={classes.root} variant="h6">
+      No pals to add for this search
+    </Typography>
+  );
 }
 
 DiningMateList.propTypes = {
