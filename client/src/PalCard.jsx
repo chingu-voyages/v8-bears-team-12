@@ -1,22 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import useReactRouter from 'use-react-router';
 import { connect } from 'react-redux';
-import {
-  Avatar,
-  Button,
-  Card,
-  CardActions,
-  CardHeader,
-  Menu,
-  MenuItem,
-  IconButton
-} from '@material-ui/core';
-import MoreVert from '@material-ui/icons/MoreVert';
+import { Button, Card, CardActions } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import { removePal } from './actionCreators';
 
+import PalCardHeader from './PalCardHeader';
 import PalCardContent from './PalCardContent';
 
 const styles = () => ({
@@ -25,59 +16,16 @@ const styles = () => ({
   avatar: { backgroundColor: '#365577' }
 });
 
-const ITEM_HEIGHT = 48;
-
-function PalCard({ pal, dispatchRemovePal, classes }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
+function PalCard({ pal, classes }) {
   const { history } = useReactRouter();
   function handleChat(palId, palName) {
     history.push(`/pal-chat/${palId}/${palName}`);
   }
 
-  function handleMore(e) {
-    setAnchorEl(e.currentTarget);
-    setOpen(true);
-  }
-  function handleClose() {
-    setOpen(false);
-  }
-  function handleRemove(palId) {
-    setOpen(false);
-    dispatchRemovePal(palId);
-  }
-
   return (
     <Card className={classes.root}>
-      <CardHeader
-        classes={{ title: classes.title }}
-        avatar={(
-          <Avatar aria-label="username" className={classes.avatar}>
-            {pal.name.charAt(0).toUpperCase()}
-          </Avatar>
-)}
-        action={(
-          <IconButton onClick={handleMore}>
-            <MoreVert />
-          </IconButton>
-)}
-        title={pal.name}
-      />
+      <PalCardHeader pal={pal} />
       <PalCardContent pal={pal} />
-      <Menu
-        id="long-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: 200
-          }
-        }}
-      >
-        <MenuItem onClick={() => handleRemove(pal._id)}>Remove</MenuItem>
-      </Menu>
       <CardActions>
         <Button type="button" onClick={() => handleChat(pal._id, pal.name)}>
           Chat
@@ -89,13 +37,11 @@ function PalCard({ pal, dispatchRemovePal, classes }) {
 
 PalCard.propTypes = {
   pal: PropTypes.shape({}),
-  dispatchRemovePal: PropTypes.func,
   classes: PropTypes.shape({})
 };
 
 PalCard.defaultProps = {
   pal: {},
-  dispatchRemovePal: () => {},
   classes: {}
 };
 
