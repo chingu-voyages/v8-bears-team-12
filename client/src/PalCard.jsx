@@ -6,7 +6,6 @@ import {
   Avatar,
   Button,
   Card,
-  CardContent,
   CardActions,
   CardHeader,
   Menu,
@@ -18,15 +17,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { removePal } from './actionCreators';
 
+import PalCardContent from './PalCardContent';
+
 const styles = () => ({
   root: { maxWidth: '560px', width: '100%', margin: '8px' },
   title: { fontSize: '1.4rem', fontWeight: 500 },
-  avatar: { backgroundColor: '#365577' },
-  content: {
-    height: '150px',
-    overflowY: 'scroll',
-    '&>div': { margin: '0px 0px 12px' }
-  }
+  avatar: { backgroundColor: '#365577' }
 });
 
 const ITEM_HEIGHT = 48;
@@ -67,24 +63,7 @@ function PalCard({ pal, dispatchRemovePal, classes }) {
 )}
         title={pal.name}
       />
-      <CardContent className={classes.content}>
-        {pal.dietRestrictions ? (
-          <div>
-            Has specified the following diet restriction:{' '}
-            <b>{pal.dietRestrictions}</b>
-          </div>
-        ) : null}
-        {pal.interests ? (
-          <div>Interests include: {pal.interests.join(', ')}</div>
-        ) : null}
-
-        {pal.restaurantsList ? (
-          <div>
-            Chosen Restaurants:{' '}
-            {pal.restaurantsList.map(e => e.name).join(', ')}.
-          </div>
-        ) : null}
-      </CardContent>
+      <PalCardContent pal={pal} />
       <Menu
         id="long-menu"
         anchorEl={anchorEl}
