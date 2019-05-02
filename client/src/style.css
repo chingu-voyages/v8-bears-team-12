@@ -148,67 +148,6 @@ main {
   margin: 0px 16px;
 }
 
-/* *********Pal Card ********** */
-.pal-container {
-  margin: 0;
-  padding: 5px;
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.pal-cards {
-  min-width: 95%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-content: space-around;
-}
-.pal-card {
-  padding: 5px;
-  margin: auto;
-  margin-bottom: 10px;
-  min-width: 75%;
-  max-width: 75%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  border: 2px solid rgb(81, 160, 250);
-  border-radius: 10px;
-}
-
-.pal-card-image {
-  min-width: 25%;
-  max-width: 35%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: space-around;
-}
-
-.pal-card-image img {
-  margin-bottom: 4px;
-}
-
-.pal-card-info {
-  min-width: 55%;
-  max-width: 55%;
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-content: left;
-  align-items: left;
-}
-
-.pal-card-info ul {
-  padding: 0;
-}
-.pal-card-info span {
-  font-size: 0.9em;
-  font-weight: bold;
-  color: rgb(19, 73, 134);
-}
-
 ul span {
   color: rgb(19, 73, 134);
 }
