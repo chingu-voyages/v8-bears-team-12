@@ -20,7 +20,7 @@ const styles = () => ({
 
 const ITEM_HEIGHT = 48;
 
-function PalCardHeader({ pal, dispatchRemovePal, classes }) {
+function PalCardHeader({ pal, showMenu, dispatchRemovePal, classes }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -45,27 +45,31 @@ function PalCardHeader({ pal, dispatchRemovePal, classes }) {
             {pal.name.charAt(0).toUpperCase()}
           </Avatar>
 )}
-        action={(
-          <IconButton onClick={handleMore}>
-            <MoreVert />
-          </IconButton>
-)}
+        action={
+          showMenu ? (
+            <IconButton onClick={handleMore}>
+              <MoreVert />
+            </IconButton>
+          ) : null
+        }
         title={pal.name}
       />
-      <Menu
-        id="long-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: 200
-          }
-        }}
-      >
-        <MenuItem onClick={() => handleRemove(pal._id)}>Remove</MenuItem>
-      </Menu>
+      {showMenu ? (
+        <Menu
+          id="long-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: 200
+            }
+          }}
+        >
+          <MenuItem onClick={() => handleRemove(pal._id)}>Remove</MenuItem>
+        </Menu>
+      ) : null}
     </>
   );
 }
@@ -73,13 +77,15 @@ function PalCardHeader({ pal, dispatchRemovePal, classes }) {
 PalCardHeader.propTypes = {
   pal: PropTypes.shape({}),
   dispatchRemovePal: PropTypes.func,
-  classes: PropTypes.shape({})
+  classes: PropTypes.shape({}),
+  showMenu: PropTypes.bool
 };
 
 PalCardHeader.defaultProps = {
   pal: {},
   dispatchRemovePal: () => {},
-  classes: {}
+  classes: {},
+  showMenu: false
 };
 
 const mapDispatchToProps = {
