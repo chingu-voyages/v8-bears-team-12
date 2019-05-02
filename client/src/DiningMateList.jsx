@@ -33,10 +33,12 @@ function DiningMateList({ diningMates, classes }) {
 }
 
 DiningMateList.propTypes = {
+  classes: PropTypes.shape({}),
   diningMates: PropTypes.arrayOf(PropTypes.object)
 };
 
 DiningMateList.defaultProps = {
+  classes: {},
   diningMates: []
 };
 
