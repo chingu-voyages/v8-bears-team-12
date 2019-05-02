@@ -184,11 +184,6 @@ ul span {
   height: 100%;
 }
 
-h4[class*='MuiTypography-h4'] {
-  text-align: center;
-  margin-top: 16px;
-}
-
 .container {
   margin: 4px;
 }

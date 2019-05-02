@@ -1,13 +1,20 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import LandingCard from './LandingCard';
 
-const Landing = () => {
+const styles = {
+  title: {
+    textAlign: 'center'
+  }
+};
+
+const Landing = ({ classes }) => {
   return (
     <div className="guide">
       <div className="guide-cards">
-        <Typography className="guide-title" variant="h4">
+        <Typography className={classes.title} variant="h4">
           Let&rsquo;s meet and eat!
         </Typography>
         <LandingCard
@@ -35,4 +42,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default withStyles(styles)(Landing);
