@@ -58,6 +58,7 @@ function Restaurant({
 }
 
 Restaurant.propTypes = {
+  classes: PropTypes.shape({}),
   restaurant: PropTypes.shape({}),
   picked: PropTypes.bool,
   dispatchAddRestaurant: PropTypes.func,
@@ -65,6 +66,7 @@ Restaurant.propTypes = {
 };
 
 Restaurant.defaultProps = {
+  classes: {},
   restaurant: {},
   picked: false,
   dispatchAddRestaurant: () => {},
