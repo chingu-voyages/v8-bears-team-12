@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import Restaurant from './Restaurant';
 import PageHeader from './PageHeader';
 
+import { setRestaurantpicker } from './actionCreators';
+
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -33,10 +35,17 @@ const styles = theme => ({
   }
 });
 
-function RestaurantPicker({ classes, picked }) {
-  const [term, setTerm] = useState('');
-  const [location, setLocation] = useState('');
-  const [restaurantList, setRestaurantList] = useState([]);
+function RestaurantPicker({
+  classes,
+  picked,
+  defaultLocation,
+  defaultTerm,
+  defaultRestaurants,
+  dispatchSetRestaurantpicker
+}) {
+  const [term, setTerm] = useState(defaultTerm);
+  const [location, setLocation] = useState(defaultLocation);
+  const [restaurantList, setRestaurantList] = useState(defaultRestaurants);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -45,6 +54,14 @@ function RestaurantPicker({ classes, picked }) {
       const response = await axios.get(
         `/api/restaurant-search/${location}/${term}`
       );
+
+      const payload = {
+        term,
+        location,
+        restaurants: response.data
+      };
+
+      dispatchSetRestaurantpicker(payload);
       setRestaurantList(response.data);
     } catch (err) {
       console.log(err); // eslint-disable-line no-console
@@ -58,8 +75,6 @@ function RestaurantPicker({ classes, picked }) {
         className={classes.form}
         onSubmit={e => {
           onSubmit(e);
-          setTerm('');
-          setLocation('');
         }}
       >
         <TextField
@@ -102,8 +117,18 @@ RestaurantPicker.defaultProps = {
   picked: []
 };
 
-const mapStateToProps = ({ profile }) => ({
-  picked: profile.restaurantsList
+const mapStateToProps = ({ profile, restaurantpicker }) => ({
+  picked: profile.restaurantsList,
+  defaultLocation: restaurantpicker.location,
+  defaultTerm: restaurantpicker.term,
+  defaultRestaurants: restaurantpicker.restaurants
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(RestaurantPicker));
+const mapDispatchToProps = {
+  dispatchSetRestaurantpicker: setRestaurantpicker
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(RestaurantPicker));
