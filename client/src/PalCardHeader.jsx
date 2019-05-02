@@ -58,6 +58,8 @@ function PalCardHeader({ pal, showMenu, dispatchRemovePal, classes }) {
         <Menu
           id="long-menu"
           anchorEl={anchorEl}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          getContentAnchorEl={null}
           open={open}
           onClose={handleClose}
           PaperProps={{
