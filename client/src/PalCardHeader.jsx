@@ -14,6 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { removePal } from './actionCreators';
 
 const styles = () => ({
+  root: { background: '#ededed', marginBottom: '4px' },
   title: { fontSize: '1.4rem', fontWeight: 500 },
   avatar: { backgroundColor: '#365577' }
 });
@@ -39,7 +40,7 @@ function PalCardHeader({ pal, showMenu, dispatchRemovePal, classes }) {
   return (
     <>
       <CardHeader
-        classes={{ title: classes.title }}
+        classes={{ title: classes.title, root: classes.root }}
         avatar={(
           <Avatar aria-label="username" className={classes.avatar}>
             {pal.name.charAt(0).toUpperCase()}
