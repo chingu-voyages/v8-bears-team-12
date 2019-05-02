@@ -13,13 +13,12 @@ import {
   MenuItem,
   IconButton
 } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
 import MoreVert from '@material-ui/icons/MoreVert';
 import { withStyles } from '@material-ui/core/styles';
 
 import { removePal } from './actionCreators';
 
-const styles = theme => ({
+const styles = () => ({
   root: { maxWidth: '560px', width: '100%', margin: '8px' },
   title: { fontSize: '1.4rem', fontWeight: 500 },
   avatar: { backgroundColor: '#365577' },
