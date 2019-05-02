@@ -6,7 +6,6 @@ import DiningMate from './DiningMate';
 
 const styles = theme => ({
   root: {
-    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -17,8 +16,9 @@ const styles = theme => ({
   },
   list: {
     display: 'grid',
-    width: '100%',
     gridTemplateColumns: '100%',
+    justifyItems: 'center',
+    width: '100%',
     [theme.breakpoints.up('lg')]: {
       gridTemplateColumns: '50% 50%'
     }
