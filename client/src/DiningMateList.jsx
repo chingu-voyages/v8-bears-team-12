@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -25,21 +26,27 @@ const styles = theme => ({
   }
 });
 
-function DiningMateList({ diningMates, classes }) {
-  const diningMateElems = diningMates.map(e => (
-    <DiningMate key={e._id} pal={e} />
-  ));
+function DiningMateList({ diningMates, classes, pals }) {
+  const diningMateElems = diningMates
+    .filter(d => !pals.some(p => p._id === d._id))
+    .map(e => <DiningMate key={e._id} pal={e} />);
   return <div className={classes.list}>{diningMateElems}</div>;
 }
 
 DiningMateList.propTypes = {
+  pals: PropTypes.arrayOf(PropTypes.object),
   classes: PropTypes.shape({}),
   diningMates: PropTypes.arrayOf(PropTypes.object)
 };
 
 DiningMateList.defaultProps = {
+  pals: [],
   classes: {},
   diningMates: []
 };
 
-export default withStyles(styles)(DiningMateList);
+const mapStateToProps = ({ profile }) => ({
+  pals: profile.pals
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(DiningMateList));
