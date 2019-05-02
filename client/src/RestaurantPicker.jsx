@@ -3,7 +3,7 @@ import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-
+import { connect } from 'react-redux';
 import Restaurant from './Restaurant';
 import PageHeader from './PageHeader';
 
@@ -32,7 +32,7 @@ const styles = theme => ({
   }
 });
 
-function RestaurantPicker({ classes }) {
+function RestaurantPicker({ classes, picked }) {
   const [term, setTerm] = useState('');
   const [location, setLocation] = useState('');
   const [restaurantList, setRestaurantList] = useState([]);
@@ -52,7 +52,7 @@ function RestaurantPicker({ classes }) {
 
   return (
     <div className={classes.root}>
-      <PageHeader>Search for Restaurants</PageHeader>
+      <PageHeader>Search for Restaurants to Add</PageHeader>
       <form
         className={classes.form}
         onSubmit={e => {
@@ -81,12 +81,18 @@ function RestaurantPicker({ classes }) {
       </form>
 
       <div className={classes.restaurants}>
-        {restaurantList.map(restaurant => (
-          <Restaurant restaurant={restaurant} key={restaurant.id} />
-        ))}
+        {restaurantList
+          .filter(r => !picked.some(p => p.id === r.id))
+          .map(restaurant => (
+            <Restaurant restaurant={restaurant} key={restaurant.id} />
+          ))}
       </div>
     </div>
   );
 }
 
-export default withStyles(styles)(RestaurantPicker);
+const mapStateToProps = ({ profile }) => ({
+  picked: profile.restaurantsList
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(RestaurantPicker));
