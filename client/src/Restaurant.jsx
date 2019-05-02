@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import useReactRouter from 'use-react-router';
 
 import {
   Card,
@@ -28,10 +29,13 @@ function Restaurant({
   classes
 }) {
   const { name, image_url, url, rating, location, phone } = restaurant;
+  const { history } = useReactRouter();
 
   function handleClick() {
-    if (!picked) dispatchAddRestaurant(restaurant);
-    else dispatchRemoveRestaurant(restaurant._id);
+    if (!picked) {
+      dispatchAddRestaurant(restaurant);
+      history.push('/my-restaurants');
+    } else dispatchRemoveRestaurant(restaurant._id);
   }
 
   return (
