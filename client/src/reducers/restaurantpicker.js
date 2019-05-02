@@ -4,7 +4,7 @@ const restaurantpicker = (
   state = { term: '', location: '', restaurants: [] },
   action
 ) => {
-  const { term, location, restaurants } = action.payload;
+  const { term, location, restaurants } = action.payload || {};
 
   switch (action.type) {
     case SET_RESTAURANTPICKER:
