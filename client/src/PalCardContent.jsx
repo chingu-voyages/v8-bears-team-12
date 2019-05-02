@@ -9,7 +9,7 @@ const styles = theme => ({
     overflowY: 'scroll',
     '&>div': { margin: '0px 0px 8px' }
   },
-  chip: { margin: theme.spacing.unit * 0.5 }
+  chip: { margin: theme.spacing.unit * 0.5, height: '24px' }
 });
 
 function PalCardContent({ pal, classes }) {
@@ -20,10 +20,12 @@ function PalCardContent({ pal, classes }) {
           Has specified the following diet restriction:{' '}
           <b>{pal.dietRestrictions}</b>
         </div>
-      ) : null}
+      ) : (
+        <div>Has not specified any diet restrictions</div>
+      )}
       {pal.interests ? (
         <div>
-          Interests include:{' '}
+          Interests:{' '}
           {pal.interests.map(e => (
             <Chip className={classes.chip} key={e} label={e} />
           ))}
@@ -32,9 +34,9 @@ function PalCardContent({ pal, classes }) {
 
       {pal.restaurantsList ? (
         <div>
-          Picked Restaurants:
+          Picked:
           {pal.restaurantsList.map(e => (
-            <Chip className={classes.chip} key={e.id} label={e.name} />
+            <Chip className={classes.chip} key={e._id} label={e.name} />
           ))}
         </div>
       ) : null}
