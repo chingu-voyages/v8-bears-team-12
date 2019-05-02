@@ -44,6 +44,7 @@ function MyRestaurants({ restaurantsList, classes }) {
         to="/restaurantPicker"
         className={classes.fab}
         color="primary"
+        disabled={restaurantsList.length >= 5}
       >
         <AddIcon />
       </Fab>
