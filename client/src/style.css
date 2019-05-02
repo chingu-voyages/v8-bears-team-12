@@ -160,41 +160,6 @@ ul span {
 }
 
 /* *********Restaurant picker*********** */
-.restaurantsearch-container {
-  width: 98%;
-  display: flex;
-  flex-direction: row;
-}
-
-.restaurant-search {
-  min-width: 80%;
-  max-width: 80%;
-  margin: auto;
-}
-
-.pickedRestaurants {
-  max-width: 40%;
-  border-right: 1px solid grey;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-.searchRestaurants {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.restaurant-search form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
 
 .restaurantsearch-restaurants {
   display: flex;
@@ -222,26 +187,6 @@ ul span {
 h4[class*='MuiTypography-h4'] {
   text-align: center;
   margin-top: 16px;
-}
-
-@media only screen and (max-width: 475px) {
-  .restaurantsearch-container {
-    flex-wrap: wrap;
-  }
-  .searchRestaurants {
-    max-width: 100%;
-    order: 1;
-  }
-  .pickedRestaurants {
-    max-width: 100%;
-    order: 2;
-  }
-}
-
-@media only screen and (min-width: 476px) and (max-width: 685px) {
-  .pickedRestaurants .restaurant-image {
-    display: none;
-  }
 }
 
 .container {
