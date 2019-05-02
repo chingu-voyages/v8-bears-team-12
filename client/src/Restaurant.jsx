@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import './restaurantStyle.css';
 
 import { Card, CardHeader, CardMedia, CardContent } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
