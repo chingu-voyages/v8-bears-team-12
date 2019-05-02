@@ -24,7 +24,7 @@ function PalCard({ pal, classes }) {
 
   return (
     <Card className={classes.root}>
-      <PalCardHeader pal={pal} />
+      <PalCardHeader pal={pal} showMenu />
       <PalCardContent pal={pal} />
       <CardActions>
         <Button type="button" onClick={() => handleChat(pal._id, pal.name)}>
