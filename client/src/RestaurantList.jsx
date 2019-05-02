@@ -4,7 +4,7 @@ import Restaurant from './Restaurant';
 
 function RestaurantList({ restaurantList }) {
   return (
-    <div className="restaurantsearch-restaurants">
+    <div className="">
       {restaurantList.map(restaurant => (
         <Restaurant restaurant={restaurant} key={restaurant.id} />
       ))}
@@ -13,11 +13,11 @@ function RestaurantList({ restaurantList }) {
 }
 
 RestaurantList.propTypes = {
-  restaurantList: PropTypes.arrayOf(PropTypes.object),
+  restaurantList: PropTypes.arrayOf(PropTypes.object)
 };
 
 RestaurantList.defaultProps = {
-  restaurantList: [],
+  restaurantList: []
 };
 
 export default RestaurantList;
