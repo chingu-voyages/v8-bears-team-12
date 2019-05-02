@@ -7,21 +7,37 @@ import { withStyles } from '@material-ui/core/styles';
 
 import PalCard from './PalCard';
 
-const styles = {
+const styles = theme => ({
+  root: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   title: {
     padding: '8px'
+  },
+  list: {
+    display: 'grid',
+    gridTemplateColumns: '100%',
+    [theme.breakpoints.up('lg')]: {
+      gridTemplateColumns: '50% 50%'
+    }
   }
-};
+});
 
 function PalList({ pals, classes }) {
   return (
-    <div className="pal-container">
+    <div className={classes.root}>
       <Typography variant="h4" className={classes.title}>
         Pal List
       </Typography>
-      {pals.map(pal => (
-        <PalCard key={pal._id} pal={pal} />
-      ))}
+      <div className={classes.list}>
+        {pals.map(pal => (
+          <PalCard key={pal._id} pal={pal} />
+        ))}
+      </div>
 
       {!pals.length && (
         <div>
