@@ -2,7 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Card, CardHeader, CardMedia, CardContent } from '@material-ui/core';
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Button
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { addRestaurant, removeRestaurant } from './actionCreators';
 
@@ -22,8 +29,9 @@ function Restaurant({
 }) {
   const { name, image_url, url, rating, location, phone } = restaurant;
 
-  async function handleClick() {
-    dispatchAddRestaurant(restaurant);
+  function handleClick() {
+    if (!picked) dispatchAddRestaurant(restaurant);
+    else dispatchRemoveRestaurant(restaurant._id);
   }
 
   return (
@@ -34,22 +42,17 @@ function Restaurant({
         <div className="">{rating}</div>
         <div className="">{location}</div>
         <div className="">{phone}</div>
-        <div>
-          {!picked ? (
-            <button type="button" onClick={handleClick}>
-              Add
-            </button>
-          ) : null}
-          {picked ? (
-            <button
-              type="button"
-              onClick={() => dispatchRemoveRestaurant(restaurant._id)}
-            >
-              X
-            </button>
-          ) : null}
-        </div>
       </CardContent>
+      <CardActions className={classes.actions}>
+        <Button
+          type="button"
+          color="primary"
+          variant="contained"
+          onClick={handleClick}
+        >
+          {picked ? 'Remove' : 'Add'}
+        </Button>
+      </CardActions>
     </Card>
   );
 }
