@@ -127,10 +127,6 @@ main {
   border-bottom: 1px dotted gray;
 }
 
-.dashboard-tab {
-  width: 100%;
-}
-
 .search-area-info {
   width: 100%;
   display: flex;
@@ -148,67 +144,6 @@ main {
   margin: 0px 16px;
 }
 
-/* *********Pal Card ********** */
-.pal-container {
-  margin: 0;
-  padding: 5px;
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.pal-cards {
-  min-width: 95%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-content: space-around;
-}
-.pal-card {
-  padding: 5px;
-  margin: auto;
-  margin-bottom: 10px;
-  min-width: 75%;
-  max-width: 75%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  border: 2px solid rgb(81, 160, 250);
-  border-radius: 10px;
-}
-
-.pal-card-image {
-  min-width: 25%;
-  max-width: 35%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: space-around;
-}
-
-.pal-card-image img {
-  margin-bottom: 4px;
-}
-
-.pal-card-info {
-  min-width: 55%;
-  max-width: 55%;
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-content: left;
-  align-items: left;
-}
-
-.pal-card-info ul {
-  padding: 0;
-}
-.pal-card-info span {
-  font-size: 0.9em;
-  font-weight: bold;
-  color: rgb(19, 73, 134);
-}
-
 ul span {
   color: rgb(19, 73, 134);
 }
@@ -218,47 +153,11 @@ ul span {
 }
 
 /* *********Restaurant picker*********** */
-.restaurantsearch-container {
-  width: 98%;
-  display: flex;
-  flex-direction: row;
-}
-
-.restaurant-search {
-  min-width: 80%;
-  max-width: 80%;
-  margin: auto;
-}
-
-.pickedRestaurants {
-  max-width: 40%;
-  border-right: 1px solid grey;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-.searchRestaurants {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.restaurant-search form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
 
 .restaurantsearch-restaurants {
   display: flex;
   flex: 1;
   flex-direction: column;
-  overflow-y: scroll;
 }
 
 /* *********Home Welcome Guide************ */
@@ -276,31 +175,6 @@ ul span {
   flex-direction: column;
   justify-content: center;
   height: 100%;
-}
-
-h4[class*='MuiTypography-h4'] {
-  text-align: center;
-  margin-top: 16px;
-}
-
-@media only screen and (max-width: 475px) {
-  .restaurantsearch-container {
-    flex-wrap: wrap;
-  }
-  .searchRestaurants {
-    max-width: 100%;
-    order: 1;
-  }
-  .pickedRestaurants {
-    max-width: 100%;
-    order: 2;
-  }
-}
-
-@media only screen and (min-width: 476px) and (max-width: 685px) {
-  .pickedRestaurants .restaurant-image {
-    display: none;
-  }
 }
 
 .container {

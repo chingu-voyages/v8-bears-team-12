@@ -25,7 +25,9 @@ const validate = values => {
   if (!values.password) {
     errors.password = 'Required';
   }
-
+  if (values.password !== values.confirmPassword) {
+    errors.confirmPassword = 'Passwords don\'t match';
+  }
   return errors;
 };
 
@@ -68,7 +70,7 @@ const Register = ({
   dispatchNewUser,
 }) => {
   const options = [
-    'None a.k.a. I eat anything and everything',
+    'None - I eat anything & everything!',
     'Vegan',
     'Vegetarian',
     'GlutenFree',
@@ -97,7 +99,7 @@ const Register = ({
       dietRestrictions,
     };
 
-    dispatchNewUser(newUser).then(history.push('/'));
+    dispatchNewUser(newUser).then(history.push('/login'));
   }
 
   return (
@@ -133,6 +135,12 @@ const Register = ({
           type="password"
           component={RenderField}
           label="Password"
+        />
+        <Field
+          name="confirmPassword"
+          type="password"
+          component={RenderField}
+          label="Confirm Password"
         />
         <Field
           name="interests"

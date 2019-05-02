@@ -13,16 +13,18 @@ import {
   CLEAR_DININGMATES,
   SET_ROUTER_LOCATION,
   UNSET_ROUTER_LOCATION,
+  SET_RESTAURANTPICKER,
+  CLEAR_RESTAURANTPICKER
 } from '../actionTypes';
 
 export const setSnackbar = message => ({
   type: SET_SNACKBAR,
-  message,
+  message
 });
 
 export const removeSnackbar = () => ({
   type: REMOVE_SNACKBAR,
-  message: '',
+  message: ''
 });
 
 export const logoutAction = async dispatch => {
@@ -70,7 +72,7 @@ export const saveProfile = (
   lastName,
   password,
   interests,
-  dietRestrictions,
+  dietRestrictions
 ) => async dispatch => {
   try {
     const response = await axios.post('/api/profile', {
@@ -78,7 +80,7 @@ export const saveProfile = (
       lastName,
       password,
       interests,
-      dietRestrictions,
+      dietRestrictions
     });
     dispatch(setSnackbar('profile saved successfully'));
     const { error } = response.data;
@@ -94,8 +96,8 @@ export const uploadPhoto = file => async dispatch => {
   formData.append('image', file);
   const response = await axios.post('/api/profile-photo-upload', formData, {
     headers: {
-      'Content-Type': 'multipart/form-data',
-    },
+      'Content-Type': 'multipart/form-data'
+    }
   });
   const { error } = response.data;
   if (error) dispatch(setSnackbar(error.message));
@@ -122,14 +124,14 @@ export const setSearchLocation = ({
   city,
   state,
   country,
-  history,
+  history
 }) => async dispatch => {
   const data = {
     lat,
     lon,
     city,
     state,
-    country,
+    country
   };
   await axios.post('/api/set-search-location', data);
   setProfileThunk()(dispatch);
@@ -196,3 +198,12 @@ export const setRouterPath = location => dispatch => {
 export const unsetRouterPath = () => dispatch => {
   dispatch({ type: UNSET_ROUTER_LOCATION });
 };
+
+export const setRestaurantpicker = payload => ({
+  type: SET_RESTAURANTPICKER,
+  payload
+});
+
+export const clearRestaurantpicker = () => ({
+  type: CLEAR_RESTAURANTPICKER
+});

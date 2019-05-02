@@ -1,58 +1,76 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import './restaurantStyle.css';
+import useReactRouter from 'use-react-router';
 
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Button
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import { addRestaurant, removeRestaurant } from './actionCreators';
+
+const styles = theme => ({
+  root: { margin: theme.spacing.unit * 0.5, maxWidth: '540px', width: '100%' },
+  media: {
+    height: '180px'
+  }
+});
 
 function Restaurant({
   restaurant,
   picked,
   dispatchAddRestaurant,
-  dispatchRemoveRestaurant
+  dispatchRemoveRestaurant,
+  classes
 }) {
   const { name, image_url, url, rating, location, phone } = restaurant;
+  const { history } = useReactRouter();
 
-  async function handleClick() {
-    dispatchAddRestaurant(restaurant);
+  function handleClick() {
+    if (!picked) {
+      dispatchAddRestaurant(restaurant);
+      history.push('/my-restaurants');
+    } else dispatchRemoveRestaurant(restaurant._id);
   }
 
   return (
-    <div className="container">
-      <img src={image_url} alt="restaurant" className="restaurant-image" />
-      <a href={url} target="_blank" rel="noopener noreferrer" className="name">
-        {name}
-      </a>
-      <div className="rating">{rating}</div>
-      <div className="location">{location}</div>
-      <div className="phone">{phone}</div>
-      <div>
-        {!picked ? (
-          <button type="button" onClick={handleClick}>
-            Add
-          </button>
-        ) : null}
-        {picked ? (
-          <button
-            type="button"
-            onClick={() => dispatchRemoveRestaurant(restaurant._id)}
-          >
-            X
-          </button>
-        ) : null}
-      </div>
-    </div>
+    <Card className={classes.root}>
+      <CardHeader title={name} />
+      <CardMedia className={classes.media} image={image_url} title={name} />
+      <CardContent>
+        <div className="">{rating}</div>
+        <div className="">{location}</div>
+        <div className="">{phone}</div>
+      </CardContent>
+      <CardActions className={classes.actions}>
+        <Button
+          type="button"
+          color="primary"
+          variant="contained"
+          onClick={handleClick}
+        >
+          {picked ? 'Remove' : 'Add'}
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
 
 Restaurant.propTypes = {
-  restaurant: PropTypes.object,
+  classes: PropTypes.shape({}),
+  restaurant: PropTypes.shape({}),
   picked: PropTypes.bool,
   dispatchAddRestaurant: PropTypes.func,
   dispatchRemoveRestaurant: PropTypes.func
 };
 
 Restaurant.defaultProps = {
+  classes: {},
   restaurant: {},
   picked: false,
   dispatchAddRestaurant: () => {},
@@ -67,4 +85,4 @@ const mapDispatchToProps = {
 export default connect(
   null,
   mapDispatchToProps
-)(Restaurant);
+)(withStyles(styles)(Restaurant));

@@ -3,9 +3,9 @@ const mg = require('nodemailer-mailgun-transport');
 const crypto = require('crypto');
 const User = require('../models/User');
 
-const { MAILGUN_APIKEY, MAILGUN_DOMAIN } = process.env;
+const { MAILGUN_APIKEY, MAILGUN_DOMAIN, MAIL_FROM } = process.env;
 
-module.exports = (app) => {
+module.exports = app => {
   if (!(MAILGUN_APIKEY && MAILGUN_DOMAIN)) {
     console.warn('MAILGUN not setup');
     return;
@@ -17,12 +17,14 @@ module.exports = (app) => {
       const buf = await crypto.randomBytes(20);
       const token = buf.toString('hex');
       let user = await User.findOne({ email });
-      if (!user)
-        return res.json({ error: true, message: 'no such email' });
+      if (!user) return res.json({ error: true, message: 'no such email' });
 
       const now = new Date();
-      if (user.resetPasswordToken && now < user.resetPasswordExpires ) {
-        return res.json({ error: true, message: 'an unexpired password reset exists. check your email.'});
+      if (user.resetPasswordToken && now < user.resetPasswordExpires) {
+        return res.json({
+          error: true,
+          message: 'an unexpired password reset exists. check your email.',
+        });
       }
 
       user.resetPasswordToken = token;
@@ -39,14 +41,14 @@ module.exports = (app) => {
 
       const mailOptions = {
         to: email,
-        from: 'no-reply@demo.com',
+        from: MAIL_FROM || 'no-reply@nowhere.test',
         subject: 'Meet and Eat password reset',
         text: `Click here to reset your password: ${req.protocol}://${
           req.headers.host
         }/api/reset/${user._id.toString()}/${token}\n\nIf you did not request this, please ignore this email and your password will remain unchanged`,
       };
       await smtpTransport.sendMail(mailOptions);
-      res.json({error: false, message: 'password reset email sent'});
+      res.json({ error: false, message: 'password reset email sent' });
     } catch (err) {
       console.error(err);
       res.status(500).send(err.message);

@@ -29,21 +29,20 @@ function Profile({
   const [dietRestrictions, setDietRestrictions] = useState(
     defaultDietRestrictions,
   );
-  const [dietOptionOther, setDietOptionOther] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const dietOptions = [
     'None - I eat anything & everything!',
     'Vegan',
     'Vegetarian',
     'Gluten Free',
-    'Other',
   ];
-  const specifyOtherDiet = React.createRef();
 
-  function handleDietOption(e) {
-    if (e.target.value === 'Other') {
-      setDietOptionOther(true);
+  function onChange(e) {
+    setInterests(e.target.value.split(',') || []);
+
+    if (interests.length > 5) {
+      setErrorMsg('cannot exceed 5');
     }
-    setDietRestrictions(e.target.value);
   }
 
   function onSubmit(e) {
@@ -59,10 +58,6 @@ function Profile({
       dispatchSetSnackBar('choose an option for diet restriction');
     }
 
-    if (interests.length > 5) {
-      dispatchSetSnackBar('cannot put more than 5 interests');
-    }
-
     if (
       password === confirmPassword &&
       dietRestrictions !== '' &&
@@ -75,12 +70,7 @@ function Profile({
         interests,
         dietRestrictions,
       );
-
-      setPassword('');
-      setConfirmPassword('');
-      specifyOtherDiet.current.value = '';
     }
-    setDietOptionOther(false);
   }
 
   return (
@@ -124,7 +114,9 @@ function Profile({
           label="Interests"
           value={interests}
           placeholder="Up to 5 separated by commas"
-          onChange={e => setInterests(e.target.value.split(',') || [])}
+          onChange={e => onChange(e)}
+          error={interests.length > 5}
+          helperText={errorMsg}
           required
         />
         <br />
@@ -132,7 +124,7 @@ function Profile({
           select
           style={styles.textField}
           value={dietRestrictions}
-          onChange={e => handleDietOption(e)}
+          onChange={e => setDietRestrictions(e.target.value)}
           helperText="Select your dietary option"
           required
         >
@@ -142,15 +134,6 @@ function Profile({
             </MenuItem>
           ))}
         </TextField>
-        <br />
-        <TextField
-          placeholder="Specify your dietary option"
-          style={{
-            display: dietOptionOther ? 'block' : 'none',
-          }}
-          ref={specifyOtherDiet}
-          onChange={e => handleDietOption(e)}
-        />
         <br />
         <Button type="submit" variant="contained" color="primary">
           Save
