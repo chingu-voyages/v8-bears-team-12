@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 import PalCard from './PalCard';
+import PageHeader from './PageHeader';
 
 const styles = theme => ({
   root: {
@@ -14,9 +14,6 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  title: {
-    padding: '8px'
   },
   list: {
     display: 'grid',
@@ -33,9 +30,8 @@ const styles = theme => ({
 function PalList({ pals, classes }) {
   return (
     <div className={classes.root}>
-      <Typography variant="h4" className={classes.title}>
-        Pal List
-      </Typography>
+      <PageHeader>Pal List</PageHeader>
+
       <div className={classes.list}>
         {pals.map(pal => (
           <PalCard key={pal._id} pal={pal} />
