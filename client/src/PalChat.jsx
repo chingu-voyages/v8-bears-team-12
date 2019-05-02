@@ -58,7 +58,6 @@ const styles = {
 
 function PalChat({
   match,
-  pals,
   loaded,
   dispatchSendChat,
   dispatchGetChatMessages,
@@ -132,7 +131,6 @@ function PalChat({
 }
 
 PalChat.propTypes = {
-  pals: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.shape({
     params: PropTypes.object
   }),
@@ -147,7 +145,6 @@ PalChat.propTypes = {
 };
 
 PalChat.defaultProps = {
-  pals: [],
   match: { params: {} },
   dispatchClearChatMessages: () => {},
   dispatchGetChatMessages: () => {},
