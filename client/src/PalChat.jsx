@@ -12,7 +12,7 @@ import {
   getChatMessages,
   clearChatMessages,
   setRouterPath,
-  unsetRouterPath,
+  unsetRouterPath
 } from './actionCreators';
 
 const styles = {
@@ -21,7 +21,7 @@ const styles = {
     height: '100vh',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '100%',
+    width: '100%'
   },
   title: {
     padding: '8px 0px',
@@ -34,26 +34,26 @@ const styles = {
     backgroundColor: `#6d695c`,
     backgroundSize: `70px 120px`,
     width: '100%',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   messagesWindow: {
     flex: 1,
     overflowY: 'scroll',
-    width: '100%',
+    width: '100%'
   },
   form: {
     display: 'flex',
-    width: '100%',
+    width: '100%'
   },
   formTextField: {
-    flex: 1,
+    flex: 1
   },
   noMessages: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
-  },
+    height: '100%'
+  }
 };
 
 function PalChat({
@@ -66,13 +66,12 @@ function PalChat({
   dispatchSetRouterPath,
   dispatchUnsetRouterPath,
   messages = [],
-  classes,
+  classes
 }) {
   const [text, setText] = useState('');
   const messageEnd = useRef(null);
   const { location } = useReactRouter();
   const { palId, palName } = match.params;
-  //const pal = pals.find(e => e._id === palId);
   const pal = { _id: palId, name: palName };
 
   useEffect(() => {
@@ -135,7 +134,7 @@ function PalChat({
 PalChat.propTypes = {
   pals: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.shape({
-    params: PropTypes.object,
+    params: PropTypes.object
   }),
   dispatchClearChatMessages: PropTypes.func,
   dispatchGetChatMessages: PropTypes.func,
@@ -144,7 +143,7 @@ PalChat.propTypes = {
   dispatchUnsetRouterPath: PropTypes.func,
   messages: PropTypes.arrayOf(PropTypes.object),
   classes: PropTypes.shape({}),
-  loaded: PropTypes.bool,
+  loaded: PropTypes.bool
 };
 
 PalChat.defaultProps = {
@@ -157,13 +156,13 @@ PalChat.defaultProps = {
   dispatchUnsetRouterPath: () => {},
   messages: [],
   classes: {},
-  loaded: false,
+  loaded: false
 };
 
 const mapStateToProps = ({ profile, chat }) => ({
   pals: profile.pals,
   messages: chat.messages,
-  loaded: chat.loaded,
+  loaded: chat.loaded
 });
 
 const mapDispatchToProps = {
@@ -171,10 +170,10 @@ const mapDispatchToProps = {
   dispatchGetChatMessages: getChatMessages,
   dispatchClearChatMessages: clearChatMessages,
   dispatchSetRouterPath: setRouterPath,
-  dispatchUnsetRouterPath: unsetRouterPath,
+  dispatchUnsetRouterPath: unsetRouterPath
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(withStyles(styles)(PalChat));
