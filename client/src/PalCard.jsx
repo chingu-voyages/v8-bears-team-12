@@ -13,7 +13,8 @@ import PalCardContent from './PalCardContent';
 const styles = () => ({
   root: { maxWidth: '560px', width: '100%', margin: '8px' },
   title: { fontSize: '1.4rem', fontWeight: 500 },
-  avatar: { backgroundColor: '#365577' }
+  avatar: { backgroundColor: '#365577' },
+  actions: { justifyContent: 'center' }
 });
 
 function PalCard({ pal, classes }) {
@@ -26,8 +27,13 @@ function PalCard({ pal, classes }) {
     <Card className={classes.root}>
       <PalCardHeader pal={pal} showMenu />
       <PalCardContent pal={pal} />
-      <CardActions>
-        <Button type="button" onClick={() => handleChat(pal._id, pal.name)}>
+      <CardActions className={classes.actions}>
+        <Button
+          type="button"
+          color="primary"
+          variant="contained"
+          onClick={() => handleChat(pal._id, pal.name)}
+        >
           Chat
         </Button>
       </CardActions>
