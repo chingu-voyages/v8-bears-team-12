@@ -7,17 +7,17 @@ function DiningMateList(props) {
   const { diningMates } = props;
 
   const diningMateElems = diningMates.map(e => (
-    <DiningMate key={e._id} data={e} />
+    <DiningMate key={e._id} pal={e} />
   ));
   return <div className="dining-mate-list">{diningMateElems}</div>;
 }
 
 DiningMateList.propTypes = {
-  diningMates: PropTypes.arrayOf(PropTypes.object),
+  diningMates: PropTypes.arrayOf(PropTypes.object)
 };
 
 DiningMateList.defaultProps = {
-  diningMates: [],
+  diningMates: []
 };
 
 export default DiningMateList;
