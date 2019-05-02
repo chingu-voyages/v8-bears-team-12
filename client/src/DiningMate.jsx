@@ -36,6 +36,7 @@ function DiningMate({ pal, dispatchPalAdd, classes }) {
 }
 
 DiningMate.propTypes = {
+  classes: PropTypes.shape({}),
   pal: PropTypes.shape({
     name: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
@@ -46,6 +47,7 @@ DiningMate.propTypes = {
 };
 
 DiningMate.defaultProps = {
+  classes: {},
   pal: {
     name: '',
     interests: [],
