@@ -53,7 +53,7 @@ function RestaurantPicker({ classes, picked }) {
 
   return (
     <div className={classes.root}>
-      <PageHeader>Search for Restaurants to Add</PageHeader>
+      <PageHeader>Pick Restaurant</PageHeader>
       <form
         className={classes.form}
         onSubmit={e => {
