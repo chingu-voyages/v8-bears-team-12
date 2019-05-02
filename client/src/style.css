@@ -127,13 +127,6 @@ main {
   border-bottom: 1px dotted gray;
 }
 
-.dashboard-tab {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .search-area-info {
   width: 100%;
   display: flex;
