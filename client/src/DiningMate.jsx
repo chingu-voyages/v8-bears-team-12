@@ -13,7 +13,8 @@ import PalCardContent from './PalCardContent';
 const styles = () => ({
   root: { maxWidth: '560px', width: '100%', margin: '8px' },
   title: { fontSize: '1.4rem', fontWeight: 500 },
-  avatar: { backgroundColor: '#365577' }
+  avatar: { backgroundColor: '#365577' },
+  actions: { justifyContent: 'center' }
 });
 
 function DiningMate({ pal, dispatchPalAdd, classes }) {
@@ -26,8 +27,8 @@ function DiningMate({ pal, dispatchPalAdd, classes }) {
     <Card className={classes.root}>
       <PalCardHeader pal={pal} />
       <PalCardContent pal={pal} />
-      <CardActions>
-        <Button type="button" onClick={handleAddPal}>
+      <CardActions className={classes.actions}>
+        <Button type="button" color="primary" onClick={handleAddPal}>
           Add
         </Button>
       </CardActions>
