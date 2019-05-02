@@ -5,6 +5,7 @@ import snackbar from './snackbar';
 import chat from './chat';
 import dashboard from './dashboard';
 import router from './router';
+import restaurantpicker from './restaurantpicker';
 
 const reducer = combineReducers({
   snackbar,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   chat,
   dashboard,
   router,
+  restaurantpicker
 });
 
 export default reducer;
