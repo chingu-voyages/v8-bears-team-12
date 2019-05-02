@@ -3,7 +3,6 @@ import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import RestaurantList from './RestaurantList';
-import RestaurantsPicked from './RestaurantsPicked';
 
 function RestaurantPicker() {
   const [term, setTerm] = useState('');
@@ -25,55 +24,50 @@ function RestaurantPicker() {
 
   return (
     <div>
+      <h3>Search for Restaurants</h3>
       <div>
-        <RestaurantsPicked />
-      </div>
-      <div>
-        <h3>Search for Restaurants</h3>
-        <div>
-          <form
-            style={{ minWidth: '100%' }}
-            onSubmit={e => {
-              onSubmit(e);
-              setTerm('');
-              setLocation('');
+        <form
+          style={{ minWidth: '100%' }}
+          onSubmit={e => {
+            onSubmit(e);
+            setTerm('');
+            setLocation('');
+          }}
+        >
+          <TextField
+            style={{
+              maxWidth: '35%',
+              borderBottom: '2px solid rgb(19, 73, 134)'
             }}
+            className="textField"
+            label="Cuisine Type "
+            value={term}
+            onChange={e => setTerm(e.target.value)}
+            required
+          />
+          <TextField
+            style={{
+              maxWidth: '35%',
+              borderBottom: '2px solid rgb(19, 73, 134)'
+            }}
+            className="textField"
+            label="Zipcode or city "
+            value={location}
+            onChange={e => setLocation(e.target.value)}
+            required
+          />
+          <Button
+            style={{ marginTop: '9px' }}
+            type="submit"
+            variant="contained"
+            color="primary"
           >
-            <TextField
-              style={{
-                maxWidth: '35%',
-                borderBottom: '2px solid rgb(19, 73, 134)'
-              }}
-              className="textField"
-              label="Cuisine Type "
-              value={term}
-              onChange={e => setTerm(e.target.value)}
-              required
-            />
-            <TextField
-              style={{
-                maxWidth: '35%',
-                borderBottom: '2px solid rgb(19, 73, 134)'
-              }}
-              className="textField"
-              label="Zipcode or city "
-              value={location}
-              onChange={e => setLocation(e.target.value)}
-              required
-            />
-            <Button
-              style={{ marginTop: '9px' }}
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
-              Find
-            </Button>
-          </form>
-        </div>
-
-        <RestaurantList restaurantList={restaurantList} />
+            Find
+          </Button>
+        </form>
       </div>
+
+      <RestaurantList restaurantList={restaurantList} />
     </div>
   );
 }

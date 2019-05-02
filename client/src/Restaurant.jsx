@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { addRestaurant, removeRestaurant } from './actionCreators';
 
 const styles = theme => ({
-  root: { margin: theme.spacing.unit * 0.5 },
+  root: { margin: theme.spacing.unit * 0.5, maxWidth: '540px', width: '100%' },
   media: {
     height: '180px'
   }

@@ -17,6 +17,7 @@ import PalChat from './PalChat';
 import PalList from './PalList';
 import Register from './Register';
 import RestaurantPicker from './RestaurantPicker';
+import MyRestaurants from './MyRestaurants';
 import SetSearchArea from './SetSearchArea';
 import NotFound from './NotFound';
 import Forgot from './Forgot';
@@ -27,14 +28,14 @@ import { setProfileThunk, removeSnackbar } from './actionCreators';
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
+    primary: purple
   },
   status: {
-    danger: 'orange',
+    danger: 'orange'
   },
   typography: {
-    useNextVariants: true,
-  },
+    useNextVariants: true
+  }
 });
 
 function RouterContainer({
@@ -42,7 +43,7 @@ function RouterContainer({
   open,
   errorMessage,
   dispatchRemoveSnackbar,
-  dispatchSetProfileThunk,
+  dispatchSetProfileThunk
 }) {
   useEffect(() => {
     dispatchSetProfileThunk();
@@ -65,6 +66,9 @@ function RouterContainer({
               <Route path="/restaurantPicker" component={RestaurantPicker} />
             ) : null}
             {loggedIn ? (
+              <Route path="/my-restaurants" component={MyRestaurants} />
+            ) : null}
+            {loggedIn ? (
               <Route path="/set-search-area" component={SetSearchArea} />
             ) : null}
             {loggedIn ? <Route path="/pal-list" component={PalList} /> : null}
@@ -77,13 +81,13 @@ function RouterContainer({
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'left',
+            horizontal: 'left'
           }}
           open={open}
           autoHideDuration={3000}
           onClose={dispatchRemoveSnackbar}
           ContentProps={{
-            'aria-describedby': 'message-id',
+            'aria-describedby': 'message-id'
           }}
           message={<span id="message-id">{errorMessage}</span>}
           action={[
@@ -94,7 +98,7 @@ function RouterContainer({
               onClick={dispatchRemoveSnackbar}
             >
               <CloseIcon />
-            </IconButton>,
+            </IconButton>
           ]}
         />
       </MuiThemeProvider>
@@ -107,7 +111,7 @@ RouterContainer.propTypes = {
   dispatchSetProfileThunk: PropTypes.func,
   loggedIn: PropTypes.bool,
   open: PropTypes.bool,
-  errorMessage: PropTypes.string,
+  errorMessage: PropTypes.string
 };
 
 RouterContainer.defaultProps = {
@@ -115,21 +119,21 @@ RouterContainer.defaultProps = {
   dispatchSetProfileThunk: () => {},
   loggedIn: false,
   open: false,
-  errorMessage: '',
+  errorMessage: ''
 };
 
 const mapStateToProps = ({ profile, snackbar }) => ({
   open: snackbar.open,
   errorMessage: snackbar.message,
-  loggedIn: profile.loggedIn,
+  loggedIn: profile.loggedIn
 });
 
 const mapDispatchToProps = {
   dispatchSetProfileThunk: setProfileThunk,
-  dispatchRemoveSnackbar: removeSnackbar,
+  dispatchRemoveSnackbar: removeSnackbar
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(RouterContainer);

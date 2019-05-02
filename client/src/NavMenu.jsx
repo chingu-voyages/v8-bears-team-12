@@ -13,14 +13,14 @@ function NavMenu({ loggedIn }) {
 
   const notLoggedInTabs = [
     { label: 'Login', to: '/login' },
-    { label: 'Register', to: '/register' },
+    { label: 'Register', to: '/register' }
   ];
 
   const loggedInTabs = [
     { label: 'Home', to: '/home' },
     { label: 'Pals', to: '/pal-list' },
     { label: 'Profile', to: '/profile' },
-    { label: 'Pick Restaurants', to: '/restaurantPicker' },
+    { label: 'My Restaurants', to: '/my-restaurants' }
   ];
 
   const tabs = loggedIn ? loggedInTabs : notLoggedInTabs;
@@ -46,15 +46,15 @@ function NavMenu({ loggedIn }) {
 }
 
 NavMenu.propTypes = {
-  loggedIn: PropTypes.bool,
+  loggedIn: PropTypes.bool
 };
 
 NavMenu.defaultProps = {
-  loggedIn: false,
+  loggedIn: false
 };
 
 const mapStateToProps = ({ profile }) => ({
-  loggedIn: profile.loggedIn,
+  loggedIn: profile.loggedIn
 });
 
 export default connect(mapStateToProps)(NavMenu);
