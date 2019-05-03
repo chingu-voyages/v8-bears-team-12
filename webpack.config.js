@@ -24,7 +24,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    DEBUG ? null : new MiniCssExtractPlugin({filename: '[name].css'}),
+    DEBUG ? null : new MiniCssExtractPlugin({ filename: '[name].css' }),
     DEBUG ? new webpack.HotModuleReplacementPlugin() : null,
   ].filter(e => e),
   module: {
@@ -32,7 +32,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          DEBUG ? null : {loader: MiniCssExtractPlugin.loader},
+          DEBUG ? null : { loader: MiniCssExtractPlugin.loader },
           DEBUG ? 'style-loader' : null,
           'css-loader',
         ].filter(e => e),
@@ -51,12 +51,16 @@ module.exports = {
         loader: 'url-loader',
         query: { mimetype: 'image/jpg' },
       },
+      {
+        test: /\.png$/,
+        loader: 'url-loader',
+      },
     ],
   },
   resolve: {
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
 };
