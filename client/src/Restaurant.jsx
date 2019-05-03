@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import useReactRouter from 'use-react-router';
-
 import {
   Card,
   CardHeader,
@@ -13,6 +12,7 @@ import {
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
+import yelpLogo from '../../assets/yelp_fullcolor_outline.png';
 import YelpRating from './YelpRating';
 import { addRestaurant, removeRestaurant } from './actionCreators';
 
@@ -46,6 +46,7 @@ function Restaurant({
       <CardMedia className={classes.media} image={image_url} title={name} />
       <CardContent>
         <YelpRating rating={rating} />
+
         <div className="">{location}</div>
         <div className="">{phone}</div>
       </CardContent>
@@ -58,6 +59,9 @@ function Restaurant({
         >
           {picked ? 'Remove' : 'Add'}
         </Button>
+        <a href={url} style={{ marginLeft: 'auto' }}>
+          <img src={yelpLogo} alt="yelp" height={48} />
+        </a>
       </CardActions>
     </Card>
   );
