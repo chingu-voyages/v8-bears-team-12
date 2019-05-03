@@ -23,20 +23,20 @@ import { logoutThunk } from './actionCreators';
 const styles = () => ({
   linkColor: {
     color: 'white',
-    textDecoration: 'none',
+    textDecoration: 'none'
   },
   loggedInBox: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   margin: {
-    margin: `0px 8px`,
+    margin: `0px 8px`
   },
   icon: {
     color: 'white',
-    padding: '0',
-  },
+    padding: '0'
+  }
 });
 
 function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
@@ -53,7 +53,7 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
       acc[curr.sender.name] = {
         id: curr.sender._id,
         name: curr.sender.name,
-        count: 0,
+        count: 0
       };
     acc[curr.sender.name].count += 1;
     return acc;
@@ -76,7 +76,11 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
     <div className={`${classes.root} app-bar header-font`}>
       <AppBar position="static">
         <Toolbar disableGutters>
-          <Typography variant="h6" color="inherit" style={{ flex: 1 }}>
+          <Typography
+            variant="h6"
+            color="inherit"
+            style={{ flex: 1, fontFamilly: 'Segoe UI' }}
+          >
             <Link className={classes.linkColor} to="/">
               Pal-a-table
             </Link>
@@ -131,7 +135,7 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
 const mapStateToProps = ({ profile, chat }) => ({
   loggedIn: profile.loggedIn,
   name: profile.name,
-  newMessages: chat.newMessages,
+  newMessages: chat.newMessages
 });
 
 Header.propTypes = {
@@ -139,7 +143,7 @@ Header.propTypes = {
   name: PropTypes.string,
   dispatchLogoutThunk: PropTypes.func,
   classes: PropTypes.shape({}),
-  newMessages: PropTypes.arrayOf(PropTypes.object),
+  newMessages: PropTypes.arrayOf(PropTypes.object)
 };
 
 Header.defaultProps = {
@@ -147,14 +151,14 @@ Header.defaultProps = {
   name: '',
   dispatchLogoutThunk: () => {},
   classes: {},
-  newMessages: [],
+  newMessages: []
 };
 
 const mapDispatchToProps = {
-  dispatchLogoutThunk: logoutThunk,
+  dispatchLogoutThunk: logoutThunk
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(withStyles(styles)(Header));
