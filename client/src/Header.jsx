@@ -20,11 +20,12 @@ import NavMenu from './NavMenu';
 
 import { logoutThunk } from './actionCreators';
 
-const styles = () => ({
+const styles = theme => ({
   linkColor: {
     color: 'white',
     textDecoration: 'none'
   },
+  logo: { height: theme.mixins.toolbar.minHeight, margin: '0 8px' },
   loggedInBox: {
     display: 'flex',
     justifyContent: 'center',
@@ -76,6 +77,9 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
     <div className={`${classes.root} app-bar header-font`}>
       <AppBar position="static">
         <Toolbar disableGutters>
+          <Link to="/">
+            <img className={classes.logo} src="/static/logo.jpg" alt="logo" />
+          </Link>
           <Typography
             variant="h6"
             color="inherit"
