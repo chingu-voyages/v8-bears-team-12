@@ -8,18 +8,17 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import { loginThunk } from './actionCreators';
-import backgroundImage from './media/pineapple.jpg';
 
 const styles = {
-  background : {
-    backgroundImage: `url(${backgroundImage})`,
+  background: {
+    backgroundImage: `url(/static/pineapple.jpg)`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     height: '100%',
-    width: '100%',
+    width: '100%'
   }
-}
+};
 
 function Login({ dispatchLoginThunk }) {
   const [username, setUsername] = useState('');
@@ -81,18 +80,18 @@ function Login({ dispatchLoginThunk }) {
 }
 
 Login.propTypes = {
-  dispatchLoginThunk: PropTypes.func,
+  dispatchLoginThunk: PropTypes.func
 };
 
 Login.defaultProps = {
-  dispatchLoginThunk: () => {},
+  dispatchLoginThunk: () => {}
 };
 
 const mapDispatchToProps = {
-  dispatchLoginThunk: loginThunk,
+  dispatchLoginThunk: loginThunk
 };
 
 export default connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Login);

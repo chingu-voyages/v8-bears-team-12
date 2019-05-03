@@ -21,6 +21,7 @@ if (DEBUG) {
   app.use(hotMiddleware(compiler));
 }
 
+app.use('/static', express.static('./client/src/media'));
 if (!DEBUG) app.use(express.static('./client/build'));
 
 app.use(cookieParser());
