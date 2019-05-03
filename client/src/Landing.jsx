@@ -25,17 +25,12 @@ const Landing = ({ classes }) => {
         <LandingCard
           title="Pick Restaurants"
           description="Browse restaurants you want to try out"
-          to="/restaurantPicker"
+          to="/my-restaurants"
         />
         <LandingCard
           title="Find Pals"
           description="Search by location to find nearby dining pals. Add pals and start chatting"
           to="/home"
-        />
-        <LandingCard
-          title="Start a Pal Chat"
-          description="Chat and meet to eat"
-          to="/pal-list"
         />
       </div>
     </div>

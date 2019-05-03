@@ -34,7 +34,7 @@ function Dashboard({
 
   return (
     <div className={classes.root}>
-      <PageHeader>Dashboard</PageHeader>
+      <PageHeader>Add Pal</PageHeader>
       <div className="search-area-info">
         <h4 style={{ color: 'rgb(19, 73, 134)' }}>
           Search Area:

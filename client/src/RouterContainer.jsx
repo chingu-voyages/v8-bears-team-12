@@ -61,7 +61,9 @@ function RouterContainer({
             {loggedIn ? null : <Route path="/login" component={Login} />}
             {loggedIn ? null : <Route path="/register" component={Register} />}
             {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
-            {loggedIn ? <Route path="/home" component={Dashboard} /> : null}
+            {loggedIn ? <Route path="/home" component={PalList} /> : null}
+            {loggedIn ? <Route path="/pal-add" component={Dashboard} /> : null}
+
             {loggedIn ? <Route path="/profile" component={Profile} /> : null}
             {loggedIn ? (
               <Route path="/restaurantPicker" component={RestaurantPicker} />

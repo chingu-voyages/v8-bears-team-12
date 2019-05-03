@@ -5,7 +5,8 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   root: {
-    padding: '8px'
+    padding: '8px',
+    textAlign: 'center'
   }
 };
 function PageHeader({ children, classes }) {

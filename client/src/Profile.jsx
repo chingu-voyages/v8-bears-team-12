@@ -6,11 +6,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { saveProfile, setSnackbar } from './actionCreators';
 import ProfileAvatar from './ProfileAvatar';
+import PageHeader from './PageHeader';
 
 const styles = {
   textField: {
-    width: '100%',
-  },
+    width: '100%'
+  }
 };
 
 function Profile({
@@ -19,7 +20,7 @@ function Profile({
   defaultInterests,
   defaultDietRestrictions,
   dispatchSaveProfile,
-  dispatchSetSnackBar,
+  dispatchSetSnackBar
 }) {
   const [firstName, setFirstName] = useState(defaultFirstName);
   const [lastName, setLastName] = useState(defaultLastName);
@@ -27,14 +28,14 @@ function Profile({
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [dietRestrictions, setDietRestrictions] = useState(
-    defaultDietRestrictions,
+    defaultDietRestrictions
   );
   const [errorMsg, setErrorMsg] = useState('');
   const dietOptions = [
     'None - I eat anything & everything!',
     'Vegan',
     'Vegetarian',
-    'Gluten Free',
+    'Gluten Free'
   ];
 
   function onChange(e) {
@@ -68,77 +69,80 @@ function Profile({
         lastName,
         password,
         interests,
-        dietRestrictions,
+        dietRestrictions
       );
     }
   }
 
   return (
-    <div className="simple-card">
-      <ProfileAvatar />
-      <form className="profile-form" onSubmit={e => onSubmit(e)}>
-        <TextField
-          style={styles.textField}
-          label="First Name"
-          value={firstName}
-          onChange={e => setFirstName(e.target.value)}
-          required
-        />
-        <br />
-        <TextField
-          style={styles.textField}
-          label="Last Name"
-          value={lastName}
-          onChange={e => setLastName(e.target.value)}
-          required
-        />
-        <br />
-        <TextField
-          style={styles.textField}
-          label="Password"
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <br />
-        <TextField
-          style={styles.textField}
-          label="Confirm password"
-          type="password"
-          value={confirmPassword}
-          onChange={e => setConfirmPassword(e.target.value)}
-        />
-        <br />
-        <TextField
-          style={styles.textField}
-          label="Interests"
-          value={interests}
-          placeholder="Up to 5 separated by commas"
-          onChange={e => onChange(e)}
-          error={interests.length > 5}
-          helperText={errorMsg}
-          required
-        />
-        <br />
-        <TextField
-          select
-          style={styles.textField}
-          value={dietRestrictions}
-          onChange={e => setDietRestrictions(e.target.value)}
-          helperText="Select your dietary option"
-          required
-        >
-          {dietOptions.map(option => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
-        <br />
-        <Button type="submit" variant="contained" color="primary">
-          Save
-        </Button>
-      </form>
+    <div style={{ width: '100%' }}>
+      <PageHeader style={{ marginTop: '2%' }}>Profile Settings</PageHeader>
+      <div className="simple-card">
+        <ProfileAvatar />
+        <form className="profile-form" onSubmit={e => onSubmit(e)}>
+          <TextField
+            style={styles.textField}
+            label="First Name"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            required
+          />
+          <br />
+          <TextField
+            style={styles.textField}
+            label="Last Name"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            required
+          />
+          <br />
+          <TextField
+            style={styles.textField}
+            label="Password"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          <br />
+          <TextField
+            style={styles.textField}
+            label="Confirm password"
+            type="password"
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
+          />
+          <br />
+          <TextField
+            style={styles.textField}
+            label="Interests"
+            value={interests}
+            placeholder="Up to 5 separated by commas"
+            onChange={e => onChange(e)}
+            error={interests.length > 5}
+            helperText={errorMsg}
+            required
+          />
+          <br />
+          <TextField
+            select
+            style={styles.textField}
+            value={dietRestrictions}
+            onChange={e => setDietRestrictions(e.target.value)}
+            helperText="Select your dietary option"
+            required
+          >
+            {dietOptions.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+          <br />
+          <Button type="submit" variant="contained" color="primary">
+            Save
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }
@@ -149,7 +153,7 @@ Profile.propTypes = {
   defaultInterests: PropTypes.arrayOf(PropTypes.string),
   defaultDietRestrictions: PropTypes.string,
   dispatchSaveProfile: PropTypes.func,
-  dispatchSetSnackBar: PropTypes.func,
+  dispatchSetSnackBar: PropTypes.func
 };
 
 Profile.defaultProps = {
@@ -158,22 +162,22 @@ Profile.defaultProps = {
   defaultInterests: [],
   defaultDietRestrictions: '',
   dispatchSaveProfile: () => {},
-  dispatchSetSnackBar: () => {},
+  dispatchSetSnackBar: () => {}
 };
 
 const mapStateToProps = ({ profile }) => ({
   defaultFirstName: profile.firstName,
   defaultLastName: profile.lastName,
   defaultInterests: profile.interests,
-  defaultDietRestrictions: profile.dietRestrictions,
+  defaultDietRestrictions: profile.dietRestrictions
 });
 
 const mapDispatchToProps = {
   dispatchSaveProfile: saveProfile,
-  dispatchSetSnackBar: setSnackbar,
+  dispatchSetSnackBar: setSnackbar
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Profile);

@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { registerUser } from './actionCreators';
+import PageHeader from './PageHeader';
 
 const validate = values => {
   const errors = {};
@@ -26,7 +27,7 @@ const validate = values => {
     errors.password = 'Required';
   }
   if (values.password !== values.confirmPassword) {
-    errors.confirmPassword = 'Passwords don\'t match';
+    errors.confirmPassword = "Passwords don't match";
   }
   return errors;
 };
@@ -35,7 +36,7 @@ const RenderField = ({
   input,
   label,
   type,
-  meta: { touched, error, warning },
+  meta: { touched, error, warning }
 }) => (
   <div className="formText">
     <FormControl>
@@ -52,14 +53,14 @@ RenderField.propTypes = {
   input: PropTypes.shape({}),
   label: PropTypes.string,
   type: PropTypes.string,
-  meta: PropTypes.shape({}),
+  meta: PropTypes.shape({})
 };
 
 RenderField.defaultProps = {
   input: {},
   label: '',
   type: '',
-  meta: {},
+  meta: {}
 };
 
 const Register = ({
@@ -67,13 +68,13 @@ const Register = ({
   pristine,
   reset,
   submitting,
-  dispatchNewUser,
+  dispatchNewUser
 }) => {
   const options = [
     'None - I eat anything & everything!',
     'Vegan',
     'Vegetarian',
-    'GlutenFree',
+    'GlutenFree'
   ];
   const { history } = useReactRouter();
 
@@ -85,7 +86,7 @@ const Register = ({
       email,
       password,
       interests,
-      dietRestrictions,
+      dietRestrictions
     } = values;
 
     // create new user
@@ -96,16 +97,19 @@ const Register = ({
       email,
       password,
       interests: interests && interests.split(',').splice(0, 5),
-      dietRestrictions,
+      dietRestrictions
     };
 
     dispatchNewUser(newUser).then(history.push('/login'));
   }
 
   return (
-    <div className="simple-card">
-      <Typography variant="h4">Sign Up</Typography>
-      <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
+    <div style={{ width: '100%' }}>
+      <PageHeader>Sign Up</PageHeader>
+      <form
+        className="register-form simple-card"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Field
           name="username"
           type="text"
@@ -200,7 +204,7 @@ Register.propTypes = {
   handleSubmit: PropTypes.func,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
-  reset: PropTypes.func,
+  reset: PropTypes.func
 };
 
 Register.defaultProps = {
@@ -208,18 +212,18 @@ Register.defaultProps = {
   handleSubmit: () => {},
   pristine: true,
   submitting: false,
-  reset: () => {},
+  reset: () => {}
 };
 const mapDispatchToProps = {
-  dispatchNewUser: registerUser,
+  dispatchNewUser: registerUser
 };
 
 export default reduxForm({
   form: 'RegisterForm', // a unique identifier for this form
-  validate, // <--- validation function given to redux-form
+  validate // <--- validation function given to redux-form
 })(
   connect(
     null,
-    mapDispatchToProps,
-  )(Register),
+    mapDispatchToProps
+  )(Register)
 );
