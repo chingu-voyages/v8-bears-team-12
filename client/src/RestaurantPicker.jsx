@@ -70,7 +70,9 @@ function RestaurantPicker({
 
   return (
     <div className={classes.root}>
-      <PageHeader>Pick Restaurant</PageHeader>
+      <PageHeader>
+        <div>Pick Restaurant</div>
+      </PageHeader>
       <form
         className={classes.form}
         onSubmit={e => {
