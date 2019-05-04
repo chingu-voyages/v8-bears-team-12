@@ -19,7 +19,7 @@ function PageHeader({ children, classes }) {
 
 PageHeader.propTypes = {
   classes: PropTypes.shape({}),
-  children: PropTypes.string
+  children: PropTypes.shape({})
 };
 
 PageHeader.defaultProps = {

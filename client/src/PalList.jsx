@@ -38,28 +38,29 @@ function PalList({ pals, classes }) {
   return (
     <div className={classes.root}>
       <PageHeader>
-        {`My Pals   `}
-        <Fab
-          component={Link}
-          to="/pal-add"
-          className={classes.fab}
-          color="primary"
-        >
-          <AddIcon />
-        </Fab>
+        <div>
+          {`My Pals   `}
+          <Fab
+            component={Link}
+            to="/pal-add"
+            className={classes.fab}
+            color="primary"
+          >
+            <AddIcon />
+          </Fab>
+        </div>
       </PageHeader>
-
-      <div className={classes.list}>
-        {pals.map(pal => (
-          <PalCard key={pal._id} pal={pal} />
-        ))}
-      </div>
-
-      {!pals.length && (
+      {!pals.length ? (
         <div>
           <Card className={classes.card}>
             {`You currently have no pals. Lets add some! Click on the add icon above!  `}
           </Card>
+        </div>
+      ) : (
+        <div className={classes.list}>
+          {pals.map(pal => (
+            <PalCard key={pal._id} pal={pal} />
+          ))}
         </div>
       )}
     </div>
