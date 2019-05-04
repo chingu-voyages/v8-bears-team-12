@@ -105,7 +105,9 @@ const Register = ({
 
   return (
     <div style={{ width: '100%' }}>
-      <PageHeader>Sign Up</PageHeader>
+      <PageHeader>
+        <div>Sign Up</div>
+      </PageHeader>
       <form
         className="register-form simple-card"
         onSubmit={handleSubmit(onSubmit)}

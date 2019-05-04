@@ -76,7 +76,9 @@ function Profile({
 
   return (
     <div style={{ width: '100%' }}>
-      <PageHeader style={{ marginTop: '2%' }}>Profile Settings</PageHeader>
+      <PageHeader style={{ marginTop: '2%' }}>
+        <div>Profile Settings</div>
+      </PageHeader>
       <div className="simple-card">
         <ProfileAvatar />
         <form className="profile-form" onSubmit={e => onSubmit(e)}>
