@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import { Fab } from '@material-ui/core';
+import { Fab, Card } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
 import PalCard from './PalCard';
@@ -16,11 +16,6 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2
-  },
   list: {
     display: 'grid',
     width: '100%',
@@ -30,13 +25,29 @@ const styles = theme => ({
     [theme.breakpoints.up('lg')]: {
       gridTemplateColumns: '50% 50%'
     }
+  },
+  card: {
+    maxWidth: '560px',
+    width: '100%',
+    margin: 'auto',
+    padding: '10px'
   }
 });
 
 function PalList({ pals, classes }) {
   return (
     <div className={classes.root}>
-      <PageHeader>My Pals</PageHeader>
+      <PageHeader>
+        {`My Pals   `}
+        <Fab
+          component={Link}
+          to="/pal-add"
+          className={classes.fab}
+          color="primary"
+        >
+          <AddIcon />
+        </Fab>
+      </PageHeader>
 
       <div className={classes.list}>
         {pals.map(pal => (
@@ -46,19 +57,11 @@ function PalList({ pals, classes }) {
 
       {!pals.length && (
         <div>
-          You currently have no pals. Add some from the{' '}
-          <Link to="/home">Home</Link> Tab.
+          <Card className={classes.card}>
+            {`You currently have no pals. Lets add some! Click on the add icon above!  `}
+          </Card>
         </div>
       )}
-
-      <Fab
-        component={Link}
-        to="/pal-add"
-        className={classes.fab}
-        color="primary"
-      >
-        <AddIcon />
-      </Fab>
     </div>
   );
 }
