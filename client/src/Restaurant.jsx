@@ -59,7 +59,7 @@ function Restaurant({
         >
           {picked ? 'Remove' : 'Add'}
         </Button>
-        <a href={url} style={{ marginLeft: 'auto' }}>
+        <a href={url} target="_blank" rel="noopener noreferrer" style={{ marginLeft: 'auto' }}>
           <img src={yelpLogo} alt="yelp" height={48} />
         </a>
       </CardActions>
