@@ -59,6 +59,7 @@ The environment variables:
 | `MAILGUN_DOMAIN` | yes      | Mailgun Domain                                                  |
 | `TESTDATA`       | no       | Set to anything to use restaurant test data instead of Yelp API |
 | `MAIL_FROM`      | yes      | Email address to be used as from address for Mailgun sends      |
+| `PROTOCOL`       | no       | Specify protocol to use for http links in email (http or https) |
 
 ### Running
 

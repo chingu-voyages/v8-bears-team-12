@@ -3,7 +3,7 @@ const mg = require('nodemailer-mailgun-transport');
 const crypto = require('crypto');
 const User = require('../models/User');
 
-const { MAILGUN_APIKEY, MAILGUN_DOMAIN, MAIL_FROM } = process.env;
+const { MAILGUN_APIKEY, MAILGUN_DOMAIN, MAIL_FROM, PROTOCOL } = process.env;
 
 module.exports = app => {
   if (!(MAILGUN_APIKEY && MAILGUN_DOMAIN)) {
@@ -39,11 +39,12 @@ module.exports = app => {
 
       let smtpTransport = nodemailer.createTransport(mg(auth));
 
+      const protocol = PROTOCOL || req.protocol;
       const mailOptions = {
         to: email,
         from: MAIL_FROM || 'no-reply@nowhere.test',
         subject: 'Meet and Eat password reset',
-        text: `Click here to reset your password: ${req.protocol}://${
+        text: `Click here to reset your password: ${protocol}://${
           req.headers.host
         }/api/reset/${user._id.toString()}/${token}\n\nIf you did not request this, please ignore this email and your password will remain unchanged`,
       };
