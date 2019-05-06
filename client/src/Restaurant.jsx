@@ -20,8 +20,22 @@ const styles = theme => ({
   root: { margin: theme.spacing.unit * 0.5, maxWidth: '572px', width: '100%' },
   media: {
     height: '180px'
+  },
+  info: {
+    marginTop: '1%',
+    fontSize: '1.1em'
   }
 });
+
+const formatPhoneNumber = phoneNumberString => {
+  const cleaned = `${phoneNumberString}`.replace(/\D/g, '');
+  const match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+  if (match) {
+    const intlCode = match[1] ? '+1 ' : '';
+    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
+  }
+  return null;
+};
 
 function Restaurant({
   restaurant,
@@ -46,9 +60,10 @@ function Restaurant({
       <CardMedia className={classes.media} image={image_url} title={name} />
       <CardContent>
         <YelpRating rating={rating} />
-
-        <div className="">{location}</div>
-        <div className="">{phone}</div>
+        <div className={classes.info}>
+          <div>{location}</div>
+          <div>{formatPhoneNumber(phone)}</div>
+        </div>
       </CardContent>
       <CardActions className={classes.actions}>
         <Button

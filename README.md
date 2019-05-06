@@ -2,6 +2,23 @@
 
 Web app for connecting people to meet and eat together at restaurants.
 
+## Team
+
+Jane:
+
+- Github: https://github.com/janeslee
+- Linkedin: https://www.linkedin.com/in/janelee53/
+
+Jay:
+
+- Github: https://github.com/jaytula
+- Linkedin: https://www.linkedin.com/in/jay-tulathimutte-7104934/
+
+Vi:
+
+- Github: https://github.com/ivycoursera
+- Linkedin: https://www.linkedin.com/in/vidhubansal/
+
 ## Features
 
 - Search for pals that have restaurants selected at a location

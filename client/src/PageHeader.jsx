@@ -5,7 +5,8 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   root: {
-    padding: '8px'
+    padding: '8px',
+    textAlign: 'center'
   }
 };
 function PageHeader({ children, classes }) {
@@ -18,7 +19,7 @@ function PageHeader({ children, classes }) {
 
 PageHeader.propTypes = {
   classes: PropTypes.shape({}),
-  children: PropTypes.string
+  children: PropTypes.shape({})
 };
 
 PageHeader.defaultProps = {

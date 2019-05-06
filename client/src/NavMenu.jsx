@@ -17,8 +17,7 @@ function NavMenu({ loggedIn }) {
   ];
 
   const loggedInTabs = [
-    { label: 'Home', to: '/home' },
-    { label: 'Pals', to: '/pal-list' },
+    { label: 'My Pals', to: '/home' },
     { label: 'Profile', to: '/profile' },
     { label: 'My Restaurants', to: '/my-restaurants' }
   ];

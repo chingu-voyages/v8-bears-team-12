@@ -8,8 +8,9 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
+// import purple from '@material-ui/core/colors/purple';
 
+import { blueGrey } from '@material-ui/core/colors';
 import Header from './Header';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
@@ -28,7 +29,7 @@ import { setProfileThunk, removeSnackbar } from './actionCreators';
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple
+    primary: blueGrey
   },
   status: {
     danger: 'orange'
@@ -60,7 +61,9 @@ function RouterContainer({
             {loggedIn ? null : <Route path="/login" component={Login} />}
             {loggedIn ? null : <Route path="/register" component={Register} />}
             {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
-            {loggedIn ? <Route path="/home" component={Dashboard} /> : null}
+            {loggedIn ? <Route path="/home" component={PalList} /> : null}
+            {loggedIn ? <Route path="/pal-add" component={Dashboard} /> : null}
+
             {loggedIn ? <Route path="/profile" component={Profile} /> : null}
             {loggedIn ? (
               <Route path="/restaurantPicker" component={RestaurantPicker} />

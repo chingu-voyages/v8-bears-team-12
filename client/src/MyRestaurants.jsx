@@ -33,7 +33,9 @@ const styles = theme => ({
 function MyRestaurants({ restaurantsList, classes }) {
   return (
     <div className={classes.root}>
-      <PageHeader>My Restaurants</PageHeader>
+      <PageHeader>
+        <div>My Restaurants</div>
+      </PageHeader>
       <div className={classes.restaurants}>
         {restaurantsList.map(e => (
           <Restaurant key={e.id} picked restaurant={e} />
@@ -44,7 +46,7 @@ function MyRestaurants({ restaurantsList, classes }) {
         to="/restaurantPicker"
         className={classes.fab}
         color="primary"
-        disabled={restaurantsList.length >= 5}
+        disabled={restaurantsList.length >= 10}
       >
         <AddIcon />
       </Fab>

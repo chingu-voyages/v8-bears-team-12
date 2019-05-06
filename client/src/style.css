@@ -87,7 +87,7 @@ main {
   font-family: 'Courier New';
   padding: 10px;
   margin: auto;
-  margin-top: 10%;
+  margin-top: 5%;
   max-width: 640px;
   width: 90%;
   display: flex;
@@ -98,7 +98,12 @@ main {
   box-shadow: 5px 5px -6px grey;
 }
 
-.register-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .profile-form {
   display: flex;
   flex-direction: column;
