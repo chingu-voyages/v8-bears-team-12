@@ -135,7 +135,7 @@ export const setSearchLocation = ({
   };
   await axios.post('/api/set-search-location', data);
   setProfileThunk()(dispatch);
-  history.push('/home');
+  history.push('/pal-add');
 };
 
 export const palAdd = palId => async dispatch => {
