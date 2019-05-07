@@ -21,7 +21,7 @@ const styles = {
   }
 };
 
-function Dashboard({
+function AddPal({
   classes,
   searchCity,
   searchState,
@@ -58,7 +58,7 @@ function Dashboard({
   );
 }
 
-Dashboard.propTypes = {
+AddPal.propTypes = {
   classes: PropTypes.shape({}),
   searchCity: PropTypes.string,
   searchState: PropTypes.string,
@@ -70,7 +70,7 @@ Dashboard.propTypes = {
   diningMates: PropTypes.arrayOf(PropTypes.object)
 };
 
-Dashboard.defaultProps = {
+AddPal.defaultProps = {
   classes: {},
   searchCity: '',
   searchState: '',
@@ -94,4 +94,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(Dashboard));
+)(withStyles(styles)(AddPal));

@@ -12,7 +12,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { blueGrey } from '@material-ui/core/colors';
 import Header from './Header';
-import Dashboard from './Dashboard';
+import AddPal from './AddPal';
 import Profile from './Profile';
 import PalChat from './PalChat';
 import MyPals from './MyPals';
@@ -62,7 +62,7 @@ function RouterContainer({
             {loggedIn ? null : <Route path="/register" component={Register} />}
             {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
             {loggedIn ? <Route path="/home" component={MyPals} /> : null}
-            {loggedIn ? <Route path="/pal-add" component={Dashboard} /> : null}
+            {loggedIn ? <Route path="/pal-add" component={AddPal} /> : null}
 
             {loggedIn ? <Route path="/profile" component={Profile} /> : null}
             {loggedIn ? (

@@ -3,29 +3,29 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Login from './Login';
-import Dashboard from './Dashboard';
+import AddPal from './AddPal';
 
 function Home({ loggedIn, loading }) {
   if (loading) return <div>loading</div>;
-  return <> Hello {loggedIn ? <Dashboard /> : <Login />}</>
+  return <> Hello {loggedIn ? <AddPal /> : <Login />}</>;
 }
 
 const mapStateToProps = ({ profile }) => ({
   loggedIn: profile.loggedIn,
-  loading: profile.loading,
+  loading: profile.loading
 });
 
 Home.propTypes = {
   loggedIn: PropTypes.bool,
-  loading: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 Home.defaultProps = {
   loggedIn: false,
-  loading: true,
+  loading: true
 };
 
 export default connect(
   mapStateToProps,
-  null,
+  null
 )(Home);
