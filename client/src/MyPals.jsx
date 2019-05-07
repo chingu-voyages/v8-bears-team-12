@@ -34,7 +34,8 @@ const styles = theme => ({
   }
 });
 
-function MyPals({ pals, classes }) {
+function MyPals({ pals, classes, loggedIn, loading }) {
+  if (!loggedIn || loading) return <div />;
   return (
     <div className={classes.root}>
       <PageHeader>
@@ -77,7 +78,9 @@ MyPals.defaultProps = {
   classes: {}
 };
 
-const mapStateToProps = ({ profile }) => ({
+const mapStateToProps = ({ profile, app }) => ({
+  loggedIn: profile.loggedIn,
+  loading: app.loading,
   pals: profile.pals
 });
 
