@@ -7,10 +7,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { blueGrey } from '@material-ui/core/colors';
 import Header from './Header';
 import AddPal from './AddPal';
 import Profile from './Profile';
@@ -27,18 +25,6 @@ import Login from './Login';
 
 import { setProfileThunk, removeSnackbar } from './actionCreators';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: blueGrey
-  },
-  status: {
-    danger: 'orange'
-  },
-  typography: {
-    useNextVariants: true
-  }
-});
-
 function RouterContainer({
   loggedIn,
   open,
@@ -53,59 +39,57 @@ function RouterContainer({
 
   return (
     <Router>
-      <MuiThemeProvider theme={theme}>
-        <Header />
+      <Header />
 
-        <main>
-          {loading ? <CircularProgress /> : null}
-          <Switch>
-            <Route path="/" exact component={Landing} />
-            {loggedIn ? null : <Route path="/login" component={Login} />}
-            {loggedIn ? null : <Route path="/register" component={Register} />}
-            {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
-            <Route path="/home" component={MyPals} />
-            {loggedIn ? <Route path="/pal-add" component={AddPal} /> : null}
+      <main>
+        {loading ? <CircularProgress /> : null}
+        <Switch>
+          <Route path="/" exact component={Landing} />
+          {loggedIn ? null : <Route path="/login" component={Login} />}
+          {loggedIn ? null : <Route path="/register" component={Register} />}
+          {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
+          <Route path="/home" component={MyPals} />
+          {loggedIn ? <Route path="/pal-add" component={AddPal} /> : null}
 
-            {loggedIn ? <Route path="/profile" component={Profile} /> : null}
-            {loggedIn ? (
-              <Route path="/restaurantPicker" component={RestaurantPicker} />
-            ) : null}
-            {loggedIn ? (
-              <Route path="/my-restaurants" component={MyRestaurants} />
-            ) : null}
-            {loggedIn ? (
-              <Route path="/set-search-area" component={SetSearchArea} />
-            ) : null}
-            {loggedIn ? (
-              <Route path="/pal-chat/:palId/:palName" component={PalChat} />
-            ) : null}
-            {!loading ? <Route path="" component={NotFound} /> : null}
-          </Switch>
-        </main>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left'
-          }}
-          open={open}
-          autoHideDuration={3000}
-          onClose={dispatchRemoveSnackbar}
-          ContentProps={{
-            'aria-describedby': 'message-id'
-          }}
-          message={<span id="message-id">{errorMessage}</span>}
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={dispatchRemoveSnackbar}
-            >
-              <CloseIcon />
-            </IconButton>
-          ]}
-        />
-      </MuiThemeProvider>
+          {loggedIn ? <Route path="/profile" component={Profile} /> : null}
+          {loggedIn ? (
+            <Route path="/restaurantPicker" component={RestaurantPicker} />
+          ) : null}
+          {loggedIn ? (
+            <Route path="/my-restaurants" component={MyRestaurants} />
+          ) : null}
+          {loggedIn ? (
+            <Route path="/set-search-area" component={SetSearchArea} />
+          ) : null}
+          {loggedIn ? (
+            <Route path="/pal-chat/:palId/:palName" component={PalChat} />
+          ) : null}
+          {!loading ? <Route path="" component={NotFound} /> : null}
+        </Switch>
+      </main>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left'
+        }}
+        open={open}
+        autoHideDuration={3000}
+        onClose={dispatchRemoveSnackbar}
+        ContentProps={{
+          'aria-describedby': 'message-id'
+        }}
+        message={<span id="message-id">{errorMessage}</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={dispatchRemoveSnackbar}
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      />
     </Router>
   );
 }
