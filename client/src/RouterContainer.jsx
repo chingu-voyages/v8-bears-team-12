@@ -15,7 +15,7 @@ import Header from './Header';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
 import PalChat from './PalChat';
-import PalList from './PalList';
+import MyPals from './MyPals';
 import Register from './Register';
 import RestaurantPicker from './RestaurantPicker';
 import MyRestaurants from './MyRestaurants';
@@ -61,7 +61,7 @@ function RouterContainer({
             {loggedIn ? null : <Route path="/login" component={Login} />}
             {loggedIn ? null : <Route path="/register" component={Register} />}
             {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
-            {loggedIn ? <Route path="/home" component={PalList} /> : null}
+            {loggedIn ? <Route path="/home" component={MyPals} /> : null}
             {loggedIn ? <Route path="/pal-add" component={Dashboard} /> : null}
 
             {loggedIn ? <Route path="/profile" component={Profile} /> : null}
@@ -74,7 +74,6 @@ function RouterContainer({
             {loggedIn ? (
               <Route path="/set-search-area" component={SetSearchArea} />
             ) : null}
-            {loggedIn ? <Route path="/pal-list" component={PalList} /> : null}
             {loggedIn ? (
               <Route path="/pal-chat/:palId/:palName" component={PalChat} />
             ) : null}

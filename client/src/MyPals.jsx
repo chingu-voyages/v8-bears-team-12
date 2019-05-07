@@ -34,7 +34,7 @@ const styles = theme => ({
   }
 });
 
-function PalList({ pals, classes }) {
+function MyPals({ pals, classes }) {
   return (
     <div className={classes.root}>
       <PageHeader>
@@ -67,12 +67,12 @@ function PalList({ pals, classes }) {
   );
 }
 
-PalList.propTypes = {
+MyPals.propTypes = {
   pals: PropTypes.arrayOf(PropTypes.object),
   classes: PropTypes.shape({})
 };
 
-PalList.defaultProps = {
+MyPals.defaultProps = {
   pals: [],
   classes: {}
 };
@@ -81,4 +81,4 @@ const mapStateToProps = ({ profile }) => ({
   pals: profile.pals
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(PalList));
+export default connect(mapStateToProps)(withStyles(styles)(MyPals));
