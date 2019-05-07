@@ -14,7 +14,9 @@ import {
   SET_ROUTER_LOCATION,
   UNSET_ROUTER_LOCATION,
   SET_RESTAURANTPICKER,
-  CLEAR_RESTAURANTPICKER
+  CLEAR_RESTAURANTPICKER,
+  SET_LOADING,
+  CLEAR_LOADING
 } from '../actionTypes';
 
 export const setSnackbar = message => ({
@@ -38,14 +40,17 @@ export const setProfileThunk = () => async dispatch => {
     return;
   }
   try {
+    dispatch({ type: SET_LOADING });
     const response = await axios.get('/api/profile');
     const { data } = response;
     const { user } = data;
 
     dispatch({ type: SET_PROFILE, payload: user });
+    dispatch({ type: CLEAR_LOADING });
     socket.getInstance().emit('REQUEST_NEW_MESSAGES');
   } catch (err) {
     logoutAction(dispatch);
+    dispatch({ type: CLEAR_LOADING });
   }
 };
 

@@ -6,8 +6,10 @@ import chat from './chat';
 import dashboard from './dashboard';
 import router from './router';
 import restaurantpicker from './restaurantpicker';
+import app from './app';
 
 const reducer = combineReducers({
+  app,
   snackbar,
   profile,
   form: formReducer,

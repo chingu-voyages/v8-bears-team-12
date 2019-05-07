@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-// import purple from '@material-ui/core/colors/purple';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { blueGrey } from '@material-ui/core/colors';
 import Header from './Header';
@@ -44,7 +44,8 @@ function RouterContainer({
   open,
   errorMessage,
   dispatchRemoveSnackbar,
-  dispatchSetProfileThunk
+  dispatchSetProfileThunk,
+  loading
 }) {
   useEffect(() => {
     dispatchSetProfileThunk();
@@ -56,6 +57,7 @@ function RouterContainer({
         <Header />
 
         <main>
+          {loading ? <CircularProgress /> : null}
           <Switch>
             <Route path="/" exact component={Landing} />
             {loggedIn ? null : <Route path="/login" component={Login} />}
@@ -77,7 +79,7 @@ function RouterContainer({
             {loggedIn ? (
               <Route path="/pal-chat/:palId/:palName" component={PalChat} />
             ) : null}
-            <Route path="" component={NotFound} />
+            {!loading ? <Route path="" component={NotFound} /> : null}
           </Switch>
         </main>
         <Snackbar
@@ -113,7 +115,8 @@ RouterContainer.propTypes = {
   dispatchSetProfileThunk: PropTypes.func,
   loggedIn: PropTypes.bool,
   open: PropTypes.bool,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
+  loading: PropTypes.bool
 };
 
 RouterContainer.defaultProps = {
@@ -121,13 +124,15 @@ RouterContainer.defaultProps = {
   dispatchSetProfileThunk: () => {},
   loggedIn: false,
   open: false,
-  errorMessage: ''
+  errorMessage: '',
+  loading: false
 };
 
-const mapStateToProps = ({ profile, snackbar }) => ({
+const mapStateToProps = ({ profile, snackbar, app }) => ({
   open: snackbar.open,
   errorMessage: snackbar.message,
-  loggedIn: profile.loggedIn
+  loggedIn: profile.loggedIn,
+  loading: app.loading
 });
 
 const mapDispatchToProps = {
