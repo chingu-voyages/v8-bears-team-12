@@ -13,17 +13,17 @@ import { Link } from 'react-router-dom';
 const styles = {
   card: {
     maxWidth: 480,
-    margin: '12px 8px',
+    margin: '12px 8px'
   },
   content: {
-    textAlign: 'center',
+    textAlign: 'center'
   },
   actions: {
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   pos: {
-    marginBottom: 12,
-  },
+    marginBottom: 12
+  }
 };
 
 function LandingCard({ classes, loggedIn, title, description, to }) {
@@ -35,11 +35,13 @@ function LandingCard({ classes, loggedIn, title, description, to }) {
         </Typography>
         <Typography component="p">{description}</Typography>
       </CardContent>
-      <CardActions className={classes.actions}>
-        <Button component={Link} to={loggedIn ? to : '/login'}>
-          Go
-        </Button>
-      </CardActions>
+      {loggedIn ? (
+        <CardActions className={classes.actions}>
+          <Button component={Link} to={to}>
+            Go
+          </Button>
+        </CardActions>
+      ) : null}
     </Card>
   );
 }
@@ -49,7 +51,7 @@ LandingCard.propTypes = {
   loggedIn: PropTypes.bool,
   title: PropTypes.string,
   description: PropTypes.string,
-  to: PropTypes.string,
+  to: PropTypes.string
 };
 
 LandingCard.defaultProps = {
@@ -57,11 +59,11 @@ LandingCard.defaultProps = {
   loggedIn: false,
   title: '',
   description: '',
-  to: '',
+  to: ''
 };
 
 const mapStateToProps = ({ profile }) => ({
-  loggedIn: profile.loggedIn,
+  loggedIn: profile.loggedIn
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(LandingCard));
