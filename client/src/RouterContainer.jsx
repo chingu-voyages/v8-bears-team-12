@@ -117,7 +117,8 @@ RouterContainer.propTypes = {
   loggedIn: PropTypes.bool,
   open: PropTypes.bool,
   errorMessage: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  classes: PropTypes.shape({})
 };
 
 RouterContainer.defaultProps = {
@@ -126,7 +127,8 @@ RouterContainer.defaultProps = {
   loggedIn: false,
   open: false,
   errorMessage: '',
-  loading: false
+  loading: false,
+  classes: {}
 };
 
 const mapStateToProps = ({ profile, snackbar, app }) => ({
