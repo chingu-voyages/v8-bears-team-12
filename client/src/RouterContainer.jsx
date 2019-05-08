@@ -10,7 +10,6 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { classes } from 'istanbul-lib-coverage';
 import Header from './Header';
 import AddPal from './AddPal';
 import Profile from './Profile';
