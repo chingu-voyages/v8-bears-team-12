@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { classes } from 'istanbul-lib-coverage';
 import Header from './Header';
 import AddPal from './AddPal';
 import Profile from './Profile';
@@ -25,13 +27,24 @@ import Login from './Login';
 
 import { setProfileThunk, removeSnackbar } from './actionCreators';
 
+const styles = {
+  loader: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%'
+  }
+};
+
 function RouterContainer({
   loggedIn,
   open,
   errorMessage,
   dispatchRemoveSnackbar,
   dispatchSetProfileThunk,
-  loading
+  loading,
+  classes
 }) {
   useEffect(() => {
     dispatchSetProfileThunk();
@@ -41,32 +54,37 @@ function RouterContainer({
     <Router>
       <Header />
 
-      <main>
-        {loading ? <CircularProgress /> : null}
-        <Switch>
-          <Route path="/" exact component={Landing} />
-          {loggedIn ? null : <Route path="/login" component={Login} />}
-          {loggedIn ? null : <Route path="/register" component={Register} />}
-          {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
-          <Route path="/home" component={MyPals} />
-          {loggedIn ? <Route path="/pal-add" component={AddPal} /> : null}
+      {loading ? (
+        <div className={classes.loader}>
+          <CircularProgress />
+        </div>
+      ) : (
+        <main>
+          <Switch>
+            <Route path="/" exact component={Landing} />
+            {loggedIn ? null : <Route path="/login" component={Login} />}
+            {loggedIn ? null : <Route path="/register" component={Register} />}
+            {loggedIn ? null : <Route path="/forgot" component={Forgot} />}
+            <Route path="/home" component={MyPals} />
+            {loggedIn ? <Route path="/pal-add" component={AddPal} /> : null}
 
-          {loggedIn ? <Route path="/profile" component={Profile} /> : null}
-          {loggedIn ? (
-            <Route path="/restaurantPicker" component={RestaurantPicker} />
-          ) : null}
-          {loggedIn ? (
-            <Route path="/my-restaurants" component={MyRestaurants} />
-          ) : null}
-          {loggedIn ? (
-            <Route path="/set-search-area" component={SetSearchArea} />
-          ) : null}
-          {loggedIn ? (
-            <Route path="/pal-chat/:palId/:palName" component={PalChat} />
-          ) : null}
-          {!loading ? <Route path="" component={NotFound} /> : null}
-        </Switch>
-      </main>
+            {loggedIn ? <Route path="/profile" component={Profile} /> : null}
+            {loggedIn ? (
+              <Route path="/restaurantPicker" component={RestaurantPicker} />
+            ) : null}
+            {loggedIn ? (
+              <Route path="/my-restaurants" component={MyRestaurants} />
+            ) : null}
+            {loggedIn ? (
+              <Route path="/set-search-area" component={SetSearchArea} />
+            ) : null}
+            {loggedIn ? (
+              <Route path="/pal-chat/:palId/:palName" component={PalChat} />
+            ) : null}
+            {!loading ? <Route path="" component={NotFound} /> : null}
+          </Switch>
+        </main>
+      )}
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
@@ -127,4 +145,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RouterContainer);
+)(withStyles(styles)(RouterContainer));
