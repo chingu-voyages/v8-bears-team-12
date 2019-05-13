@@ -54,13 +54,18 @@ export const setProfileThunk = () => async dispatch => {
   }
 };
 
-export const loginThunk = payload => async dispatch => {
-  const response = await axios.post('/api/login', payload);
+export const loginThunk = ({
+  username,
+  password,
+  history
+}) => async dispatch => {
+  const response = await axios.post('/api/login', { username, password });
   const { error } = response.data;
   if (error) {
     dispatch(setSnackbar(error.message));
   } else {
     setProfileThunk()(dispatch);
+    history.push('/home');
   }
 };
 

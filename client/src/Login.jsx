@@ -31,7 +31,7 @@ function Login({ dispatchLoginThunk }) {
 
     // handle click
     try {
-      dispatchLoginThunk({ username, password }).then(history.push('/home'));
+      dispatchLoginThunk({ username, password, history });
     } catch (err) {}
   }
 
