@@ -21,6 +21,11 @@ import NavMenu from './NavMenu';
 import { logoutThunk } from './actionCreators';
 
 const styles = theme => ({
+  root: {
+    '& button': {
+      marginLeft: '8px'
+    }
+  },
   linkColor: {
     color: 'white',
     textDecoration: 'none'
@@ -74,7 +79,7 @@ function Header({ loggedIn, name, dispatchLogoutThunk, newMessages, classes }) {
   }
 
   return (
-    <div className={`${classes.root} app-bar header-font`}>
+    <div className={`${classes.root} header-font`}>
       <AppBar position="static">
         <Toolbar disableGutters>
           <Link to="/">
