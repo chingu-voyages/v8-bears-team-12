@@ -99,11 +99,6 @@ main {
   width: 100%;
 }
 
-.app-tabs {
-  background-color: #f5f5f5;
-  border-bottom: 1px dotted gray;
-}
-
 .search-area-info {
   width: 100%;
   display: flex;
