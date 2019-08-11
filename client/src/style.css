@@ -23,18 +23,6 @@ header {
   flex-direction: column;
 }
 
-.top-bar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.top-bar h1 {
-  margin: 0px;
-  padding: 4px 0px;
-}
-
 header ul {
   margin: 0;
   padding: 0;
@@ -53,8 +41,6 @@ main {
   align-items: center;
   overflow-y: scroll;
 }
-
-
 
 /* *********Form style************ */
 
