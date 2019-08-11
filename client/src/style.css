@@ -13,23 +13,6 @@ body {
   background: whitesmoke;
 }
 
-header {
-  padding: 0px 16px;
-  display: flex;
-  flex-direction: column;
-}
-
-header ul {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-around;
-}
-
-header li {
-  list-style-type: none;
-}
-
 main {
   display: flex;
   height: 100vh;
