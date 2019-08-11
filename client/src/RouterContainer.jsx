@@ -27,6 +27,10 @@ import Login from './Login';
 import { setProfileThunk, removeSnackbar } from './actionCreators';
 
 const styles = {
+  root: {
+    maxWidth: '1180px',
+    width: '100%',
+  },
   loader: {
     display: 'flex',
     justifyContent: 'center',
@@ -51,6 +55,7 @@ function RouterContainer({
 
   return (
     <Router>
+      <div className={classes.root}>
       <Header />
 
       {loading ? (
@@ -107,6 +112,7 @@ function RouterContainer({
           </IconButton>
         ]}
       />
+    </div>
     </Router>
   );
 }

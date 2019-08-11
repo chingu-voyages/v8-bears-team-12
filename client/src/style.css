@@ -1,8 +1,7 @@
 body {
   color: black;
   margin: 0;
-  display: flex;
-  justify-content: center;
+
 }
 
 .app-bar button {
@@ -12,8 +11,8 @@ body {
 #root {
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100vh;
-  max-width: 1180px;
   width: 100%;
   background: whitesmoke;
 }
