@@ -35,6 +35,14 @@ app.set('view engine', 'html');
 authHandlers(app);
 require('./api/io')(http);
 
+const adminRouter = express.Router();
+
+adminRouter.get('*', (req, res) => {
+  res.render('admin', { locals: { DEBUG } });
+});
+
+app.use('/admin', adminRouter);
+
 app.get('*', (req, res) => {
   res.render('index', { locals: { DEBUG } });
 });
