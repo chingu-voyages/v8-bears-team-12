@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import useReactRouter from 'use-react-router';
@@ -8,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import { loginThunk } from './actionCreators';
+import { classes } from 'istanbul-lib-coverage';
 
 const styles = {
   background: {
@@ -17,14 +19,27 @@ const styles = {
     backgroundPosition: 'center',
     height: '100%',
     width: '100%'
+  },
+  links: {
+      margin: '16px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    
+    '& > div': {
+      margin: '8px'
+    }
   }
 };
+
+const useStyles = makeStyles(styles);
 
 function Login({ dispatchLoginThunk }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const { history } = useReactRouter();
+  const classes = useStyles();
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -36,7 +51,7 @@ function Login({ dispatchLoginThunk }) {
   }
 
   return (
-    <div style={styles.background}>
+    <div className={classes.background}>
       <div className="simple-card">
         <h1>Log In</h1>
         <form action="" onSubmit={onSubmit}>
@@ -65,7 +80,7 @@ function Login({ dispatchLoginThunk }) {
           </Button>
         </form>
 
-        <div className="login-page-links">
+        <div className={classes.links}>
           <div>
             New user?
             <Link to="/register"> Register here</Link>
