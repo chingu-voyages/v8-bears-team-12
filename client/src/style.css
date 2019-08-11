@@ -138,13 +138,7 @@ ul span {
 }
 
 /* *********Home Welcome Guide************ */
-.guide {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: 200;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+
 
 
 .container {

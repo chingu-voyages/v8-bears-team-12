@@ -8,6 +8,13 @@ const styles = {
   title: {
     textAlign: 'center'
   },
+  guide: {
+      fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+      fontWeight: 200,
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+  },
   guideCards: {
       display: 'flex',
       flex: 1,
@@ -19,7 +26,7 @@ const styles = {
 
 const Landing = ({ classes }) => {
   return (
-    <div className="guide">
+    <div className={classes.guide}>
       <div className={classes.guideCards}>
         <Typography className={classes.title} variant="h4">
           Let&rsquo;s meet and eat!
