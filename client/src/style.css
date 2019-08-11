@@ -129,14 +129,6 @@ ul span {
   font-weight: 700;
 }
 
-/* *********Restaurant picker*********** */
-
-.restaurantsearch-restaurants {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
 /* *********Home Welcome Guide************ */
 
 
