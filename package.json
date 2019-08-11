@@ -50,6 +50,7 @@
     "passport-jwt": "^4.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-admin": "^2.9.5",
     "react-avatar-edit": "^0.8.3",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.12.10",
