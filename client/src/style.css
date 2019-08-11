@@ -146,14 +146,6 @@ ul span {
   height: 100%;
 }
 
-.guide-cards {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-  /* width: fit-content; */
-  height: 100%;
-}
 
 .container {
   margin: 4px;

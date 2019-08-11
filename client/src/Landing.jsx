@@ -7,13 +7,20 @@ import LandingCard from './LandingCard';
 const styles = {
   title: {
     textAlign: 'center'
-  }
+  },
+  guideCards: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      height: '100%',
+    }
 };
 
 const Landing = ({ classes }) => {
   return (
     <div className="guide">
-      <div className="guide-cards">
+      <div className={classes.guideCards}>
         <Typography className={classes.title} variant="h4">
           Let&rsquo;s meet and eat!
         </Typography>
