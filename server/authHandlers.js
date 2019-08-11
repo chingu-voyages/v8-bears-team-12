@@ -48,6 +48,8 @@ function authHandlers(app) {
   require('./api/chat-remove')(app);
   require('./api/chat-message')(app);
   require('./api/chat-messages')(app);
+
+  require('./api/admin')(app);
 }
 
 module.exports = authHandlers;
