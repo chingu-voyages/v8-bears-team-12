@@ -1,7 +1,8 @@
+import { hot } from 'react-hot-loader/root';
 import React from 'react';
 
 function AdminApp() {
-    return <div>AdminApp</div>
+    return <div>AdminnApp</div>
 }
 
-export default AdminApp;
+export default hot(AdminApp);
