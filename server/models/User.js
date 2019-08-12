@@ -24,11 +24,11 @@ const userSchema = new Schema({
   pals: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   var user = this;
   var SALT_FACTOR = 10;
 
-  if (!user.isModified('password')) return next();
+  if (!user.isModified('password') || !user.password) return next();
   try {
     const salt = await bcrypt.genSalt(SALT_FACTOR);
     user.password = await bcrypt.hash(user.password, salt);
