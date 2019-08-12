@@ -11,7 +11,7 @@ const dataProvider = jsonServerProvider('/api/admin');
 function AdminApp() {
   return (
     <Admin dataProvider={dataProvider}>
-      <Resource name="users" list={UserList} edit={EditGuesser} />
+      <Resource name="users" list={UserList} edit={UserEdit} />
     </Admin>
   );
 }
