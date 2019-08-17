@@ -13,13 +13,7 @@ body {
   background: whitesmoke;
 }
 
-main {
-  display: flex;
-  height: 100vh;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: scroll;
-}
+
 
 /* *********Form style************ */
 

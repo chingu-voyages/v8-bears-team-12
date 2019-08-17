@@ -37,6 +37,13 @@ const styles = {
     alignItems: 'center',
     width: '100%',
     height: '100%'
+  },
+  main: {
+      display: 'flex',
+      height: '100vh',
+      flexDirection: 'column',
+      alignItems: 'center',
+      overflowY: 'scroll',
   }
 };
 
@@ -63,7 +70,7 @@ function RouterContainer({
           <CircularProgress />
         </div>
       ) : (
-        <main>
+        <main className={classes.main}>
           <Switch>
             <Route path="/" exact component={Landing} />
             {loggedIn ? null : <Route path="/login" component={Login} />}
