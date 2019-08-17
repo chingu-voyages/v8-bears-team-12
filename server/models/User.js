@@ -22,6 +22,7 @@ const userSchema = new Schema({
   dietRestrictions: String,
   restaurantsList: [{ type: Schema.Types.ObjectId, ref: 'Restaurant' }],
   pals: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  roles: [String],
 });
 
 userSchema.pre('save', async function (next) {
