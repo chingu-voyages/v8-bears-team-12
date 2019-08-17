@@ -41,6 +41,7 @@ export const UserEdit = props => (
       <TextInput source="searchCity" />
       <TextInput source="searchState" />
       <TextInput source="searchLocation.coordinates" />
+      <TextInput source="roles" />
     </SimpleForm>
   </Edit>
 );

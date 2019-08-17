@@ -26,7 +26,7 @@ module.exports = app => {
 
     usersRouter.put('/:id', async (req, res) => {
         const { id } = req.params;
-        const { name, firstName, lastName, email, dietRestrictions, interests, active, searchCity, password } = req.body;
+        const { name, firstName, lastName, email, dietRestrictions, interests, active, searchCity, password, roles} = req.body;
 
         const user = await User.findById(ObjectId(id));
         user.name = name;
@@ -38,6 +38,7 @@ module.exports = app => {
         user.interests = interests;
         user.active = active;
         user.searchCity = searchCity;
+        user.roles = roles;
         await user.save();
 
         const json = user.toObject();
