@@ -1,5 +1,13 @@
 {
-    "prettier.singleQuote": true,
-    "prettier.trailingComma": "all",
-    "prettier.arrowParens": "avoid"
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.arrowParens": "avoid",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true
+  }
 }
