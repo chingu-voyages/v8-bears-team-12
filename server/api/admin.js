@@ -17,11 +17,15 @@ module.exports = app => {
 
     usersRouter.get('/:id', async (req, res) => {
         const { id } = req.params;
+        try {
         const user = await User.findById(ObjectId(id), { password: 0 }).lean();
         user.id = user._id;
         delete user._id;
 
         res.json(user);
+        } catch(err) {
+            res.status(400).send(err.message);
+        }
     })
 
     usersRouter.put('/:id', async (req, res) => {
@@ -47,6 +51,21 @@ module.exports = app => {
         delete json._id;
 
         res.json(json);
+    })
+
+    usersRouter.post('', async (req, res) => {
+        const {name, email, password, firstName, lastName, dietRestrictions, interests, active, roles} = req.body;
+
+        try {
+          const user = new User({
+            name, email, password, firstName, lastName, dietRestrictions, interests, active, roles
+          });
+          const result = await user.save();
+
+          res.json({id: result._id});
+        } catch(err) {
+            res.status(400).send(err.message);
+        }
     })
     adminRouter.use('/users', usersRouter);
     app.use('/api/admin', adminRouter);

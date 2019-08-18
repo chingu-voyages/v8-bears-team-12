@@ -2,6 +2,7 @@ import React from 'react';
 import {
   List,
   Edit,
+  Create,
   Datagrid,
   TextField,
   EmailField,
@@ -9,6 +10,8 @@ import {
   TextInput,
   BooleanInput,
 } from 'react-admin';
+
+const required = (message = 'Required') => value => value ? undefined: 'uhjklhl';
 
 export const UserList = props => (
   <List {...props}>
@@ -23,7 +26,7 @@ export const UserList = props => (
 );
 
 export const UserEdit = props => (
-  <Edit {...props}>
+  <Edit {...props} undoable={false}>
     <SimpleForm>
       <TextInput source="id" />
       <TextInput source="name" />
@@ -44,4 +47,20 @@ export const UserEdit = props => (
       <TextInput source="roles" />
     </SimpleForm>
   </Edit>
+);
+
+export const UserCreate  = props => (
+  <Create {...props} undoable={false}>
+    <SimpleForm>
+      <TextInput validate={required()} source="name" />
+      <TextInput validate={required()} source="email" />
+      <TextInput validate={required()} type="password" source="password" />
+      <TextInput source="firstName" />
+      <TextInput source="lastName" />
+      <TextInput source="dietRestrictions" />
+      <TextInput source="interests" />
+      <BooleanInput source="active" />
+      <TextInput source="roles" />
+    </SimpleForm>
+  </Create>
 );
