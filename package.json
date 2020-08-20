@@ -28,7 +28,7 @@
     "all-the-cities": "^2.0.1",
     "axios": "^0.19.0",
     "babel-jest": "^24.9.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "cookie-parser": "^1.4.4",
     "css-loader": "^3.2.0",
