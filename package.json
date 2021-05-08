@@ -38,7 +38,7 @@
     "js-cookie": "^2.2.1",
     "json": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^0.8.0",
     "mongodb": "^3.3.2",
     "mongoose": "^5.7.5",
